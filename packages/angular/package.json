@@ -1,0 +1,42 @@
+{
+  "name": "@story-carousel/angular",
+  "version": "0.1.0",
+  "description": "Angular wrapper for story carousel component",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "lint": "eslint src --ext .ts",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "angular",
+    "stories",
+    "carousel",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": ">=15.0.0"
+  },
+  "dependencies": {
+    "@story-carousel/native": "workspace:*"
+  },
+  "devDependencies": {
+    "@angular/core": "^17.0.0",
+    "eslint": "^8.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "@story-carousel/svelte",
+  "version": "0.1.0",
+  "description": "Svelte wrapper for story carousel component",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "lint": "eslint src --ext .ts,.svelte",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "svelte",
+    "stories",
+    "carousel",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "svelte": ">=3.0.0"
+  },
+  "dependencies": {
+    "@story-carousel/native": "workspace:*"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "svelte": "^4.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  }
+}

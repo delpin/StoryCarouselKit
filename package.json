@@ -1,0 +1,25 @@
+{
+  "name": "story-carousel-monorepo",
+  "version": "1.0.0",
+  "description": "Framework-agnostic Instagram-style story list component",
+  "scripts": {
+    "build": "pnpm --recursive --parallel run build",
+    "dev": "pnpm --recursive --parallel run dev",
+    "test": "pnpm --recursive run test",
+    "lint": "pnpm --recursive run lint",
+    "clean": "pnpm --recursive run clean"
+  },
+  "keywords": [
+    "stories",
+    "carousel",
+    "react",
+    "vue",
+    "svelte",
+    "angular",
+    "typescript",
+    "monorepo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.7.0"
+}
