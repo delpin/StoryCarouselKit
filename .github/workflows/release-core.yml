@@ -91,6 +91,11 @@ jobs:
 
       - name: Push changes and tag
         run: |
+          # Настраиваем git credentials для push
+          git config --global credential.helper store
+          echo "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com" > ~/.git-credentials
+          git config --global credential.https://github.com.username x-access-token
+
           git push origin HEAD
           git push origin "@storykit/core@${{ steps.bump.outputs.new_version }}"
 
