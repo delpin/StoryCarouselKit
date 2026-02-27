@@ -1,4 +1,4 @@
-# @storykit/core
+# @storycarouselkit/core
 
 Framework-agnostic TypeScript core для создания Instagram-style story carousel компонентов. Поддерживает React, Vue, Svelte, Angular и vanilla JavaScript.
 
@@ -19,17 +19,17 @@ Framework-agnostic TypeScript core для создания Instagram-style story
 ## Установка
 
 ```bash
-npm install @storykit/core
+npm install @storycarouselkit/core
 # или
-pnpm add @storykit/core
+pnpm add @storycarouselkit/core
 # или
-yarn add @storykit/core
+yarn add @storycarouselkit/core
 ```
 
 ## Быстрый старт
 
 ```typescript
-import { StoryCarousel } from "@storykit/core";
+import { StoryCarousel } from "@storycarouselkit/core";
 
 const stories = [
   { id: "1", content: "Добро пожаловать!", duration: 3000 },
@@ -98,7 +98,7 @@ interface StoryCarouselConfig {
 
 ```tsx
 import React from "react";
-import { StoryCarousel } from "@storykit/core";
+import { StoryCarousel } from "@storycarouselkit/core";
 
 function StoryViewer({ stories }) {
   const carouselRef = useRef();
@@ -131,7 +131,7 @@ function StoryViewer({ stories }) {
 <div id="story-container"></div>
 
 <script type="module">
-  import { StoryCarousel } from "@storykit/core";
+  import { StoryCarousel } from "@storycarouselkit/core";
 
   const container = document.getElementById("story-container");
 
@@ -176,6 +176,7 @@ setInterval(() => {
 ## Архитектура
 
 StoryCarousel использует state machine с 4 состояниями:
+
 - `idle` - ожидание запуска
 - `playing` - активное воспроизведение
 - `paused` - приостановлено
@@ -217,11 +218,11 @@ pnpm test
 
 ## Лицензия
 
-MIT © [StoryKit Team](https://github.com/storykit)
+MIT © [StoryKit Team](https://github.com/delpin/StoryCarouselKit)
 
 ## Ссылки
 
 - [Документация](https://storykit.dev/docs)
-- [React интеграция](https://www.npmjs.com/package/@storykit/react)
-- [GitHub](https://github.com/storykit/story-carousel-monorepo)
+- [React интеграция](https://www.npmjs.com/package/@storycarouselkit/react)
+- [GitHub](https://github.com/delpin/StoryCarouselKit)
 - [Примеры](https://storykit.dev/examples)

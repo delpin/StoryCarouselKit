@@ -1,6 +1,6 @@
 {
-  "name": "@storykit/core",
-  "version": "0.1.2",
+  "name": "@storycarouselkit/core",
+  "version": "0.1.1",
   "description": "Framework-agnostic core logic for story carousel component",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,7 +14,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "test": "vitest",
+    "test": "vitest run",
     "lint": "eslint src --ext .ts,.tsx",
     "clean": "rm -rf dist",
     "prepublishOnly": "pnpm clean && pnpm build && pnpm test"
@@ -28,12 +28,12 @@
   "author": "StoryKit Team",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/storykit/story-carousel-monorepo.git",
+    "url": "git+https://github.com/delpin/StoryCarouselKit.git",
     "directory": "packages/native"
   },
   "homepage": "https://storykit.dev",
   "bugs": {
-    "url": "https://github.com/storykit/story-carousel-monorepo/issues"
+    "url": "https://github.com/delpin/StoryCarouselKit/issues"
   },
   "files": [
     "dist",
