@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npm install @story-carousel/native
+npm install @storykit/core
 ```
 
 ## Базовое использование
@@ -13,208 +13,212 @@ npm install @story-carousel/native
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Story Carousel - Vanilla JS</title>
-  <style>
-    .story-container {
-      width: 400px;
-      height: 600px;
-      position: relative;
-      margin: 20px auto;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
+  <head>
+    <title>Story Carousel - Vanilla JS</title>
+    <style>
+      .story-container {
+        width: 400px;
+        height: 600px;
+        position: relative;
+        margin: 20px auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
 
-    .story-content {
-      width: 100%;
-      height: 100%;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 24px;
-      font-family: Arial, sans-serif;
-    }
+      .story-content {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        font-family: Arial, sans-serif;
+      }
 
-    .progress-container {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      right: 10px;
-      display: flex;
-      gap: 4px;
-      z-index: 10;
-    }
+      .progress-container {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        display: flex;
+        gap: 4px;
+        z-index: 10;
+      }
 
-    .progress-bar {
-      flex: 1;
-      height: 2px;
-      background: rgba(255,255,255,0.3);
-      border-radius: 1px;
-      overflow: hidden;
-    }
+      .progress-bar {
+        flex: 1;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 1px;
+        overflow: hidden;
+      }
 
-    .progress-fill {
-      height: 100%;
-      background: white;
-      width: 0%;
-      transition: width 0.1s linear;
-    }
+      .progress-fill {
+        height: 100%;
+        background: white;
+        width: 0%;
+        transition: width 0.1s linear;
+      }
 
-    .nav-button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      z-index: 10;
-      font-size: 18px;
-    }
+      .nav-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        z-index: 10;
+        font-size: 18px;
+      }
 
-    .nav-button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+      .nav-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
 
-    .nav-button.prev { left: 10px; }
-    .nav-button.next { right: 10px; }
+      .nav-button.prev {
+        left: 10px;
+      }
+      .nav-button.next {
+        right: 10px;
+      }
 
-    .play-button {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      cursor: pointer;
-      z-index: 10;
-      font-size: 18px;
-    }
-  </style>
-</head>
-<body>
-  <div class="story-container">
-    <div class="progress-container" id="progress-container"></div>
-    <div class="story-content" id="story-content"></div>
-    <button class="nav-button prev" id="prev-button">‹</button>
-    <button class="nav-button next" id="next-button">›</button>
-    <button class="play-button" id="play-button">▶</button>
-  </div>
+      .play-button {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        z-index: 10;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="story-container">
+      <div class="progress-container" id="progress-container"></div>
+      <div class="story-content" id="story-content"></div>
+      <button class="nav-button prev" id="prev-button">‹</button>
+      <button class="nav-button next" id="next-button">›</button>
+      <button class="play-button" id="play-button">▶</button>
+    </div>
 
-  <script type="module">
-    import { StoryCarousel } from '@story-carousel/native';
+    <script type="module">
+      import { StoryCarousel } from "@storykit/core";
 
-    // Данные историй
-    const stories = [
-      { id: '1', content: 'Добро пожаловать!', duration: 3000 },
-      { id: '2', content: 'Это вторая история', duration: 4000 },
-      { id: '3', content: 'И третья история', duration: 5000 },
-    ];
+      // Данные историй
+      const stories = [
+        { id: "1", content: "Добро пожаловать!", duration: 3000 },
+        { id: "2", content: "Это вторая история", duration: 4000 },
+        { id: "3", content: "И третья история", duration: 5000 },
+      ];
 
-    // Элементы DOM
-    const progressContainer = document.getElementById('progress-container');
-    const storyContent = document.getElementById('story-content');
-    const prevButton = document.getElementById('prev-button');
-    const nextButton = document.getElementById('next-button');
-    const playButton = document.getElementById('play-button');
+      // Элементы DOM
+      const progressContainer = document.getElementById("progress-container");
+      const storyContent = document.getElementById("story-content");
+      const prevButton = document.getElementById("prev-button");
+      const nextButton = document.getElementById("next-button");
+      const playButton = document.getElementById("play-button");
 
-    // Создание индикаторов прогресса
-    function createProgressBars() {
-      progressContainer.innerHTML = '';
-      stories.forEach((story, index) => {
-        const progressBar = document.createElement('div');
-        progressBar.className = 'progress-bar';
+      // Создание индикаторов прогресса
+      function createProgressBars() {
+        progressContainer.innerHTML = "";
+        stories.forEach((story, index) => {
+          const progressBar = document.createElement("div");
+          progressBar.className = "progress-bar";
 
-        const progressFill = document.createElement('div');
-        progressFill.className = 'progress-fill';
-        progressFill.id = `progress-${index}`;
+          const progressFill = document.createElement("div");
+          progressFill.className = "progress-fill";
+          progressFill.id = `progress-${index}`;
 
-        progressBar.appendChild(progressFill);
-        progressContainer.appendChild(progressBar);
+          progressBar.appendChild(progressFill);
+          progressContainer.appendChild(progressBar);
+        });
+      }
+
+      // Обновление отображения
+      function updateDisplay(state) {
+        const currentStory = state.currentStory;
+
+        // Обновление контента
+        storyContent.textContent = currentStory.content;
+
+        // Обновление прогресса
+        stories.forEach((_, index) => {
+          const progressFill = document.getElementById(`progress-${index}`);
+          if (index === state.currentIndex) {
+            progressFill.style.width = `${state.progress * 100}%`;
+          } else if (index < state.currentIndex) {
+            progressFill.style.width = "100%";
+          } else {
+            progressFill.style.width = "0%";
+          }
+        });
+
+        // Обновление кнопок
+        prevButton.disabled = state.currentIndex === 0;
+        nextButton.disabled = state.currentIndex === stories.length - 1;
+        playButton.textContent = state.isPlaying ? "⏸" : "▶";
+      }
+
+      // Инициализация
+      createProgressBars();
+
+      const carousel = new StoryCarousel({
+        stories,
+        autoPlay: true,
+        onStoryStart: (story) => {
+          console.log("Начало истории:", story.id);
+        },
+        onStoryEnd: (story) => {
+          console.log("Конец истории:", story.id);
+        },
+        onComplete: () => {
+          console.log("Все истории просмотрены");
+          alert("Все истории просмотрены!");
+        },
       });
-    }
 
-    // Обновление отображения
-    function updateDisplay(state) {
-      const currentStory = state.currentStory;
+      // Начальный рендер
+      updateDisplay(carousel.getState());
 
-      // Обновление контента
-      storyContent.textContent = currentStory.content;
+      // Мониторинг состояния
+      const stateInterval = setInterval(() => {
+        updateDisplay(carousel.getState());
+      }, 100);
 
-      // Обновление прогресса
-      stories.forEach((_, index) => {
-        const progressFill = document.getElementById(`progress-${index}`);
-        if (index === state.currentIndex) {
-          progressFill.style.width = `${state.progress * 100}%`;
-        } else if (index < state.currentIndex) {
-          progressFill.style.width = '100%';
+      // Обработчики событий
+      prevButton.addEventListener("click", () => carousel.prev());
+      nextButton.addEventListener("click", () => carousel.next());
+      playButton.addEventListener("click", () => {
+        const state = carousel.getState();
+        if (state.isPlaying) {
+          carousel.pause();
         } else {
-          progressFill.style.width = '0%';
+          carousel.play();
         }
       });
 
-      // Обновление кнопок
-      prevButton.disabled = state.currentIndex === 0;
-      nextButton.disabled = state.currentIndex === stories.length - 1;
-      playButton.textContent = state.isPlaying ? '⏸' : '▶';
-    }
-
-    // Инициализация
-    createProgressBars();
-
-    const carousel = new StoryCarousel({
-      stories,
-      autoPlay: true,
-      onStoryStart: (story) => {
-        console.log('Начало истории:', story.id);
-      },
-      onStoryEnd: (story) => {
-        console.log('Конец истории:', story.id);
-      },
-      onComplete: () => {
-        console.log('Все истории просмотрены');
-        alert('Все истории просмотрены!');
-      },
-    });
-
-    // Начальный рендер
-    updateDisplay(carousel.getState());
-
-    // Мониторинг состояния
-    const stateInterval = setInterval(() => {
-      updateDisplay(carousel.getState());
-    }, 100);
-
-    // Обработчики событий
-    prevButton.addEventListener('click', () => carousel.prev());
-    nextButton.addEventListener('click', () => carousel.next());
-    playButton.addEventListener('click', () => {
-      const state = carousel.getState();
-      if (state.isPlaying) {
-        carousel.pause();
-      } else {
-        carousel.play();
-      }
-    });
-
-    // Очистка при уходе со страницы
-    window.addEventListener('beforeunload', () => {
-      clearInterval(stateInterval);
-      carousel.destroy();
-    });
-  </script>
-</body>
+      // Очистка при уходе со страницы
+      window.addEventListener("beforeunload", () => {
+        clearInterval(stateInterval);
+        carousel.destroy();
+      });
+    </script>
+  </body>
 </html>
 ```
 
@@ -247,22 +251,22 @@ class MediaStoryViewer {
     }
 
     const mediaElement = document.createElement(
-      story.mediaType === 'video' ? 'video' : 'img'
+      story.mediaType === "video" ? "video" : "img",
     );
 
-    if (story.mediaType === 'video') {
+    if (story.mediaType === "video") {
       mediaElement.src = story.mediaUrl;
       mediaElement.autoplay = true;
       mediaElement.muted = true;
-      mediaElement.style.objectFit = 'cover';
+      mediaElement.style.objectFit = "cover";
     } else {
       mediaElement.src = story.mediaUrl;
       mediaElement.alt = story.content;
-      mediaElement.style.objectFit = 'cover';
+      mediaElement.style.objectFit = "cover";
     }
 
-    mediaElement.style.width = '100%';
-    mediaElement.style.height = '100%';
+    mediaElement.style.width = "100%";
+    mediaElement.style.height = "100%";
 
     this.container.appendChild(mediaElement);
     this.currentMedia = mediaElement;
@@ -284,24 +288,24 @@ class MediaStoryViewer {
 // Использование
 const mediaStories = [
   {
-    id: '1',
-    content: 'Фото 1',
-    mediaUrl: '/photo1.jpg',
-    mediaType: 'image',
+    id: "1",
+    content: "Фото 1",
+    mediaUrl: "/photo1.jpg",
+    mediaType: "image",
     duration: 4000,
   },
   {
-    id: '2',
-    content: 'Видео',
-    mediaUrl: '/video.mp4',
-    mediaType: 'video',
+    id: "2",
+    content: "Видео",
+    mediaUrl: "/video.mp4",
+    mediaType: "video",
     duration: 6000,
   },
 ];
 
 const viewer = new MediaStoryViewer(
-  document.getElementById('story-container'),
-  mediaStories
+  document.getElementById("story-container"),
+  mediaStories,
 );
 ```
 
@@ -319,7 +323,7 @@ class InteractiveStoryViewer {
 
   init() {
     this.carousel = new StoryCarousel({
-      stories: this.stories.map(story => ({
+      stories: this.stories.map((story) => ({
         ...story,
         duration: story.interactive ? 10000 : story.duration, // Дольше для интерактивных
       })),
@@ -331,7 +335,7 @@ class InteractiveStoryViewer {
   }
 
   renderStory(story) {
-    this.container.innerHTML = '';
+    this.container.innerHTML = "";
 
     if (story.interactive) {
       this.renderInteractiveStory(story);
@@ -373,7 +377,9 @@ class InteractiveStoryViewer {
       ">
         <h2 style="margin-bottom: 30px;">${story.question}</h2>
         <div style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
-          ${story.options.map((option, index) => `
+          ${story.options
+            .map(
+              (option, index) => `
             <button
               class="option-btn"
               data-index="${index}"
@@ -390,7 +396,9 @@ class InteractiveStoryViewer {
             >
               ${option}
             </button>
-          `).join('')}
+          `,
+            )
+            .join("")}
         </div>
       </div>
     `;
@@ -398,8 +406,8 @@ class InteractiveStoryViewer {
     this.container.innerHTML = html;
 
     // Обработчики для кнопок
-    this.container.querySelectorAll('.option-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+    this.container.querySelectorAll(".option-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
         const index = parseInt(e.target.dataset.index);
         this.handleAnswer(story, index);
       });
@@ -408,7 +416,12 @@ class InteractiveStoryViewer {
 
   handleAnswer(story, answerIndex) {
     // Сохранить ответ
-    console.log('Ответ на вопрос:', story.question, '->', story.options[answerIndex]);
+    console.log(
+      "Ответ на вопрос:",
+      story.question,
+      "->",
+      story.options[answerIndex],
+    );
 
     // Перейти к следующей истории
     setTimeout(() => {
@@ -420,26 +433,26 @@ class InteractiveStoryViewer {
 // Использование
 const interactiveStories = [
   {
-    id: '1',
-    content: 'Простая история',
+    id: "1",
+    content: "Простая история",
     duration: 3000,
   },
   {
-    id: '2',
-    question: 'Какой ваш любимый цвет?',
-    options: ['Красный', 'Синий', 'Зеленый', 'Желтый'],
+    id: "2",
+    question: "Какой ваш любимый цвет?",
+    options: ["Красный", "Синий", "Зеленый", "Желтый"],
     interactive: true,
   },
   {
-    id: '3',
-    content: 'Спасибо за участие!',
+    id: "3",
+    content: "Спасибо за участие!",
     duration: 3000,
   },
 ];
 
 const interactiveViewer = new InteractiveStoryViewer(
-  document.getElementById('story-container'),
-  interactiveStories
+  document.getElementById("story-container"),
+  interactiveStories,
 );
 ```
 

@@ -1,5 +1,5 @@
 {
-  "name": "@story-carousel/angular",
+  "name": "@storykit/angular",
   "version": "0.1.0",
   "description": "Angular wrapper for story carousel component",
   "main": "dist/index.js",
@@ -30,7 +30,7 @@
     "@angular/core": ">=15.0.0"
   },
   "dependencies": {
-    "@story-carousel/native": "workspace:*"
+    "@storykit/core": "workspace:*"
   },
   "devDependencies": {
     "@angular/core": "^17.0.0",

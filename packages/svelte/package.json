@@ -1,5 +1,5 @@
 {
-  "name": "@story-carousel/svelte",
+  "name": "@storykit/svelte",
   "version": "0.1.0",
   "description": "Svelte wrapper for story carousel component",
   "main": "dist/index.js",
@@ -30,7 +30,7 @@
     "svelte": ">=3.0.0"
   },
   "dependencies": {
-    "@story-carousel/native": "workspace:*"
+    "@storykit/core": "workspace:*"
   },
   "devDependencies": {
     "eslint": "^8.0.0",

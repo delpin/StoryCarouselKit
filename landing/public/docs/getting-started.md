@@ -8,15 +8,15 @@
 
 ```bash
 # Для React проекта
-pnpm add @story-carousel/react
+pnpm add @storykit/react
 
 # Для нативного JavaScript
-pnpm add @story-carousel/native
+pnpm add @storykit/core
 
 # Для других фреймворков (планируется)
-pnpm add @story-carousel/vue
-pnpm add @story-carousel/svelte
-pnpm add @story-carousel/angular
+pnpm add @storykit/vue
+pnpm add @storykit/svelte
+pnpm add @storykit/angular
 ```
 
 ### 2. Проверка установки
@@ -31,35 +31,35 @@ pnpm list | grep story-carousel
 ### React (рекомендуется для новых проектов)
 
 ```tsx
-import React from 'react';
-import { StoryCarousel } from '@story-carousel/react';
+import React from "react";
+import { StoryCarousel } from "@storykit/react";
 
 function App() {
   const stories = [
     {
-      id: '1',
-      content: 'Добро пожаловать в наше приложение!',
+      id: "1",
+      content: "Добро пожаловать в наше приложение!",
       duration: 3000,
     },
     {
-      id: '2',
-      content: 'Это вторая история с полезной информацией',
+      id: "2",
+      content: "Это вторая история с полезной информацией",
       duration: 4000,
     },
     {
-      id: '3',
-      content: 'И третья история для завершения',
+      id: "3",
+      content: "И третья история для завершения",
       duration: 5000,
     },
   ];
 
   return (
-    <div style={{ width: '400px', height: '600px', margin: '0 auto' }}>
+    <div style={{ width: "400px", height: "600px", margin: "0 auto" }}>
       <StoryCarousel
         stories={stories}
         autoPlay={true}
-        onStoryEnd={(story) => console.log('История завершена:', story.id)}
-        onComplete={() => console.log('Все истории просмотрены!')}
+        onStoryEnd={(story) => console.log("История завершена:", story.id)}
+        onComplete={() => console.log("Все истории просмотрены!")}
       />
     </div>
   );
@@ -73,32 +73,32 @@ export default App;
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Story Carousel</title>
-</head>
-<body>
-  <div id="story-container" style="width: 400px; height: 600px;"></div>
+  <head>
+    <title>Story Carousel</title>
+  </head>
+  <body>
+    <div id="story-container" style="width: 400px; height: 600px;"></div>
 
-  <script type="module">
-    import { StoryCarousel } from '@story-carousel/native';
+    <script type="module">
+      import { StoryCarousel } from "@storykit/core";
 
-    const stories = [
-      { id: '1', content: 'История 1', duration: 3000 },
-      { id: '2', content: 'История 2', duration: 4000 },
-      { id: '3', content: 'История 3', duration: 5000 },
-    ];
+      const stories = [
+        { id: "1", content: "История 1", duration: 3000 },
+        { id: "2", content: "История 2", duration: 4000 },
+        { id: "3", content: "История 3", duration: 5000 },
+      ];
 
-    const carousel = new StoryCarousel({
-      stories,
-      autoPlay: true,
-      onStoryEnd: (story) => console.log('Завершена:', story.id),
-      onComplete: () => console.log('Все готовы!'),
-    });
+      const carousel = new StoryCarousel({
+        stories,
+        autoPlay: true,
+        onStoryEnd: (story) => console.log("Завершена:", story.id),
+        onComplete: () => console.log("Все готовы!"),
+      });
 
-    // Для демонстрации - можно добавить кнопки управления
-    carousel.play();
-  </script>
-</body>
+      // Для демонстрации - можно добавить кнопки управления
+      carousel.play();
+    </script>
+  </body>
 </html>
 ```
 
@@ -109,7 +109,7 @@ export default App;
 ```
 your-project/
 ├── node_modules/
-│   └── @story-carousel/
+│   └── @storykit/
 │       ├── react/
 │       └── native/
 ├── src/
@@ -149,17 +149,19 @@ your-project/
 <StoryCarousel
   stories={stories}
   renderStory={(story, progress) => (
-    <div style={{
-      background: 'linear-gradient(45deg, #667eea 0%, #764ba2 100%)',
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'white',
-      fontSize: '24px',
-      fontWeight: 'bold',
-    }}>
+    <div
+      style={{
+        background: "linear-gradient(45deg, #667eea 0%, #764ba2 100%)",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "white",
+        fontSize: "24px",
+        fontWeight: "bold",
+      }}
+    >
       {story.content}
     </div>
   )}
@@ -218,9 +220,9 @@ yarn start
 // Добавьте логирование для отладки
 <StoryCarousel
   stories={stories}
-  onStoryStart={(story) => console.log('Start:', story)}
-  onStoryEnd={(story) => console.log('End:', story)}
-  onComplete={() => console.log('Complete')}
+  onStoryStart={(story) => console.log("Start:", story)}
+  onStoryEnd={(story) => console.log("End:", story)}
+  onComplete={() => console.log("Complete")}
 />
 ```
 

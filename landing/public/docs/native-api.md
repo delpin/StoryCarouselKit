@@ -1,15 +1,15 @@
 # Нативное API
 
-Нативный пакет `@story-carousel/native` содержит framework-agnostic логику управления историями. Это TypeScript класс, который можно использовать в любом JavaScript окружении.
+Нативный пакет `@storykit/core` содержит framework-agnostic логику управления историями. Это TypeScript класс, который можно использовать в любом JavaScript окружении.
 
 ## Установка
 
 ```bash
-pnpm add @story-carousel/native
+pnpm add @storykit/core
 # или
-npm install @story-carousel/native
+npm install @storykit/core
 # или
-yarn add @story-carousel/native
+yarn add @storykit/core
 ```
 
 ## Основные интерфейсы
@@ -20,10 +20,10 @@ yarn add @story-carousel/native
 
 ```typescript
 interface Story {
-  id: string;           // Уникальный идентификатор
-  content: string;      // Текстовое содержимое
-  duration?: number;    // Длительность в мс (опционально)
-  mediaUrl?: string;    // URL медиафайла (опционально)
+  id: string; // Уникальный идентификатор
+  content: string; // Текстовое содержимое
+  duration?: number; // Длительность в мс (опционально)
+  mediaUrl?: string; // URL медиафайла (опционально)
 }
 ```
 
@@ -33,12 +33,12 @@ interface Story {
 
 ```typescript
 interface StoryCarouselConfig {
-  stories: Story[];                    // Массив историй
-  autoPlay?: boolean;                  // Автозапуск (по умолчанию: true)
-  defaultDuration?: number;            // Длительность по умолчанию в мс (по умолчанию: 5000)
+  stories: Story[]; // Массив историй
+  autoPlay?: boolean; // Автозапуск (по умолчанию: true)
+  defaultDuration?: number; // Длительность по умолчанию в мс (по умолчанию: 5000)
   onStoryEnd?: (story: Story) => void; // Коллбэк при завершении истории
   onStoryStart?: (story: Story) => void; // Коллбэк при начале истории
-  onComplete?: () => void;             // Коллбэк при завершении всех историй
+  onComplete?: () => void; // Коллбэк при завершении всех историй
 }
 ```
 
@@ -48,9 +48,9 @@ interface StoryCarouselConfig {
 
 ```typescript
 interface StoryCarouselState {
-  currentIndex: number;    // Индекс текущей истории
-  isPlaying: boolean;      // Флаг воспроизведения
-  progress: number;        // Прогресс текущей истории (0-1)
+  currentIndex: number; // Индекс текущей истории
+  isPlaying: boolean; // Флаг воспроизведения
+  progress: number; // Прогресс текущей истории (0-1)
   currentStory: Story | null; // Текущая история
 }
 ```
@@ -66,16 +66,18 @@ const carousel = new StoryCarousel(config: StoryCarouselConfig);
 ### Методы управления
 
 #### getState(): StoryCarouselState
+
 Возвращает текущее состояние карусели.
 
 ```typescript
 const state = carousel.getState();
 console.log(state.currentIndex); // 0
-console.log(state.isPlaying);    // true
-console.log(state.progress);     // 0.5
+console.log(state.isPlaying); // true
+console.log(state.progress); // 0.5
 ```
 
 #### play(): void
+
 Запускает воспроизведение историй.
 
 ```typescript
@@ -83,6 +85,7 @@ carousel.play();
 ```
 
 #### pause(): void
+
 Приостанавливает воспроизведение.
 
 ```typescript
@@ -90,6 +93,7 @@ carousel.pause();
 ```
 
 #### next(): void
+
 Переходит к следующей истории.
 
 ```typescript
@@ -97,6 +101,7 @@ carousel.next();
 ```
 
 #### prev(): void
+
 Переходит к предыдущей истории.
 
 ```typescript
@@ -104,6 +109,7 @@ carousel.prev();
 ```
 
 #### goTo(index: number): void
+
 Переходит к истории по индексу.
 
 ```typescript
@@ -111,6 +117,7 @@ carousel.goTo(2); // Перейти к третьей истории
 ```
 
 #### destroy(): void
+
 Очищает ресурсы и останавливает таймеры.
 
 ```typescript
@@ -122,12 +129,12 @@ carousel.destroy();
 ### Базовый пример
 
 ```javascript
-import { StoryCarousel } from '@story-carousel/native';
+import { StoryCarousel } from "@storykit/core";
 
 const stories = [
-  { id: '1', content: 'Добро пожаловать!', duration: 3000 },
-  { id: '2', content: 'Это вторая история', duration: 4000 },
-  { id: '3', content: 'И третья история', duration: 5000 },
+  { id: "1", content: "Добро пожаловать!", duration: 3000 },
+  { id: "2", content: "Это вторая история", duration: 4000 },
+  { id: "3", content: "И третья история", duration: 5000 },
 ];
 
 const carousel = new StoryCarousel({
@@ -137,7 +144,7 @@ const carousel = new StoryCarousel({
     console.log(`История ${story.id} завершена`);
   },
   onComplete: () => {
-    console.log('Все истории просмотрены!');
+    console.log("Все истории просмотрены!");
   },
 });
 
@@ -160,7 +167,9 @@ const carousel = new StoryCarousel({ stories });
 // Мониторинг прогресса
 const monitor = setInterval(() => {
   const state = carousel.getState();
-  console.log(`История ${state.currentIndex + 1}/${stories.length}: ${Math.round(state.progress * 100)}%`);
+  console.log(
+    `История ${state.currentIndex + 1}/${stories.length}: ${Math.round(state.progress * 100)}%`,
+  );
 }, 500);
 
 // Остановка мониторинга
@@ -184,13 +193,14 @@ class StoryViewer {
     this.container.innerHTML = `
       <div class="story">
         <h2>${story.content}</h2>
-        ${story.mediaUrl ? `<img src="${story.mediaUrl}" alt="Story media">` : ''}
+        ${story.mediaUrl ? `<img src="${story.mediaUrl}" alt="Story media">` : ""}
       </div>
     `;
   }
 
   showCompletionMessage() {
-    this.container.innerHTML = '<div class="completed">Все истории просмотрены!</div>';
+    this.container.innerHTML =
+      '<div class="completed">Все истории просмотрены!</div>';
   }
 
   play() {
@@ -209,9 +219,9 @@ class StoryViewer {
 
 ```typescript
 const stories = [
-  { id: '1', content: 'Короткая история', duration: 2000 },
-  { id: '2', content: 'Длинная история', duration: 8000 },
-  { id: '3', content: 'История по умолчанию' }, // Используется defaultDuration
+  { id: "1", content: "Короткая история", duration: 2000 },
+  { id: "2", content: "Длинная история", duration: 8000 },
+  { id: "3", content: "История по умолчанию" }, // Используется defaultDuration
 ];
 ```
 
@@ -222,11 +232,11 @@ const carousel = new StoryCarousel({
   stories,
   onStoryStart: (story) => {
     // Аналитика: начало просмотра
-    analytics.track('story_started', { storyId: story.id });
+    analytics.track("story_started", { storyId: story.id });
   },
   onStoryEnd: (story) => {
     // Аналитика: завершение просмотра
-    analytics.track('story_completed', { storyId: story.id });
+    analytics.track("story_completed", { storyId: story.id });
   },
   onComplete: () => {
     // Показать CTA или следующее действие
@@ -271,11 +281,11 @@ class ManagedStoryCarousel {
 ```typescript
 function createValidatedCarousel(stories) {
   if (!Array.isArray(stories) || stories.length === 0) {
-    throw new Error('Stories must be a non-empty array');
+    throw new Error("Stories must be a non-empty array");
   }
 
-  if (stories.some(story => !story.id || !story.content)) {
-    throw new Error('Each story must have id and content');
+  if (stories.some((story) => !story.id || !story.content)) {
+    throw new Error("Each story must have id and content");
   }
 
   return new StoryCarousel({ stories });
@@ -292,7 +302,7 @@ const carousel = new StoryCarousel({
       // Бизнес-логика
       processStoryCompletion(story);
     } catch (error) {
-      console.error('Error processing story completion:', error);
+      console.error("Error processing story completion:", error);
       // Продолжить выполнение
     }
   },

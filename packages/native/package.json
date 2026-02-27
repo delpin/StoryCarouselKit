@@ -1,5 +1,5 @@
 {
-  "name": "@story-carousel/native",
+  "name": "@storykit/core",
   "version": "0.1.0",
   "description": "Framework-agnostic core logic for story carousel component",
   "main": "dist/index.js",

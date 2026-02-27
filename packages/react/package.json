@@ -1,5 +1,5 @@
 {
-  "name": "@story-carousel/react",
+  "name": "@storykit/react",
   "version": "0.1.0",
   "description": "React wrapper for story carousel component",
   "main": "dist/index.js",
@@ -31,7 +31,7 @@
     "react-dom": ">=16.8.0"
   },
   "dependencies": {
-    "@story-carousel/native": "workspace:*"
+    "@storykit/core": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",

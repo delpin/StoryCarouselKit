@@ -63,7 +63,11 @@ packages/
 
 ```typescript
 // packages/framework-name/src/index.ts
-import { StoryCarousel as StoryCarouselCore, Story, StoryCarouselConfig } from '@story-carousel/native';
+import {
+  StoryCarousel as StoryCarouselCore,
+  Story,
+  StoryCarouselConfig,
+} from "@storykit/core";
 
 // Типы для фреймворка
 export interface FrameworkStoryCarouselProps {
@@ -99,7 +103,7 @@ export class FrameworkStoryCarousel {
 
   private setupUI(props: FrameworkStoryCarouselProps) {
     // Создание UI элементов фреймворка
-    this.container = createFrameworkElement('div', {
+    this.container = createFrameworkElement("div", {
       className: props.className,
       style: props.style,
     });
@@ -125,11 +129,21 @@ export class FrameworkStoryCarousel {
   }
 
   // Публичные методы
-  play() { this.core.play(); }
-  pause() { this.core.pause(); }
-  next() { this.core.next(); }
-  prev() { this.core.prev(); }
-  destroy() { this.core.destroy(); }
+  play() {
+    this.core.play();
+  }
+  pause() {
+    this.core.pause();
+  }
+  next() {
+    this.core.next();
+  }
+  prev() {
+    this.core.prev();
+  }
+  destroy() {
+    this.core.destroy();
+  }
 }
 ```
 
@@ -142,46 +156,46 @@ export class FrameworkStoryCarousel {
 pnpm test
 
 # Тесты конкретного пакета
-pnpm --filter @story-carousel/native test
+pnpm --filter @storykit/core test
 
 # Тесты в watch режиме
-pnpm --filter @story-carousel/react test -- --watch
+pnpm --filter @storykit/react test -- --watch
 ```
 
 ### Написание тестов
 
 ```typescript
 // packages/native/test/story-carousel.test.ts
-import { StoryCarousel } from '../src';
+import { StoryCarousel } from "../src";
 
-describe('StoryCarousel', () => {
+describe("StoryCarousel", () => {
   const mockStories = [
-    { id: '1', content: 'Story 1', duration: 1000 },
-    { id: '2', content: 'Story 2', duration: 1000 },
+    { id: "1", content: "Story 1", duration: 1000 },
+    { id: "2", content: "Story 2", duration: 1000 },
   ];
 
-  it('should initialize with correct state', () => {
+  it("should initialize with correct state", () => {
     const carousel = new StoryCarousel({ stories: mockStories });
 
     const state = carousel.getState();
     expect(state.currentIndex).toBe(0);
     expect(state.isPlaying).toBe(true);
-    expect(state.currentStory?.id).toBe('1');
+    expect(state.currentStory?.id).toBe("1");
   });
 
-  it('should navigate to next story', () => {
+  it("should navigate to next story", () => {
     const carousel = new StoryCarousel({
       stories: mockStories,
-      autoPlay: false
+      autoPlay: false,
     });
 
     carousel.next();
     const state = carousel.getState();
     expect(state.currentIndex).toBe(1);
-    expect(state.currentStory?.id).toBe('2');
+    expect(state.currentStory?.id).toBe("2");
   });
 
-  it('should call onComplete when reaching end', () => {
+  it("should call onComplete when reaching end", () => {
     const onComplete = jest.fn();
     const carousel = new StoryCarousel({
       stories: mockStories,
@@ -277,13 +291,13 @@ export class StoryCarousel {
     if (!this.config.enableKeyboardNavigation) return;
 
     switch (event.key) {
-      case 'ArrowRight':
+      case "ArrowRight":
         this.next();
         break;
-      case 'ArrowLeft':
+      case "ArrowLeft":
         this.prev();
         break;
-      case ' ':
+      case " ":
         event.preventDefault();
         if (this.state.isPlaying) {
           this.pause();
@@ -296,7 +310,7 @@ export class StoryCarousel {
 
   private setupKeyboardListeners() {
     if (this.config.enableKeyboardNavigation) {
-      document.addEventListener('keydown', this.handleKeyboard);
+      document.addEventListener("keydown", this.handleKeyboard);
     }
   }
 }
@@ -307,7 +321,10 @@ export class StoryCarousel {
 ```tsx
 // packages/react/src/StoryCarousel.tsx
 
-export interface StoryCarouselProps extends Omit<StoryCarouselConfig, 'onStoryEnd' | 'onStoryStart' | 'onComplete'> {
+export interface StoryCarouselProps extends Omit<
+  StoryCarouselConfig,
+  "onStoryEnd" | "onStoryStart" | "onComplete"
+> {
   // ... существующие пропсы
   enableKeyboardNavigation?: boolean;
   enableSwipeGestures?: boolean;
@@ -341,7 +358,7 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
 pnpm build
 
 # Сборка конкретного пакета
-pnpm --filter @story-carousel/react build
+pnpm --filter @storykit/react build
 ```
 
 ### Публикация
@@ -354,7 +371,7 @@ pnpm version patch
 pnpm publish --recursive
 
 # Или публикация конкретного пакета
-pnpm publish --filter @story-carousel/react
+pnpm publish --filter @storykit/react
 ```
 
 ### Release процесс
@@ -369,6 +386,7 @@ pnpm publish --filter @story-carousel/react
 ### Распространенные проблемы
 
 #### Проблема: "Cannot resolve dependency"
+
 ```bash
 # Очистка кэша и переустановка
 rm -rf node_modules pnpm-lock.yaml
@@ -376,15 +394,17 @@ pnpm install
 ```
 
 #### Проблема: "TypeScript errors"
+
 ```bash
 # Проверка типов
-pnpm --filter @story-carousel/native run type-check
+pnpm --filter @storykit/core run type-check
 
 # Или для всех пакетов
 pnpm type-check
 ```
 
 #### Проблема: "Build fails"
+
 ```bash
 # Очистка и пересборка
 pnpm clean

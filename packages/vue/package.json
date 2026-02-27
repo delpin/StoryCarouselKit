@@ -1,5 +1,5 @@
 {
-  "name": "@story-carousel/vue",
+  "name": "@storykit/vue",
   "version": "0.1.0",
   "description": "Vue wrapper for story carousel component",
   "main": "dist/index.js",
@@ -30,7 +30,7 @@
     "vue": ">=3.0.0"
   },
   "dependencies": {
-    "@story-carousel/native": "workspace:*"
+    "@storykit/core": "workspace:*"
   },
   "devDependencies": {
     "eslint": "^8.0.0",

@@ -1,24 +1,24 @@
-import { useState } from 'react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useState } from "react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export function Examples() {
   const { t } = useLanguage();
-  const [selectedFramework, setSelectedFramework] = useState('react');
+  const [selectedFramework, setSelectedFramework] = useState("react");
 
   const frameworks = [
-    { id: 'react', name: t('framework.react'), available: true },
-    { id: 'native', name: t('framework.native'), available: true },
-    { id: 'vue', name: t('framework.vue'), available: false },
-    { id: 'svelte', name: t('framework.svelte'), available: false },
-    { id: 'angular', name: t('framework.angular'), available: false },
+    { id: "react", name: t("framework.react"), available: true },
+    { id: "native", name: t("framework.native"), available: true },
+    { id: "vue", name: t("framework.vue"), available: false },
+    { id: "svelte", name: t("framework.svelte"), available: false },
+    { id: "angular", name: t("framework.angular"), available: false },
   ];
 
   const examples = {
     react: {
-      title: t('code.reactExample'),
-      description: 'Полнофункциональный пример с React компонентом',
+      title: t("code.reactExample"),
+      description: "Полнофункциональный пример с React компонентом",
       code: `import { useState } from 'react';
-import { StoryCarousel } from '@story-carousel/react';
+import { StoryCarousel } from '@storykit/react';
 
 function App() {
   const [stories] = useState([
@@ -81,14 +81,14 @@ function App() {
               <div className="w-8 h-2 bg-white rounded-full mx-auto"></div>
             </div>
           </div>
-          <p className="text-sm text-gray-300">{t('demo.placeholder')}</p>
+          <p className="text-sm text-gray-300">{t("demo.placeholder")}</p>
         </div>
-      )
+      ),
     },
     native: {
-      title: t('code.nativeExample'),
-      description: t('examples.nativeDescription'),
-      code: `import { StoryCarousel } from '@story-carousel/native';
+      title: t("code.nativeExample"),
+      description: t("examples.nativeDescription"),
+      code: `import { StoryCarousel } from '@storykit/core';
 
 // Создаем контейнер
 const container = document.getElementById('story-container');
@@ -131,10 +131,10 @@ carousel.play();`,
               <div className="w-8 h-2 bg-white rounded-full mx-auto"></div>
             </div>
           </div>
-          <p className="text-sm text-gray-300">{t('demo.placeholder')}</p>
+          <p className="text-sm text-gray-300">{t("demo.placeholder")}</p>
         </div>
-      )
-    }
+      ),
+    },
   };
 
   return (
@@ -142,9 +142,11 @@ carousel.play();`,
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">{t('examples.title')}</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            {t("examples.title")}
+          </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t('examples.description')}
+            {t("examples.description")}
           </p>
         </div>
 
@@ -153,18 +155,20 @@ carousel.play();`,
           {frameworks.map((framework) => (
             <button
               key={framework.id}
-              onClick={() => framework.available && setSelectedFramework(framework.id)}
+              onClick={() =>
+                framework.available && setSelectedFramework(framework.id)
+              }
               disabled={!framework.available}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-200 ${
                 framework.available
                   ? selectedFramework === framework.id
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
-                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    ? "bg-blue-600 text-white shadow-lg"
+                    : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
+                  : "bg-gray-100 text-gray-400 cursor-not-allowed"
               }`}
             >
               {framework.name}
-              {!framework.available && t('framework.comingSoon')}
+              {!framework.available && t("framework.comingSoon")}
             </button>
           ))}
         </div>
@@ -189,23 +193,37 @@ carousel.play();`,
                   {examples[selectedFramework as keyof typeof examples].title}
                 </h3>
                 <p className="text-gray-600 mb-4">
-                  {examples[selectedFramework as keyof typeof examples].description}
+                  {
+                    examples[selectedFramework as keyof typeof examples]
+                      .description
+                  }
                 </p>
                 <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
-                  <code>{examples[selectedFramework as keyof typeof examples].code}</code>
+                  <code>
+                    {examples[selectedFramework as keyof typeof examples].code}
+                  </code>
                 </pre>
               </div>
             </div>
 
             {/* Live Demo */}
             <div className="bg-white rounded-xl shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Превью</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Превью
+              </h3>
               {examples[selectedFramework as keyof typeof examples].demo}
 
               <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                <h4 className="font-medium text-blue-900 mb-2">🚀 {t('examples.quickStart')}</h4>
+                <h4 className="font-medium text-blue-900 mb-2">
+                  🚀 {t("examples.quickStart")}
+                </h4>
                 <div className="text-sm text-blue-800 space-y-1">
-                  <p>1. Установите пакет: <code className="bg-blue-100 px-1 rounded">npm install @story-carousel/{selectedFramework}</code></p>
+                  <p>
+                    1. Установите пакет:{" "}
+                    <code className="bg-blue-100 px-1 rounded">
+                      npm install @storykit/{selectedFramework}
+                    </code>
+                  </p>
                   <p>2. Импортируйте компонент</p>
                   <p>3. Добавьте свои истории</p>
                   <p>4. Готово! 🎉</p>
@@ -218,27 +236,31 @@ carousel.play();`,
         {/* Installation Guide */}
         <div className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold mb-2">{t('install.getStarted')}</h3>
-            <p className="text-blue-100">{t('install.description')}</p>
+            <h3 className="text-2xl font-bold mb-2">
+              {t("install.getStarted")}
+            </h3>
+            <p className="text-blue-100">{t("install.description")}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-              <h4 className="font-semibold mb-4">{t('examples.installation')}</h4>
+              <h4 className="font-semibold mb-4">
+                {t("examples.installation")}
+              </h4>
               <pre className="bg-black/30 p-4 rounded-lg text-sm overflow-x-auto">
                 <code>{`# Для React проектов
-npm install @story-carousel/react
+npm install @storykit/react
 
 # Для нативного использования
-npm install @story-carousel/native
+npm install @storykit/core
 
 # Для других фреймворков (скоро)
-npm install @story-carousel/vue`}</code>
+npm install @storykit/vue`}</code>
               </pre>
             </div>
 
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-              <h4 className="font-semibold mb-4">{t('install.support')}</h4>
+              <h4 className="font-semibold mb-4">{t("install.support")}</h4>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-green-400 rounded-full mr-3"></span>

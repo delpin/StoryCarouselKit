@@ -4,11 +4,11 @@ StoryKit – Framework-agnostic Instagram-style story list component. Supports R
 
 ## Architecture
 
-- **`@story-carousel/native`** - Framework-agnostic core logic written in TypeScript
-- **`@story-carousel/react`** - React wrapper component
-- **`@story-carousel/vue`** - Vue wrapper component
-- **`@story-carousel/svelte`** - Svelte wrapper component
-- **`@story-carousel/angular`** - Angular wrapper component
+- **`@storykit/core`** - Framework-agnostic core logic written in TypeScript
+- **`@storykit/react`** - React wrapper component
+- **`@storykit/vue`** - Vue wrapper component
+- **`@storykit/svelte`** - Svelte wrapper component
+- **`@storykit/angular`** - Angular wrapper component
 
 ## Quick Start
 
@@ -28,22 +28,22 @@ pnpm build
 ### React
 
 ```tsx
-import { StoryCarousel } from '@story-carousel/react';
+import { StoryCarousel } from "@storykit/react";
 
 const stories = [
-  { id: '1', content: 'Story 1', duration: 3000 },
-  { id: '2', content: 'Story 2', duration: 4000 },
-  { id: '3', content: 'Story 3', duration: 5000 },
+  { id: "1", content: "Story 1", duration: 3000 },
+  { id: "2", content: "Story 2", duration: 4000 },
+  { id: "3", content: "Story 3", duration: 5000 },
 ];
 
 function App() {
   return (
-    <div style={{ width: '400px', height: '600px' }}>
+    <div style={{ width: "400px", height: "600px" }}>
       <StoryCarousel
         stories={stories}
         autoPlay={true}
-        onStoryEnd={(story) => console.log('Story ended:', story)}
-        onComplete={() => console.log('All stories completed')}
+        onStoryEnd={(story) => console.log("Story ended:", story)}
+        onComplete={() => console.log("All stories completed")}
       />
     </div>
   );
@@ -53,18 +53,18 @@ function App() {
 ### Native (Vanilla JS)
 
 ```javascript
-import { StoryCarousel } from '@story-carousel/native';
+import { StoryCarousel } from "@storykit/core";
 
 const stories = [
-  { id: '1', content: 'Story 1', duration: 3000 },
-  { id: '2', content: 'Story 2', duration: 4000 },
+  { id: "1", content: "Story 1", duration: 3000 },
+  { id: "2", content: "Story 2", duration: 4000 },
 ];
 
 const carousel = new StoryCarousel({
   stories,
   autoPlay: true,
-  onStoryEnd: (story) => console.log('Story ended:', story),
-  onComplete: () => console.log('All stories completed'),
+  onStoryEnd: (story) => console.log("Story ended:", story),
+  onComplete: () => console.log("All stories completed"),
 });
 
 carousel.play();
@@ -80,7 +80,7 @@ pnpm install
 pnpm build
 
 # Build specific package
-pnpm --filter @story-carousel/react build
+pnpm --filter @storykit/react build
 
 # Run tests
 pnpm test

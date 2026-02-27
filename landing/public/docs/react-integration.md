@@ -1,15 +1,15 @@
 # React интеграция
 
-React обертка `@story-carousel/react` предоставляет готовый компонент с полным UI и интеграцией с React экосистемой.
+React обертка `@storykit/react` предоставляет готовый компонент с полным UI и интеграцией с React экосистемой.
 
 ## Установка
 
 ```bash
-pnpm add @story-carousel/react
+pnpm add @storykit/react
 # или
-npm install @story-carousel/react
+npm install @storykit/react
 # или
-yarn add @story-carousel/react
+yarn add @storykit/react
 ```
 
 ## Основные пропсы
@@ -18,7 +18,7 @@ yarn add @story-carousel/react
 
 ```typescript
 interface StoryCarouselProps {
-  stories: Story[];  // Массив историй для отображения
+  stories: Story[]; // Массив историй для отображения
 }
 ```
 
@@ -27,12 +27,12 @@ interface StoryCarouselProps {
 ```typescript
 interface StoryCarouselProps {
   // Управление воспроизведением
-  autoPlay?: boolean;              // Автозапуск (по умолчанию: true)
-  defaultDuration?: number;        // Длительность по умолчанию в мс (по умолчанию: 5000)
+  autoPlay?: boolean; // Автозапуск (по умолчанию: true)
+  defaultDuration?: number; // Длительность по умолчанию в мс (по умолчанию: 5000)
 
   // Кастомизация внешнего вида
-  className?: string;              // CSS класс для контейнера
-  style?: React.CSSProperties;     // Inline стили
+  className?: string; // CSS класс для контейнера
+  style?: React.CSSProperties; // Inline стили
 
   // Кастомный рендеринг
   renderStory?: (story: Story, progress: number) => React.ReactNode;
@@ -47,22 +47,19 @@ interface StoryCarouselProps {
 ## Базовое использование
 
 ```tsx
-import React from 'react';
-import { StoryCarousel } from '@story-carousel/react';
+import React from "react";
+import { StoryCarousel } from "@storykit/react";
 
 const stories = [
-  { id: '1', content: 'Добро пожаловать!', duration: 3000 },
-  { id: '2', content: 'Это вторая история', duration: 4000 },
-  { id: '3', content: 'И третья история', duration: 5000 },
+  { id: "1", content: "Добро пожаловать!", duration: 3000 },
+  { id: "2", content: "Это вторая история", duration: 4000 },
+  { id: "3", content: "И третья история", duration: 5000 },
 ];
 
 function App() {
   return (
-    <div style={{ width: '400px', height: '600px' }}>
-      <StoryCarousel
-        stories={stories}
-        autoPlay={true}
-      />
+    <div style={{ width: "400px", height: "600px" }}>
+      <StoryCarousel stories={stories} autoPlay={true} />
     </div>
   );
 }
@@ -76,16 +73,18 @@ function App() {
 <StoryCarousel
   stories={stories}
   renderStory={(story, progress) => (
-    <div style={{
-      width: '100%',
-      height: '100%',
-      backgroundColor: '#000',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: '#fff',
-      fontSize: '24px',
-    }}>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#000",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "#fff",
+        fontSize: "24px",
+      }}
+    >
       {story.content}
     </div>
   )}
@@ -96,41 +95,45 @@ function App() {
 
 ```tsx
 const storiesWithImages = [
-  { id: '1', content: 'Котик', mediaUrl: '/cat.jpg', duration: 4000 },
-  { id: '2', content: 'Собачка', mediaUrl: '/dog.jpg', duration: 3500 },
+  { id: "1", content: "Котик", mediaUrl: "/cat.jpg", duration: 4000 },
+  { id: "2", content: "Собачка", mediaUrl: "/dog.jpg", duration: 3500 },
 ];
 
 <StoryCarousel
   stories={storiesWithImages}
   renderStory={(story, progress) => (
-    <div style={{
-      width: '100%',
-      height: '100%',
-      position: 'relative',
-    }}>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        position: "relative",
+      }}
+    >
       <img
         src={story.mediaUrl}
         alt={story.content}
         style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
         }}
       />
-      <div style={{
-        position: 'absolute',
-        bottom: 20,
-        left: 20,
-        color: 'white',
-        fontSize: '18px',
-        fontWeight: 'bold',
-        textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-      }}>
+      <div
+        style={{
+          position: "absolute",
+          bottom: 20,
+          left: 20,
+          color: "white",
+          fontSize: "18px",
+          fontWeight: "bold",
+          textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
+        }}
+      >
         {story.content}
       </div>
     </div>
   )}
-/>
+/>;
 ```
 
 ### С видео
@@ -144,9 +147,9 @@ const storiesWithImages = [
       autoPlay
       muted
       style={{
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
       }}
     />
   )}
@@ -158,10 +161,7 @@ const storiesWithImages = [
 ### CSS классы
 
 ```tsx
-<StoryCarousel
-  stories={stories}
-  className="my-story-carousel"
-/>
+<StoryCarousel stories={stories} className="my-story-carousel" />
 ```
 
 ```css
@@ -188,11 +188,11 @@ const storiesWithImages = [
 <StoryCarousel
   stories={stories}
   style={{
-    width: '100%',
-    maxWidth: '400px',
-    height: '600px',
-    borderRadius: '16px',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+    width: "100%",
+    maxWidth: "400px",
+    height: "600px",
+    borderRadius: "16px",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
   }}
 />
 ```
@@ -205,17 +205,17 @@ const storiesWithImages = [
 <StoryCarousel
   stories={stories}
   onStoryStart={(story) => {
-    console.log('Начало истории:', story.id);
+    console.log("Начало истории:", story.id);
     // Аналитика: пользователь начал смотреть историю
-    analytics.track('story_view_start', { storyId: story.id });
+    analytics.track("story_view_start", { storyId: story.id });
   }}
   onStoryEnd={(story) => {
-    console.log('Конец истории:', story.id);
+    console.log("Конец истории:", story.id);
     // Аналитика: пользователь досмотрел историю до конца
-    analytics.track('story_view_complete', { storyId: story.id });
+    analytics.track("story_view_complete", { storyId: story.id });
   }}
   onComplete={() => {
-    console.log('Все истории просмотрены');
+    console.log("Все истории просмотрены");
     // Показать CTA или перенаправить
     showNextAction();
   }}
@@ -225,7 +225,7 @@ const storiesWithImages = [
 ### Интеграция с состоянием
 
 ```tsx
-import { useState } from 'react';
+import { useState } from "react";
 
 function StoryViewer() {
   const [currentStoryId, setCurrentStoryId] = useState(null);
@@ -238,10 +238,10 @@ function StoryViewer() {
         setCurrentStoryId(story.id);
       }}
       onStoryEnd={(story) => {
-        setCompletedStories(prev => [...prev, story.id]);
+        setCompletedStories((prev) => [...prev, story.id]);
       }}
       onComplete={() => {
-        console.log('Завершено историй:', completedStories.length);
+        console.log("Завершено историй:", completedStories.length);
       }}
     />
   );
@@ -253,7 +253,7 @@ function StoryViewer() {
 ### Контролируемый компонент
 
 ```tsx
-import { useRef } from 'react';
+import { useRef } from "react";
 
 function ControlledStoryCarousel({ stories, currentIndex, onIndexChange }) {
   const carouselRef = useRef();
@@ -271,7 +271,7 @@ function ControlledStoryCarousel({ stories, currentIndex, onIndexChange }) {
       stories={stories}
       autoPlay={false}
       onStoryStart={(story) => {
-        const index = stories.findIndex(s => s.id === story.id);
+        const index = stories.findIndex((s) => s.id === story.id);
         onIndexChange?.(index);
       }}
     />
@@ -282,13 +282,13 @@ function ControlledStoryCarousel({ stories, currentIndex, onIndexChange }) {
 ### Lazy loading изображений
 
 ```tsx
-import { useState } from 'react';
+import { useState } from "react";
 
 function LazyStoryCarousel({ stories }) {
   const [loadedImages, setLoadedImages] = useState(new Set());
 
   const handleImageLoad = (storyId) => {
-    setLoadedImages(prev => new Set([...prev, storyId]));
+    setLoadedImages((prev) => new Set([...prev, storyId]));
   };
 
   return (
@@ -298,16 +298,18 @@ function LazyStoryCarousel({ stories }) {
         const isLoaded = loadedImages.has(story.id);
 
         return (
-          <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+          <div style={{ width: "100%", height: "100%", position: "relative" }}>
             {!isLoaded && (
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: '#f0f0f0',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "#f0f0f0",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 Загрузка...
               </div>
             )}
@@ -316,11 +318,11 @@ function LazyStoryCarousel({ stories }) {
               alt={story.content}
               onLoad={() => handleImageLoad(story.id)}
               style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
                 opacity: isLoaded ? 1 : 0,
-                transition: 'opacity 0.3s ease',
+                transition: "opacity 0.3s ease",
               }}
             />
           </div>
@@ -334,7 +336,7 @@ function LazyStoryCarousel({ stories }) {
 ### Интеграция с React Router
 
 ```tsx
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function StoryNavigation() {
   const navigate = useNavigate();
@@ -344,11 +346,11 @@ function StoryNavigation() {
       stories={stories}
       onComplete={() => {
         // Перенаправление после просмотра всех историй
-        navigate('/next-page');
+        navigate("/next-page");
       }}
       renderStory={(story, progress) => (
         <div
-          style={{ width: '100%', height: '100%', cursor: 'pointer' }}
+          style={{ width: "100%", height: "100%", cursor: "pointer" }}
           onClick={() => navigate(`/story/${story.id}`)}
         >
           {/* Контент истории */}
@@ -364,14 +366,14 @@ function StoryNavigation() {
 ### useStoryProgress (кастомный hook)
 
 ```tsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function useStoryProgress(stories) {
   const [progress, setProgress] = useState({});
   const [currentStory, setCurrentStory] = useState(null);
 
   const updateProgress = (storyId, storyProgress) => {
-    setProgress(prev => ({
+    setProgress((prev) => ({
       ...prev,
       [storyId]: storyProgress,
     }));
@@ -379,7 +381,9 @@ function useStoryProgress(stories) {
 
   const getTotalProgress = () => {
     const totalStories = stories.length;
-    const completedStories = Object.values(progress).filter(p => p >= 1).length;
+    const completedStories = Object.values(progress).filter(
+      (p) => p >= 1,
+    ).length;
     return completedStories / totalStories;
   };
 
@@ -395,7 +399,7 @@ function useStoryProgress(stories) {
 ### Story context
 
 ```tsx
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react";
 
 const StoryContext = createContext();
 
@@ -415,7 +419,7 @@ function StoryProvider({ children }) {
 function useStory() {
   const context = useContext(StoryContext);
   if (!context) {
-    throw new Error('useStory must be used within StoryProvider');
+    throw new Error("useStory must be used within StoryProvider");
   }
   return context;
 }
@@ -426,25 +430,25 @@ function useStory() {
 ### Memoization
 
 ```tsx
-import { memo, useMemo } from 'react';
+import { memo, useMemo } from "react";
 
 const MemoizedStoryCarousel = memo(StoryCarousel);
 
 function App() {
-  const stories = useMemo(() => [
-    { id: '1', content: 'История 1' },
-    { id: '2', content: 'История 2' },
-  ], []);
+  const stories = useMemo(
+    () => [
+      { id: "1", content: "История 1" },
+      { id: "2", content: "История 2" },
+    ],
+    [],
+  );
 
   const handleStoryEnd = useCallback((story) => {
-    console.log('Story ended:', story);
+    console.log("Story ended:", story);
   }, []);
 
   return (
-    <MemoizedStoryCarousel
-      stories={stories}
-      onStoryEnd={handleStoryEnd}
-    />
+    <MemoizedStoryCarousel stories={stories} onStoryEnd={handleStoryEnd} />
   );
 }
 ```
@@ -455,24 +459,19 @@ function App() {
 // Для большого количества историй можно реализовать виртуализацию
 function VirtualizedStoryCarousel({ allStories, visibleCount = 10 }) {
   const [visibleStories, setVisibleStories] = useState(
-    allStories.slice(0, visibleCount)
+    allStories.slice(0, visibleCount),
   );
 
   // Логика подгрузки следующих историй
   const loadMore = () => {
     const nextStories = allStories.slice(
       visibleStories.length,
-      visibleStories.length + visibleCount
+      visibleStories.length + visibleCount,
     );
-    setVisibleStories(prev => [...prev, ...nextStories]);
+    setVisibleStories((prev) => [...prev, ...nextStories]);
   };
 
-  return (
-    <StoryCarousel
-      stories={visibleStories}
-      onComplete={loadMore}
-    />
-  );
+  return <StoryCarousel stories={visibleStories} onComplete={loadMore} />;
 }
 ```
 
@@ -481,25 +480,25 @@ function VirtualizedStoryCarousel({ allStories, visibleCount = 10 }) {
 ### Unit тесты
 
 ```tsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import { StoryCarousel } from '@story-carousel/react';
+import { render, screen, fireEvent } from "@testing-library/react";
+import { StoryCarousel } from "@storykit/react";
 
 const mockStories = [
-  { id: '1', content: 'Test story 1' },
-  { id: '2', content: 'Test story 2' },
+  { id: "1", content: "Test story 1" },
+  { id: "2", content: "Test story 2" },
 ];
 
-describe('StoryCarousel', () => {
-  it('renders first story', () => {
+describe("StoryCarousel", () => {
+  it("renders first story", () => {
     render(<StoryCarousel stories={mockStories} autoPlay={false} />);
-    expect(screen.getByText('Test story 1')).toBeInTheDocument();
+    expect(screen.getByText("Test story 1")).toBeInTheDocument();
   });
 
-  it('navigates to next story', () => {
+  it("navigates to next story", () => {
     render(<StoryCarousel stories={mockStories} autoPlay={false} />);
-    const nextButton = screen.getByRole('button', { name: /next/i });
+    const nextButton = screen.getByRole("button", { name: /next/i });
     fireEvent.click(nextButton);
-    expect(screen.getByText('Test story 2')).toBeInTheDocument();
+    expect(screen.getByText("Test story 2")).toBeInTheDocument();
   });
 });
 ```
@@ -507,22 +506,25 @@ describe('StoryCarousel', () => {
 ### Integration тесты
 
 ```tsx
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor } from "@testing-library/react";
 
-it('auto-plays stories', async () => {
+it("auto-plays stories", async () => {
   const onComplete = jest.fn();
   render(
     <StoryCarousel
       stories={mockStories}
       autoPlay={true}
       onComplete={onComplete}
-    />
+    />,
   );
 
   // Ждем завершения всех историй
-  await waitFor(() => {
-    expect(onComplete).toHaveBeenCalledTimes(1);
-  }, { timeout: 10000 });
+  await waitFor(
+    () => {
+      expect(onComplete).toHaveBeenCalledTimes(1);
+    },
+    { timeout: 10000 },
+  );
 });
 ```
 
@@ -532,12 +534,12 @@ it('auto-plays stories', async () => {
 
 ```tsx
 // Неправильно: мутация массива
-const stories = [{ id: '1', content: 'Story' }];
-stories[0].content = 'Updated'; // Не вызовет перерендер
+const stories = [{ id: "1", content: "Story" }];
+stories[0].content = "Updated"; // Не вызовет перерендер
 
 // Правильно: новый массив
-const [stories, setStories] = useState([{ id: '1', content: 'Story' }]);
-setStories([{ id: '1', content: 'Updated' }]);
+const [stories, setStories] = useState([{ id: "1", content: "Story" }]);
+setStories([{ id: "1", content: "Updated" }]);
 ```
 
 ### Проблема: Таймеры не очищаются
@@ -555,9 +557,9 @@ useEffect(() => {
 
 ```tsx
 // Используйте CSS modules или scoped стили
-import styles from './StoryCarousel.module.css';
+import styles from "./StoryCarousel.module.css";
 
-<StoryCarousel className={styles.container} />
+<StoryCarousel className={styles.container} />;
 ```
 
 ---

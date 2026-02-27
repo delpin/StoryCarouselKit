@@ -7,22 +7,22 @@ Angular интеграция планируется в будущих релиз
 ## Ожидаемая структура
 
 ```typescript
-import { Component } from '@angular/core';
-import { StoryCarousel } from '@story-carousel/angular';
+import { Component } from "@angular/core";
+import { StoryCarousel } from "@storykit/angular";
 
 @Component({
-  selector: 'app-stories',
+  selector: "app-stories",
   template: `
     <story-carousel
       [stories]="stories"
       [autoPlay]="true"
       (storyEnd)="onStoryEnd($event)"
-      (complete)="onComplete()">
+      (complete)="onComplete()"
+    >
       <ng-template #storyTemplate let-story="story" let-progress="progress">
         <div class="custom-story">
           <h2>{{ story.content }}</h2>
-          <div class="progress-bar"
-               [style.width.%]="progress * 100"></div>
+          <div class="progress-bar" [style.width.%]="progress * 100"></div>
         </div>
       </ng-template>
     </story-carousel>
@@ -30,16 +30,16 @@ import { StoryCarousel } from '@story-carousel/angular';
 })
 export class StoriesComponent {
   stories = [
-    { id: '1', content: 'История 1', duration: 3000 },
-    { id: '2', content: 'История 2', duration: 4000 },
+    { id: "1", content: "История 1", duration: 3000 },
+    { id: "2", content: "История 2", duration: 4000 },
   ];
 
   onStoryEnd(story: any) {
-    console.log('История завершена:', story);
+    console.log("История завершена:", story);
   }
 
   onComplete() {
-    console.log('Все истории просмотрены');
+    console.log("Все истории просмотрены");
   }
 }
 ```
@@ -47,15 +47,15 @@ export class StoriesComponent {
 ## Временное решение
 
 ```typescript
-import { Component, ElementRef, ViewChild, OnDestroy } from '@angular/core';
-import { StoryCarousel } from '@story-carousel/native';
+import { Component, ElementRef, ViewChild, OnDestroy } from "@angular/core";
+import { StoryCarousel } from "@storykit/core";
 
 @Component({
-  selector: 'app-stories',
-  template: '<div #container></div>',
+  selector: "app-stories",
+  template: "<div #container></div>",
 })
 export class StoriesComponent implements OnDestroy {
-  @ViewChild('container') container!: ElementRef;
+  @ViewChild("container") container!: ElementRef;
 
   private carousel?: StoryCarousel;
 

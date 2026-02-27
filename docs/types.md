@@ -55,6 +55,9 @@ interface StoryCarouselConfig {
   /** Длительность по умолчанию для историй в мс (по умолчанию: 5000) */
   defaultDuration?: number;
 
+  /** Интервал обновления прогресса в мс (по умолчанию: 100) */
+  progressUpdateInterval?: number;
+
   /** Коллбэк при завершении истории */
   onStoryEnd?: (story: Story) => void;
 
@@ -63,6 +66,9 @@ interface StoryCarouselConfig {
 
   /** Коллбэк при завершении всех историй */
   onComplete?: () => void;
+
+  /** Коллбэк при просмотре истории */
+  onStoryViewed?: (story: Story) => void;
 }
 ```
 
@@ -72,29 +78,51 @@ const config: StoryCarouselConfig = {
   stories: myStories,
   autoPlay: true,
   defaultDuration: 4000,
-  onStoryEnd: (story) => console.log(`Завершена: ${story.id}`),
+  progressUpdateInterval: 50, // Более плавная анимация
   onStoryStart: (story) => console.log(`Начата: ${story.id}`),
+  onStoryViewed: (story) => {
+    // Сохранить в аналитику
+    analytics.track('story_viewed', { storyId: story.id });
+  },
+  onStoryEnd: (story) => console.log(`Завершена: ${story.id}`),
   onComplete: () => console.log('Все истории просмотрены'),
 };
 ```
 
 ### StoryCarouselState
 
-Текущее состояние карусели (read-only).
+State machine для управления состоянием карусели.
 
 ```typescript
-interface StoryCarouselState {
+type StoryCarouselState = 'idle' | 'playing' | 'paused' | 'completed';
+```
+
+**Состояния:**
+- `'idle'` - начальное состояние, ожидание запуска
+- `'playing'` - активное воспроизведение
+- `'paused'` - воспроизведение приостановлено
+- `'completed'` - все истории просмотрены
+
+### StoryCarouselStateInfo
+
+Полная информация о состоянии карусели.
+
+```typescript
+interface StoryCarouselStateInfo {
   /** Индекс текущей истории (начиная с 0) */
   currentIndex: number;
 
-  /** Флаг активного воспроизведения */
-  isPlaying: boolean;
+  /** Текущее состояние state machine */
+  state: StoryCarouselState;
 
   /** Прогресс текущей истории (0.0 до 1.0) */
   progress: number;
 
   /** Текущая история или null */
   currentStory: Story | null;
+
+  /** Массив ID просмотренных историй */
+  viewedStories: string[];
 }
 ```
 
@@ -104,8 +132,9 @@ const carousel = new StoryCarousel(config);
 const state = carousel.getState();
 
 console.log(`История ${state.currentIndex + 1} из ${config.stories.length}`);
+console.log(`Состояние: ${state.state}`); // 'playing', 'paused', etc.
 console.log(`Прогресс: ${(state.progress * 100).toFixed(1)}%`);
-console.log(`Воспроизведение: ${state.isPlaying ? 'активно' : 'пауза'}`);
+console.log(`Просмотрено: ${state.viewedStories.length} историй`);
 ```
 
 ## React-специфичные типы

@@ -98,6 +98,61 @@ const carousel = new StoryCarousel({
 />
 ```
 
+### onStoryViewed
+
+Вызывается при просмотре истории (когда она завершается воспроизведение).
+
+```typescript
+interface StoryCarouselConfig {
+  onStoryViewed?: (story: Story) => void;
+}
+```
+
+**Параметры:**
+- `story: Story` - Просмотренная история
+
+**Примеры использования:**
+```typescript
+const carousel = new StoryCarousel({
+  stories,
+  onStoryViewed: (story) => {
+    console.log(`История ${story.id} просмотрена`);
+
+    // Сохранение в localStorage
+    const viewed = JSON.parse(localStorage.getItem('viewedStories') || '[]');
+    viewed.push({
+      id: story.id,
+      timestamp: Date.now(),
+      duration: story.duration
+    });
+    localStorage.setItem('viewedStories', JSON.stringify(viewed));
+
+    // Аналитика
+    analytics.track('story_viewed', {
+      storyId: story.id,
+      timeSpent: story.duration,
+      totalViewed: viewed.length,
+    });
+  },
+});
+```
+
+```tsx
+<StoryCarousel
+  stories={stories}
+  onStoryViewed={(story) => {
+    // Обновление прогресса обучения
+    updateLearningProgress(story.id);
+
+    // Отправка в аналитику
+    mixpanel.track('Story Viewed', {
+      story_id: story.id,
+      story_type: story.mediaUrl ? 'media' : 'text',
+    });
+  }}
+/>
+```
+
 ### onComplete
 
 Вызывается при завершении просмотра всех историй.

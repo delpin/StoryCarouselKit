@@ -4,16 +4,16 @@
 
 ## Основные методы
 
-### getState(): StoryCarouselState
+### getState(): StoryCarouselStateInfo
 
-Возвращает текущее состояние карусели.
+Возвращает полную информацию о состоянии карусели.
 
 ```typescript
-getState(): StoryCarouselState
+getState(): StoryCarouselStateInfo
 ```
 
 **Возвращает:**
-- `StoryCarouselState` - Объект с текущим состоянием
+- `StoryCarouselStateInfo` - Объект с полным состоянием
 
 **Пример:**
 ```typescript
@@ -21,8 +21,9 @@ const carousel = new StoryCarousel({ stories });
 const state = carousel.getState();
 
 console.log(`Текущая история: ${state.currentIndex}`);
+console.log(`Состояние: ${state.state}`); // 'idle', 'playing', 'paused', 'completed'
 console.log(`Прогресс: ${(state.progress * 100).toFixed(1)}%`);
-console.log(`Воспроизведение: ${state.isPlaying ? 'активно' : 'пауза'}`);
+console.log(`Просмотрено историй: ${state.viewedStories.length}`);
 ```
 
 ### play(): void
@@ -129,6 +130,38 @@ const carousel = new StoryCarousel({ stories });
 componentWillUnmount() {
   carousel.destroy();
 }
+```
+
+### addStory(story: Story): void
+
+Добавляет новую историю в конец очереди.
+
+```typescript
+addStory(story: Story): void
+```
+
+**Параметры:**
+- `story: Story` - История для добавления
+
+**Пример:**
+```typescript
+const carousel = new StoryCarousel({ stories });
+
+// Динамическое добавление истории
+carousel.addStory({
+  id: 'new-story',
+  content: 'Новая история',
+  duration: 3000,
+});
+
+// Добавление во время воспроизведения
+setTimeout(() => {
+  carousel.addStory({
+    id: 'another-story',
+    content: 'Еще одна история',
+    duration: 4000,
+  });
+}, 2000);
 ```
 
 ## React-специфичные методы
