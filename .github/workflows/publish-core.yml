@@ -1,0 +1,78 @@
+name: Publish @storykit/core
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'packages/native/**'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'packages/native/**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run linting
+        run: pnpm --filter @storykit/core lint
+
+      - name: Run tests
+        run: pnpm --filter @storykit/core test --run
+
+      - name: Build package
+        run: pnpm --filter @storykit/core build
+
+  publish:
+    name: Publish to NPM
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build package
+        run: pnpm --filter @storykit/core build
+
+      - name: Publish to NPM
+        run: pnpm --filter @storykit/core publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  notify:
+    name: Notify on failure
+    needs: [test, publish]
+    runs-on: ubuntu-latest
+    if: failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+
+    steps:
+      - name: Send notification
+        run: |
+          echo "Pipeline failed for @storykit/core"
+          # Здесь можно добавить интеграцию с Slack, Discord или другими сервисами уведомлений

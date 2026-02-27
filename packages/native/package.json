@@ -16,7 +16,8 @@
     "dev": "tsup --watch",
     "test": "vitest",
     "lint": "eslint src --ext .ts,.tsx",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm clean && pnpm build && pnpm test"
   },
   "keywords": [
     "stories",
@@ -24,7 +25,25 @@
     "typescript",
     "core"
   ],
-  "author": "",
+  "author": "StoryKit Team",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/storykit/story-carousel-monorepo.git",
+    "directory": "packages/native"
+  },
+  "homepage": "https://storykit.dev",
+  "bugs": {
+    "url": "https://github.com/storykit/story-carousel-monorepo/issues"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.0.0",
