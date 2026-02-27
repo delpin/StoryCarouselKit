@@ -100,7 +100,9 @@ jobs:
           git push origin "@storykit/core@${{ steps.bump.outputs.new_version }}"
 
       - name: Publish to NPM
-        run: pnpm --filter @storykit/core publish --no-git-checks
+        run: |
+          cd packages/native
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
