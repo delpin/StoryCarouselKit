@@ -1,4 +1,4 @@
-# Руководство по публикации @storykit/core
+# Руководство по публикации@storycarouselkit/core
 
 ## Настройка NPM токена
 
@@ -28,6 +28,7 @@
 ### Автоматическая публикация
 
 Пакет автоматически публикуется при пуше в main/master ветку, если:
+
 - Все тесты проходят ✅
 - Сборка завершается успешно ✅
 - Линтинг проходит без ошибок ✅
@@ -35,7 +36,7 @@
 ### Ручная публикация новой версии
 
 1. Перейдите на вкладку "Actions" в GitHub
-2. Выберите workflow "Release @storykit/core"
+2. Выберите workflow "Release@storycarouselkit/core"
 3. Нажмите "Run workflow"
 4. Выберите тип версии:
    - **patch**: 1.0.0 → 1.0.1 (исправления багов)
@@ -46,11 +47,13 @@
 ## Workflow файлы
 
 ### CI/CD (publish-core.yml)
+
 - Запускается при изменениях в `packages/native/`
 - Выполняет: lint → test → build → publish
 - Публикует только при пуше в main/master
 
 ### Релизы (release-core.yml)
+
 - Ручной запуск через GitHub Actions
 - Автоматически:
   - Увеличивает версию
@@ -65,7 +68,7 @@
 1. Проверьте [npmjs.com/package/@storykit/core](https://www.npmjs.com/package/@storykit/core)
 2. Установите пакет для тестирования:
    ```bash
-   npm install @storykit/core@latest
+   npm install@storycarouselkit/core@latest
    ```
 3. Проверьте версию:
    ```javascript
@@ -76,21 +79,27 @@
 ## Troubleshooting
 
 ### Ошибка авторизации
+
 ```
 npm ERR! 403 Forbidden - PUT https://registry.npmjs.org/@storykit%2fcore
 ```
+
 **Решение**: Проверьте, что NPM_TOKEN корректный и имеет права на публикацию.
 
 ### Ошибка версии
+
 ```
 npm ERR! 403 Forbidden - PUT https://registry.npmjs.org/@storykit%2fcore - You cannot publish over the previously published versions
 ```
+
 **Решение**: Увеличьте версию в package.json перед публикацией.
 
 ### Сборка не проходит
+
 ```
 Error: Build failed
 ```
+
 **Решение**: Проверьте логи сборки и исправьте ошибки в коде.
 
 ## Безопасность

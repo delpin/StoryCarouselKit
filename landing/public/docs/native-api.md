@@ -5,11 +5,11 @@
 ## Установка
 
 ```bash
-pnpm add @storykit/core
+pnpm add@storycarouselkit/core
 # или
-npm install @storykit/core
+npm install@storycarouselkit/core
 # или
-yarn add @storykit/core
+yarn add@storycarouselkit/core
 ```
 
 ## Основные интерфейсы

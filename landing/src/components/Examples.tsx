@@ -252,7 +252,7 @@ carousel.play();`,
 npm install @storykit/react
 
 # Для нативного использования
-npm install @storykit/core
+npm install@storycarouselkit/core
 
 # Для других фреймворков (скоро)
 npm install @storykit/vue`}</code>

@@ -51,7 +51,7 @@ story-carousel-monorepo/
 
 ## Пакеты и их роли
 
-### @storykit/core
+###@storycarouselkit/core
 
 **Ответственность:**
 

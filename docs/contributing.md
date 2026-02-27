@@ -156,7 +156,7 @@ export class FrameworkStoryCarousel {
 pnpm test
 
 # Тесты конкретного пакета
-pnpm --filter @storykit/core test
+pnpm --filter@storycarouselkit/core test
 
 # Тесты в watch режиме
 pnpm --filter @storykit/react test -- --watch
@@ -397,7 +397,7 @@ pnpm install
 
 ```bash
 # Проверка типов
-pnpm --filter @storykit/core run type-check
+pnpm --filter@storycarouselkit/core run type-check
 
 # Или для всех пакетов
 pnpm type-check

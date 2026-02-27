@@ -132,7 +132,7 @@ pnpm type-check
 pnpm build
 
 # Проверка содержимого пакетов
-pnpm --filter @storykit/core pack --dry-run
+pnpm --filter@storycarouselkit/core pack --dry-run
 ```
 
 ### Package.json конфигурация

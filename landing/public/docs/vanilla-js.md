@@ -5,7 +5,7 @@
 ## Установка
 
 ```bash
-npm install @storykit/core
+npm install@storycarouselkit/core
 ```
 
 ## Базовое использование

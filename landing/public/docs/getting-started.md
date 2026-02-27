@@ -11,7 +11,7 @@
 pnpm add @storykit/react
 
 # Для нативного JavaScript
-pnpm add @storykit/core
+pnpm add@storycarouselkit/core
 
 # Для других фреймворков (планируется)
 pnpm add @storykit/vue

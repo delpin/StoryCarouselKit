@@ -1,14 +1,14 @@
-name: Publish @storykit/core
+name: Publish@storycarouselkit/core
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
     paths:
-      - 'packages/native/**'
+      - "packages/native/**"
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
     paths:
-      - 'packages/native/**'
+      - "packages/native/**"
 
 jobs:
   test:
@@ -27,20 +27,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: "20"
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Run linting
-        run: pnpm --filter @storykit/core lint
+        run: pnpm --filter@storycarouselkit/core lint
 
       - name: Run tests
-        run: pnpm --filter @storykit/core test --run
+        run: pnpm --filter@storycarouselkit/core test --run
 
       - name: Build package
-        run: pnpm --filter @storykit/core build
+        run: pnpm --filter@storycarouselkit/core build
 
   publish:
     name: Publish to NPM
@@ -60,18 +60,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "20"
+          cache: "pnpm"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build package
-        run: pnpm --filter @storykit/core build
+        run: pnpm --filter@storycarouselkit/core build
 
       - name: Publish to NPM
-        run: pnpm --filter @storykit/core publish --no-git-checks
+        run: pnpm --filter@storycarouselkit/core publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -84,5 +84,5 @@ jobs:
     steps:
       - name: Send notification
         run: |
-          echo "Pipeline failed for @storykit/core"
+          echo "Pipeline failed for@storycarouselkit/core"
           # Здесь можно добавить интеграцию с Slack, Discord или другими сервисами уведомлений
