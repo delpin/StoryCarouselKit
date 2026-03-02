@@ -1,228 +1,237 @@
-# @storycarouselkit/core
+# StoryCarouselKit Core
 
-Framework-agnostic TypeScript core для создания Instagram-style story carousel компонентов. Поддерживает React, Vue, Svelte, Angular и vanilla JavaScript.
-
-[![npm version](https://badge.fury.io/js/%40storykit%2Fcore.svg)](https://badge.fury.io/js/%40storykit%2Fcore)
+[![npm version](https://badge.fury.io/js/%40storycarouselkit%2Fcore.svg)](https://badge.fury.io/js/%40storycarouselkit%2Fcore)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-## Особенности
+> Framework-agnostic core logic for story carousel components
 
-- ✅ **Framework-agnostic** - работает в любом JavaScript окружении
-- ✅ **TypeScript** - полная типизация и IntelliSense поддержка
-- ✅ **State machine** - надежное управление состояниями воспроизведения
-- ✅ **Auto-play** - автоматическое переключение между историями
-- ✅ **Progress tracking** - отслеживание прогресса и просмотренных историй
-- ✅ **Event callbacks** - гибкая система событий
-- ✅ **Memory safe** - явная очистка ресурсов
-- ✅ **Zero dependencies** - минимальный размер бандла
+[🇷🇺 Russian](README.ru.md) • [🇨🇳 Chinese](README.cn.md)
 
-## Установка
+## ✨ Features
+
+- **Framework Agnostic**: Pure TypeScript implementation, works with any UI framework
+- **Type Safe**: Full TypeScript support with comprehensive type definitions
+- **Auto Play**: Configurable auto-advancement with progress tracking
+- **Navigation**: Intuitive next/previous navigation with keyboard support
+- **Progress Tracking**: Real-time progress updates for custom UI components
+- **Event System**: Rich event system for story lifecycle management
+- **Memory Efficient**: Lightweight implementation with minimal dependencies
+
+## 📦 Installation
 
 ```bash
 npm install @storycarouselkit/core
-# или
-pnpm add @storycarouselkit/core
-# или
+```
+
+or
+
+```bash
 yarn add @storycarouselkit/core
 ```
 
-## Быстрый старт
+## 🚀 Quick Start
 
 ```typescript
-import { StoryCarousel } from '@storycarouselkit/core';
+import { StoryCarousel, type Story, type StoryCarouselConfig } from '@storycarouselkit/core';
 
-const stories = [
-  { id: '1', content: 'Добро пожаловать!', duration: 3000 },
-  { id: '2', content: 'Это вторая история', duration: 4000 },
-  { id: '3', content: 'И третья история', duration: 5000 },
+// Define your stories
+const stories: Story[] = [
+  {
+    id: 'story-1',
+    content: 'Welcome to our story!',
+    duration: 3000, // 3 seconds
+    mediaUrl: 'https://example.com/story1.jpg'
+  },
+  {
+    id: 'story-2',
+    content: 'This is the second story',
+    duration: 5000, // 5 seconds
+  }
 ];
 
-const carousel = new StoryCarousel({
+// Configure the carousel
+const config: StoryCarouselConfig = {
   stories,
   autoPlay: true,
-  onStoryEnd: story => console.log(`История ${story.id} завершена`),
-  onComplete: () => console.log('Все истории просмотрены!'),
-});
+  defaultDuration: 4000,
+  onStoryStart: (story) => console.log(`Started: ${story.content}`),
+  onStoryEnd: (story) => console.log(`Ended: ${story.content}`),
+  onComplete: () => console.log('All stories completed!')
+};
 
+// Create carousel instance
+const carousel = new StoryCarousel(config);
+
+// Start playing
 carousel.play();
+
+// Control playback
+carousel.pause();
+carousel.next();
+carousel.prev();
+carousel.goTo(1); // Jump to specific story
+
+// Get current state
+const state = carousel.getState();
+console.log(state.currentIndex, state.progress, state.state);
 ```
 
-## API
+## 📚 API Reference
 
-### StoryCarousel класс
+### StoryCarousel Class
 
-#### Конструктор
+#### Constructor
 
 ```typescript
 new StoryCarousel(config: StoryCarouselConfig)
 ```
 
-#### Методы управления
+#### Methods
 
-- `play()` - запуск воспроизведения
-- `pause()` - пауза
-- `next()` - следующая история
-- `prev()` - предыдущая история
-- `goTo(index)` - перейти к истории по индексу
-- `addStory(story)` - добавить новую историю
-- `getState()` - получить текущее состояние
-- `destroy()` - очистить ресурсы
+- `play()`: Start or resume playback
+- `pause()`: Pause playback
+- `next()`: Advance to next story
+- `prev()`: Go back to previous story
+- `goTo(index: number)`: Jump to specific story by index
+- `getState(): StoryCarouselStateInfo`: Get current carousel state
+- `addStory(story: Story)`: Add a new story to the carousel
+- `destroy()`: Clean up resources
 
-### Типы данных
+#### Events
+
+Configure event handlers in the `StoryCarouselConfig`:
+
+- `onStoryStart(story)`: Fired when a story begins playing
+- `onStoryEnd(story)`: Fired when a story finishes playing
+- `onComplete()`: Fired when all stories have been viewed
+- `onStoryViewed(story)`: Fired when a story is marked as viewed
+
+### Types
 
 ```typescript
 interface Story {
-  id: string;
-  content: string;
-  duration?: number;
-  mediaUrl?: string;
+  id: string;           // Unique identifier
+  content: string;      // Story content/description
+  duration?: number;    // Display duration in milliseconds (optional)
+  mediaUrl?: string;    // Media URL for images/videos (optional)
 }
 
 type StoryCarouselState = 'idle' | 'playing' | 'paused' | 'completed';
 
 interface StoryCarouselConfig {
   stories: Story[];
-  autoPlay?: boolean;
-  defaultDuration?: number;
-  progressUpdateInterval?: number;
+  autoPlay?: boolean;           // Default: true
+  defaultDuration?: number;     // Default: 5000ms
+  progressUpdateInterval?: number; // Default: 100ms
   onStoryEnd?: (story: Story) => void;
   onStoryStart?: (story: Story) => void;
   onComplete?: () => void;
   onStoryViewed?: (story: Story) => void;
 }
+
+interface StoryCarouselStateInfo {
+  currentIndex: number;
+  state: StoryCarouselState;
+  progress: number;     // 0-1 progress value
+  currentStory: Story | null;
+  viewedStories: string[]; // Array of viewed story IDs
+}
 ```
 
-## Примеры использования
+## 🎯 Advanced Usage
 
-### React интеграция
+### Custom Progress UI
 
-```tsx
-import React from 'react';
+```typescript
 import { StoryCarousel } from '@storycarouselkit/core';
 
-function StoryViewer({ stories }) {
-  const carouselRef = useRef();
+const carousel = new StoryCarousel({
+  stories: myStories,
+  progressUpdateInterval: 50, // More frequent updates
+  onStoryStart: updateProgressUI,
+  onStoryEnd: updateProgressUI
+});
+
+function updateProgressUI() {
+  const state = carousel.getState();
+  const progressBar = document.getElementById('progress-bar');
+  progressBar.style.width = `${state.progress * 100}%`;
+}
+```
+
+### Keyboard Navigation
+
+```typescript
+document.addEventListener('keydown', (event) => {
+  switch (event.key) {
+    case 'ArrowRight':
+    case ' ': // Spacebar
+      carousel.next();
+      break;
+    case 'ArrowLeft':
+      carousel.prev();
+      break;
+    case ' ': // Spacebar (prevent page scroll)
+      event.preventDefault();
+      carousel.play();
+      break;
+  }
+});
+```
+
+### React Integration Example
+
+```typescript
+import React, { useEffect, useState } from 'react';
+import { StoryCarousel, type StoryCarouselStateInfo } from '@storycarouselkit/core';
+
+function StoryComponent({ stories }) {
+  const [carousel] = useState(() => new StoryCarousel({ stories }));
+  const [state, setState] = useState<StoryCarouselStateInfo>();
 
   useEffect(() => {
-    const carousel = new StoryCarousel({
-      stories,
-      onStoryStart: story => {
-        // Обновить UI
-        setCurrentStory(story);
-      },
-    });
+    const updateState = () => setState(carousel.getState());
+    updateState();
 
-    carouselRef.current = carousel;
-    return () => carousel.destroy();
-  }, [stories]);
+    // Set up progress updates
+    const interval = setInterval(updateState, 100);
+
+    return () => {
+      clearInterval(interval);
+      carousel.destroy();
+    };
+  }, [carousel]);
 
   return (
-    <div>
-      <div id='story-display'>{/* Ваш UI для историй */}</div>
-      <button onClick={() => carouselRef.current?.next()}>Далее</button>
+    <div className="story-container">
+      <div className="progress-bar">
+        <div
+          className="progress-fill"
+          style={{ width: `${(state?.progress || 0) * 100}%` }}
+        />
+      </div>
+      <div className="story-content">
+        {state?.currentStory?.content}
+      </div>
+      <button onClick={() => carousel.prev()}>Previous</button>
+      <button onClick={() => carousel.next()}>Next</button>
     </div>
   );
 }
 ```
 
-### Vanilla JavaScript
+## 🤝 Contributing
 
-```html
-<div id="story-container"></div>
+We welcome contributions! Please see our [Contributing Guide](../../CONTRIBUTING.md) for details.
 
-<script type="module">
-  import { StoryCarousel } from '@storycarouselkit/core';
+## 📄 License
 
-  const container = document.getElementById('story-container');
+MIT License - see the [LICENSE](../../LICENSE) file for details.
 
-  const carousel = new StoryCarousel({
-    stories: [
-      { id: '1', content: 'История 1', duration: 3000 },
-      { id: '2', content: 'История 2', duration: 4000 },
-    ],
-    onStoryStart: story => {
-      container.innerHTML = `<h2>${story.content}</h2>`;
-    },
-    onComplete: () => {
-      container.innerHTML = '<p>Все истории просмотрены!</p>';
-    },
-  });
+## 🔗 Links
 
-  carousel.play();
-</script>
-```
-
-### Отслеживание прогресса
-
-```typescript
-const carousel = new StoryCarousel({
-  stories,
-  onStoryViewed: story => {
-    // Сохранить в аналитику
-    analytics.track('story_viewed', {
-      storyId: story.id,
-      duration: story.duration,
-    });
-  },
-});
-
-// Мониторинг состояния
-setInterval(() => {
-  const state = carousel.getState();
-  console.log(`Прогресс: ${Math.round(state.progress * 100)}%`);
-}, 500);
-```
-
-## Архитектура
-
-StoryCarousel использует state machine с 4 состояниями:
-
-- `idle` - ожидание запуска
-- `playing` - активное воспроизведение
-- `paused` - приостановлено
-- `completed` - все истории просмотрены
-
-Каждая история имеет уникальный ID и отслеживается отдельно от данных. Это обеспечивает целостность данных и позволяет гибко управлять воспроизведением.
-
-## Тестирование
-
-Пакет включает полное покрытие unit-тестами с Vitest:
-
-```bash
-# Запуск тестов
-pnpm test
-
-# Покрытие включает:
-# - Инициализацию с различными конфигурациями
-# - Переходы между состояниями
-# - Управление воспроизведением
-# - Динамическое добавление историй
-# - Отслеживание просмотров
-```
-
-## Совместимость
-
-- **Node.js**: 16+
-- **Browsers**: ES2020+
-- **TypeScript**: 4.5+
-- **React**: 16.8+ (через обертку)
-- **Vue**: 3+ (планируется)
-- **Svelte**: 3+ (планируется)
-- **Angular**: 12+ (планируется)
-
-## Размер бандла
-
-- **ESM**: ~2.5KB gzipped
-- **CJS**: ~2.7KB gzipped
-- **Zero runtime dependencies**
-
-## Лицензия
-
-MIT © [StoryKit Team](https://github.com/delpin/StoryCarouselKit)
-
-## Ссылки
-
-- [Документация](https://storykit.dev/docs)
-- [React интеграция](https://www.npmjs.com/package/@storycarouselkit/react)
-- [GitHub](https://github.com/delpin/StoryCarouselKit)
-- [Примеры](https://storykit.dev/examples)
+- [Homepage](https://storykit.dev)
+- [GitHub Repository](https://github.com/delpin/StoryCarouselKit)
+- [NPM Package](https://www.npmjs.com/package/@storycarouselkit/core)
+- [Issues](https://github.com/delpin/StoryCarouselKit/issues)
