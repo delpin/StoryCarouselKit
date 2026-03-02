@@ -71,7 +71,7 @@ jobs:
         run: pnpm --filter@storycarouselkit/core build
 
       - name: Publish to NPM
-        run: pnpm --filter@storycarouselkit/core publish --no-git-checks
+        run: cd packages/native && pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

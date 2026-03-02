@@ -87,7 +87,7 @@ jobs:
           git commit -m "chore: bump@storycarouselkit/core to v$NEW_VERSION"
 
           # Создаем git tag
-          git tag "@storykit/core@$NEW_VERSION"
+          git tag "@storycarouselkit/core@$NEW_VERSION"
 
       - name: Push changes and tag
         run: |
@@ -97,7 +97,7 @@ jobs:
           git config --global credential.https://github.com.username x-access-token
 
           git push origin HEAD
-          git push origin "@storykit/core@${{ steps.bump.outputs.new_version }}"
+          git push origin "@storycarouselkit/core@${{ steps.bump.outputs.new_version }}"
 
       - name: Publish to NPM
         run: |
@@ -111,10 +111,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: '@storykit/core@${{ steps.bump.outputs.new_version }}'
-          release_name: '@storykit/core v${{ steps.bump.outputs.new_version }}'
+          tag_name: '@storycarouselkit/core@${{ steps.bump.outputs.new_version }}'
+          release_name: '@storycarouselkit/core v${{ steps.bump.outputs.new_version }}'
           body: |
-            ## Changes in@storycarouselkit/core v${{ steps.bump.outputs.new_version }}
+            ## Changes in @storycarouselkit/core v${{ steps.bump.outputs.new_version }}
 
             ### 🚀 Features
             - New features and improvements
@@ -130,6 +130,6 @@ jobs:
             - Dependency updates
 
             ---
-            Published to [npm](https://www.npmjs.com/package/@storykit/core)
+            Published to [npm](https://www.npmjs.com/package/@storycarouselkit/core)
           draft: false
           prerelease: ${{ contains(github.event.inputs.version_type, 'prerelease') }}
