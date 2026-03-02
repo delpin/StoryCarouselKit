@@ -10,7 +10,7 @@ export class StoryCarousel {
   private currentIndex: number;
   private state: StoryCarouselState;
   private progress: number;
-  private timer: NodeJS.Timeout | null = null;
+  private timer: ReturnType<typeof setTimeout> | null = null;
   private viewedStories: Set<string> = new Set();
 
   constructor(config: StoryCarouselConfig) {

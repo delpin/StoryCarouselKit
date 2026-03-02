@@ -3,7 +3,7 @@ import {
   StoryCarousel as StoryCarouselCore,
   Story,
   StoryCarouselConfig,
-  StoryCarouselState,
+  StoryCarouselStateInfo,
 } from '@storykit/core';
 
 export interface StoryCarouselProps extends Omit<
@@ -30,7 +30,7 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
   onComplete,
 }) => {
   const carouselRef = useRef<StoryCarouselCore | null>(null);
-  const [state, setState] = useState<StoryCarouselState | null>(null);
+  const [state, setState] = useState<StoryCarouselStateInfo | null>(null);
 
   useEffect(() => {
     if (!stories.length) return;
@@ -215,7 +215,7 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
 
       {/* Play/Pause button */}
       <button
-        onClick={state.isPlaying ? handlePause : handlePlay}
+        onClick={state.state === 'playing' ? handlePause : handlePlay}
         style={{
           position: 'absolute',
           bottom: 20,
@@ -231,7 +231,7 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
           zIndex: 10,
         }}
       >
-        {state.isPlaying ? '⏸' : '▶'}
+        {state.state === 'playing' ? '⏸' : '▶'}
       </button>
     </div>
   );
