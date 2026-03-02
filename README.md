@@ -28,22 +28,22 @@ pnpm build
 ### React
 
 ```tsx
-import { StoryCarousel } from "@storykit/react";
+import { StoryCarousel } from '@storykit/react';
 
 const stories = [
-  { id: "1", content: "Story 1", duration: 3000 },
-  { id: "2", content: "Story 2", duration: 4000 },
-  { id: "3", content: "Story 3", duration: 5000 },
+  { id: '1', content: 'Story 1', duration: 3000 },
+  { id: '2', content: 'Story 2', duration: 4000 },
+  { id: '3', content: 'Story 3', duration: 5000 },
 ];
 
 function App() {
   return (
-    <div style={{ width: "400px", height: "600px" }}>
+    <div style={{ width: '400px', height: '600px' }}>
       <StoryCarousel
         stories={stories}
         autoPlay={true}
-        onStoryEnd={(story) => console.log("Story ended:", story)}
-        onComplete={() => console.log("All stories completed")}
+        onStoryEnd={story => console.log('Story ended:', story)}
+        onComplete={() => console.log('All stories completed')}
       />
     </div>
   );
@@ -53,18 +53,18 @@ function App() {
 ### Native (Vanilla JS)
 
 ```javascript
-import { StoryCarousel } from "@storykit/core";
+import { StoryCarousel } from '@storykit/core';
 
 const stories = [
-  { id: "1", content: "Story 1", duration: 3000 },
-  { id: "2", content: "Story 2", duration: 4000 },
+  { id: '1', content: 'Story 1', duration: 3000 },
+  { id: '2', content: 'Story 2', duration: 4000 },
 ];
 
 const carousel = new StoryCarousel({
   stories,
   autoPlay: true,
-  onStoryEnd: (story) => console.log("Story ended:", story),
-  onComplete: () => console.log("All stories completed"),
+  onStoryEnd: story => console.log('Story ended:', story),
+  onComplete: () => console.log('All stories completed'),
 });
 
 carousel.play();

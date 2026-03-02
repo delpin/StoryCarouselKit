@@ -29,19 +29,19 @@ yarn add @storycarouselkit/core
 ## Быстрый старт
 
 ```typescript
-import { StoryCarousel } from "@storycarouselkit/core";
+import { StoryCarousel } from '@storycarouselkit/core';
 
 const stories = [
-  { id: "1", content: "Добро пожаловать!", duration: 3000 },
-  { id: "2", content: "Это вторая история", duration: 4000 },
-  { id: "3", content: "И третья история", duration: 5000 },
+  { id: '1', content: 'Добро пожаловать!', duration: 3000 },
+  { id: '2', content: 'Это вторая история', duration: 4000 },
+  { id: '3', content: 'И третья история', duration: 5000 },
 ];
 
 const carousel = new StoryCarousel({
   stories,
   autoPlay: true,
-  onStoryEnd: (story) => console.log(`История ${story.id} завершена`),
-  onComplete: () => console.log("Все истории просмотрены!"),
+  onStoryEnd: story => console.log(`История ${story.id} завершена`),
+  onComplete: () => console.log('Все истории просмотрены!'),
 });
 
 carousel.play();
@@ -78,7 +78,7 @@ interface Story {
   mediaUrl?: string;
 }
 
-type StoryCarouselState = "idle" | "playing" | "paused" | "completed";
+type StoryCarouselState = 'idle' | 'playing' | 'paused' | 'completed';
 
 interface StoryCarouselConfig {
   stories: Story[];
@@ -97,8 +97,8 @@ interface StoryCarouselConfig {
 ### React интеграция
 
 ```tsx
-import React from "react";
-import { StoryCarousel } from "@storycarouselkit/core";
+import React from 'react';
+import { StoryCarousel } from '@storycarouselkit/core';
 
 function StoryViewer({ stories }) {
   const carouselRef = useRef();
@@ -106,7 +106,7 @@ function StoryViewer({ stories }) {
   useEffect(() => {
     const carousel = new StoryCarousel({
       stories,
-      onStoryStart: (story) => {
+      onStoryStart: story => {
         // Обновить UI
         setCurrentStory(story);
       },
@@ -118,7 +118,7 @@ function StoryViewer({ stories }) {
 
   return (
     <div>
-      <div id="story-display">{/* Ваш UI для историй */}</div>
+      <div id='story-display'>{/* Ваш UI для историй */}</div>
       <button onClick={() => carouselRef.current?.next()}>Далее</button>
     </div>
   );
@@ -131,20 +131,20 @@ function StoryViewer({ stories }) {
 <div id="story-container"></div>
 
 <script type="module">
-  import { StoryCarousel } from "@storycarouselkit/core";
+  import { StoryCarousel } from '@storycarouselkit/core';
 
-  const container = document.getElementById("story-container");
+  const container = document.getElementById('story-container');
 
   const carousel = new StoryCarousel({
     stories: [
-      { id: "1", content: "История 1", duration: 3000 },
-      { id: "2", content: "История 2", duration: 4000 },
+      { id: '1', content: 'История 1', duration: 3000 },
+      { id: '2', content: 'История 2', duration: 4000 },
     ],
-    onStoryStart: (story) => {
+    onStoryStart: story => {
       container.innerHTML = `<h2>${story.content}</h2>`;
     },
     onComplete: () => {
-      container.innerHTML = "<p>Все истории просмотрены!</p>";
+      container.innerHTML = '<p>Все истории просмотрены!</p>';
     },
   });
 
@@ -157,9 +157,9 @@ function StoryViewer({ stories }) {
 ```typescript
 const carousel = new StoryCarousel({
   stories,
-  onStoryViewed: (story) => {
+  onStoryViewed: story => {
     // Сохранить в аналитику
-    analytics.track("story_viewed", {
+    analytics.track('story_viewed', {
       storyId: story.id,
       duration: story.duration,
     });

@@ -72,8 +72,8 @@
    ```
 3. Проверьте версию:
    ```javascript
-   import { StoryCarousel } from "@storykit/core";
-   console.log("Version check passed!");
+   import { StoryCarousel } from '@storykit/core';
+   console.log('Version check passed!');
    ```
 
 ## Troubleshooting

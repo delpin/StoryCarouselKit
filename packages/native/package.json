@@ -1,6 +1,6 @@
 {
   "name": "@storycarouselkit/core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Framework-agnostic core logic for story carousel component",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,8 +14,11 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "test": "vitest run",
-    "lint": "eslint src --ext .ts,.tsx",
+    "test": "vitest run --passWithNoTests",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src",
     "clean": "rm -rf dist",
     "prepublishOnly": "pnpm clean && pnpm build && pnpm test"
   },
@@ -47,7 +50,8 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "eslint": "^8.0.0",
+    "eslint": "^9.9.0",
+    "prettier": "^3.3.0",
     "semver": "^7.6.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",

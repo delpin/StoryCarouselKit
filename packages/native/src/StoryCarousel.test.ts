@@ -11,7 +11,10 @@ const createTestStories = (count: number): Story[] => {
   }));
 };
 
-const createCarousel = (stories: Story[] = [], config: Partial<{ autoPlay: boolean; defaultDuration: number }> = {}) => {
+const createCarousel = (
+  stories: Story[] = [],
+  config: Partial<{ autoPlay: boolean; defaultDuration: number }> = {}
+) => {
   return new StoryCarousel({
     stories,
     autoPlay: false,

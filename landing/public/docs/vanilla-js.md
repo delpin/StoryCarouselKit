@@ -117,31 +117,31 @@ npm install@storycarouselkit/core
     </div>
 
     <script type="module">
-      import { StoryCarousel } from "@storykit/core";
+      import { StoryCarousel } from '@storykit/core';
 
       // Данные историй
       const stories = [
-        { id: "1", content: "Добро пожаловать!", duration: 3000 },
-        { id: "2", content: "Это вторая история", duration: 4000 },
-        { id: "3", content: "И третья история", duration: 5000 },
+        { id: '1', content: 'Добро пожаловать!', duration: 3000 },
+        { id: '2', content: 'Это вторая история', duration: 4000 },
+        { id: '3', content: 'И третья история', duration: 5000 },
       ];
 
       // Элементы DOM
-      const progressContainer = document.getElementById("progress-container");
-      const storyContent = document.getElementById("story-content");
-      const prevButton = document.getElementById("prev-button");
-      const nextButton = document.getElementById("next-button");
-      const playButton = document.getElementById("play-button");
+      const progressContainer = document.getElementById('progress-container');
+      const storyContent = document.getElementById('story-content');
+      const prevButton = document.getElementById('prev-button');
+      const nextButton = document.getElementById('next-button');
+      const playButton = document.getElementById('play-button');
 
       // Создание индикаторов прогресса
       function createProgressBars() {
-        progressContainer.innerHTML = "";
+        progressContainer.innerHTML = '';
         stories.forEach((story, index) => {
-          const progressBar = document.createElement("div");
-          progressBar.className = "progress-bar";
+          const progressBar = document.createElement('div');
+          progressBar.className = 'progress-bar';
 
-          const progressFill = document.createElement("div");
-          progressFill.className = "progress-fill";
+          const progressFill = document.createElement('div');
+          progressFill.className = 'progress-fill';
           progressFill.id = `progress-${index}`;
 
           progressBar.appendChild(progressFill);
@@ -162,16 +162,16 @@ npm install@storycarouselkit/core
           if (index === state.currentIndex) {
             progressFill.style.width = `${state.progress * 100}%`;
           } else if (index < state.currentIndex) {
-            progressFill.style.width = "100%";
+            progressFill.style.width = '100%';
           } else {
-            progressFill.style.width = "0%";
+            progressFill.style.width = '0%';
           }
         });
 
         // Обновление кнопок
         prevButton.disabled = state.currentIndex === 0;
         nextButton.disabled = state.currentIndex === stories.length - 1;
-        playButton.textContent = state.isPlaying ? "⏸" : "▶";
+        playButton.textContent = state.isPlaying ? '⏸' : '▶';
       }
 
       // Инициализация
@@ -180,15 +180,15 @@ npm install@storycarouselkit/core
       const carousel = new StoryCarousel({
         stories,
         autoPlay: true,
-        onStoryStart: (story) => {
-          console.log("Начало истории:", story.id);
+        onStoryStart: story => {
+          console.log('Начало истории:', story.id);
         },
-        onStoryEnd: (story) => {
-          console.log("Конец истории:", story.id);
+        onStoryEnd: story => {
+          console.log('Конец истории:', story.id);
         },
         onComplete: () => {
-          console.log("Все истории просмотрены");
-          alert("Все истории просмотрены!");
+          console.log('Все истории просмотрены');
+          alert('Все истории просмотрены!');
         },
       });
 
@@ -201,9 +201,9 @@ npm install@storycarouselkit/core
       }, 100);
 
       // Обработчики событий
-      prevButton.addEventListener("click", () => carousel.prev());
-      nextButton.addEventListener("click", () => carousel.next());
-      playButton.addEventListener("click", () => {
+      prevButton.addEventListener('click', () => carousel.prev());
+      nextButton.addEventListener('click', () => carousel.next());
+      playButton.addEventListener('click', () => {
         const state = carousel.getState();
         if (state.isPlaying) {
           carousel.pause();
@@ -213,7 +213,7 @@ npm install@storycarouselkit/core
       });
 
       // Очистка при уходе со страницы
-      window.addEventListener("beforeunload", () => {
+      window.addEventListener('beforeunload', () => {
         clearInterval(stateInterval);
         carousel.destroy();
       });
@@ -239,7 +239,7 @@ class MediaStoryViewer {
   init() {
     this.carousel = new StoryCarousel({
       stories: this.stories,
-      onStoryStart: (story) => this.showMedia(story),
+      onStoryStart: story => this.showMedia(story),
       onComplete: () => this.onComplete(),
     });
   }
@@ -250,23 +250,21 @@ class MediaStoryViewer {
       this.currentMedia.remove();
     }
 
-    const mediaElement = document.createElement(
-      story.mediaType === "video" ? "video" : "img",
-    );
+    const mediaElement = document.createElement(story.mediaType === 'video' ? 'video' : 'img');
 
-    if (story.mediaType === "video") {
+    if (story.mediaType === 'video') {
       mediaElement.src = story.mediaUrl;
       mediaElement.autoplay = true;
       mediaElement.muted = true;
-      mediaElement.style.objectFit = "cover";
+      mediaElement.style.objectFit = 'cover';
     } else {
       mediaElement.src = story.mediaUrl;
       mediaElement.alt = story.content;
-      mediaElement.style.objectFit = "cover";
+      mediaElement.style.objectFit = 'cover';
     }
 
-    mediaElement.style.width = "100%";
-    mediaElement.style.height = "100%";
+    mediaElement.style.width = '100%';
+    mediaElement.style.height = '100%';
 
     this.container.appendChild(mediaElement);
     this.currentMedia = mediaElement;
@@ -288,25 +286,22 @@ class MediaStoryViewer {
 // Использование
 const mediaStories = [
   {
-    id: "1",
-    content: "Фото 1",
-    mediaUrl: "/photo1.jpg",
-    mediaType: "image",
+    id: '1',
+    content: 'Фото 1',
+    mediaUrl: '/photo1.jpg',
+    mediaType: 'image',
     duration: 4000,
   },
   {
-    id: "2",
-    content: "Видео",
-    mediaUrl: "/video.mp4",
-    mediaType: "video",
+    id: '2',
+    content: 'Видео',
+    mediaUrl: '/video.mp4',
+    mediaType: 'video',
     duration: 6000,
   },
 ];
 
-const viewer = new MediaStoryViewer(
-  document.getElementById("story-container"),
-  mediaStories,
-);
+const viewer = new MediaStoryViewer(document.getElementById('story-container'), mediaStories);
 ```
 
 ### Интерактивные истории
@@ -323,19 +318,19 @@ class InteractiveStoryViewer {
 
   init() {
     this.carousel = new StoryCarousel({
-      stories: this.stories.map((story) => ({
+      stories: this.stories.map(story => ({
         ...story,
         duration: story.interactive ? 10000 : story.duration, // Дольше для интерактивных
       })),
       autoPlay: false, // Ручное управление для интерактивных историй
-      onStoryStart: (story) => this.renderStory(story),
+      onStoryStart: story => this.renderStory(story),
     });
 
     this.renderStory(this.stories[0]);
   }
 
   renderStory(story) {
-    this.container.innerHTML = "";
+    this.container.innerHTML = '';
 
     if (story.interactive) {
       this.renderInteractiveStory(story);
@@ -396,9 +391,9 @@ class InteractiveStoryViewer {
             >
               ${option}
             </button>
-          `,
+          `
             )
-            .join("")}
+            .join('')}
         </div>
       </div>
     `;
@@ -406,8 +401,8 @@ class InteractiveStoryViewer {
     this.container.innerHTML = html;
 
     // Обработчики для кнопок
-    this.container.querySelectorAll(".option-btn").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
+    this.container.querySelectorAll('.option-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
         const index = parseInt(e.target.dataset.index);
         this.handleAnswer(story, index);
       });
@@ -416,12 +411,7 @@ class InteractiveStoryViewer {
 
   handleAnswer(story, answerIndex) {
     // Сохранить ответ
-    console.log(
-      "Ответ на вопрос:",
-      story.question,
-      "->",
-      story.options[answerIndex],
-    );
+    console.log('Ответ на вопрос:', story.question, '->', story.options[answerIndex]);
 
     // Перейти к следующей истории
     setTimeout(() => {
@@ -433,26 +423,26 @@ class InteractiveStoryViewer {
 // Использование
 const interactiveStories = [
   {
-    id: "1",
-    content: "Простая история",
+    id: '1',
+    content: 'Простая история',
     duration: 3000,
   },
   {
-    id: "2",
-    question: "Какой ваш любимый цвет?",
-    options: ["Красный", "Синий", "Зеленый", "Желтый"],
+    id: '2',
+    question: 'Какой ваш любимый цвет?',
+    options: ['Красный', 'Синий', 'Зеленый', 'Желтый'],
     interactive: true,
   },
   {
-    id: "3",
-    content: "Спасибо за участие!",
+    id: '3',
+    content: 'Спасибо за участие!',
     duration: 3000,
   },
 ];
 
 const interactiveViewer = new InteractiveStoryViewer(
-  document.getElementById("story-container"),
-  interactiveStories,
+  document.getElementById('story-container'),
+  interactiveStories
 );
 ```
 

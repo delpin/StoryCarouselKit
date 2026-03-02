@@ -14,8 +14,11 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "test": "vitest",
-    "lint": "eslint src --ext .ts,.tsx",
+    "test": "vitest --passWithNoTests",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src",
     "clean": "rm -rf dist"
   },
   "keywords": [
@@ -31,12 +34,13 @@
     "react-dom": ">=16.8.0"
   },
   "dependencies": {
-    "@storykit/core": "workspace:*"
+    "@storycarouselkit/core": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "eslint": "^8.0.0",
+    "eslint": "^9.9.0",
+    "prettier": "^3.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "tsup": "^8.0.0",

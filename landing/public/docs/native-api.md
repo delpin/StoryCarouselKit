@@ -129,22 +129,22 @@ carousel.destroy();
 ### Базовый пример
 
 ```javascript
-import { StoryCarousel } from "@storykit/core";
+import { StoryCarousel } from '@storykit/core';
 
 const stories = [
-  { id: "1", content: "Добро пожаловать!", duration: 3000 },
-  { id: "2", content: "Это вторая история", duration: 4000 },
-  { id: "3", content: "И третья история", duration: 5000 },
+  { id: '1', content: 'Добро пожаловать!', duration: 3000 },
+  { id: '2', content: 'Это вторая история', duration: 4000 },
+  { id: '3', content: 'И третья история', duration: 5000 },
 ];
 
 const carousel = new StoryCarousel({
   stories,
   autoPlay: true,
-  onStoryEnd: (story) => {
+  onStoryEnd: story => {
     console.log(`История ${story.id} завершена`);
   },
   onComplete: () => {
-    console.log("Все истории просмотрены!");
+    console.log('Все истории просмотрены!');
   },
 });
 
@@ -168,7 +168,7 @@ const carousel = new StoryCarousel({ stories });
 const monitor = setInterval(() => {
   const state = carousel.getState();
   console.log(
-    `История ${state.currentIndex + 1}/${stories.length}: ${Math.round(state.progress * 100)}%`,
+    `История ${state.currentIndex + 1}/${stories.length}: ${Math.round(state.progress * 100)}%`
   );
 }, 500);
 
@@ -184,7 +184,7 @@ class StoryViewer {
     this.container = container;
     this.carousel = new StoryCarousel({
       stories: this.loadStories(),
-      onStoryStart: (story) => this.renderStory(story),
+      onStoryStart: story => this.renderStory(story),
       onComplete: () => this.showCompletionMessage(),
     });
   }
@@ -193,14 +193,13 @@ class StoryViewer {
     this.container.innerHTML = `
       <div class="story">
         <h2>${story.content}</h2>
-        ${story.mediaUrl ? `<img src="${story.mediaUrl}" alt="Story media">` : ""}
+        ${story.mediaUrl ? `<img src="${story.mediaUrl}" alt="Story media">` : ''}
       </div>
     `;
   }
 
   showCompletionMessage() {
-    this.container.innerHTML =
-      '<div class="completed">Все истории просмотрены!</div>';
+    this.container.innerHTML = '<div class="completed">Все истории просмотрены!</div>';
   }
 
   play() {
@@ -219,9 +218,9 @@ class StoryViewer {
 
 ```typescript
 const stories = [
-  { id: "1", content: "Короткая история", duration: 2000 },
-  { id: "2", content: "Длинная история", duration: 8000 },
-  { id: "3", content: "История по умолчанию" }, // Используется defaultDuration
+  { id: '1', content: 'Короткая история', duration: 2000 },
+  { id: '2', content: 'Длинная история', duration: 8000 },
+  { id: '3', content: 'История по умолчанию' }, // Используется defaultDuration
 ];
 ```
 
@@ -230,13 +229,13 @@ const stories = [
 ```typescript
 const carousel = new StoryCarousel({
   stories,
-  onStoryStart: (story) => {
+  onStoryStart: story => {
     // Аналитика: начало просмотра
-    analytics.track("story_started", { storyId: story.id });
+    analytics.track('story_started', { storyId: story.id });
   },
-  onStoryEnd: (story) => {
+  onStoryEnd: story => {
     // Аналитика: завершение просмотра
-    analytics.track("story_completed", { storyId: story.id });
+    analytics.track('story_completed', { storyId: story.id });
   },
   onComplete: () => {
     // Показать CTA или следующее действие
@@ -281,11 +280,11 @@ class ManagedStoryCarousel {
 ```typescript
 function createValidatedCarousel(stories) {
   if (!Array.isArray(stories) || stories.length === 0) {
-    throw new Error("Stories must be a non-empty array");
+    throw new Error('Stories must be a non-empty array');
   }
 
-  if (stories.some((story) => !story.id || !story.content)) {
-    throw new Error("Each story must have id and content");
+  if (stories.some(story => !story.id || !story.content)) {
+    throw new Error('Each story must have id and content');
   }
 
   return new StoryCarousel({ stories });
@@ -297,12 +296,12 @@ function createValidatedCarousel(stories) {
 ```typescript
 const carousel = new StoryCarousel({
   stories,
-  onStoryEnd: (story) => {
+  onStoryEnd: story => {
     try {
       // Бизнес-логика
       processStoryCompletion(story);
     } catch (error) {
-      console.error("Error processing story completion:", error);
+      console.error('Error processing story completion:', error);
       // Продолжить выполнение
     }
   },

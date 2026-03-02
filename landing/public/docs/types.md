@@ -25,6 +25,7 @@ interface Story {
 ```
 
 **Примеры использования:**
+
 ```typescript
 const textStory: Story = {
   id: 'welcome',
@@ -67,13 +68,14 @@ interface StoryCarouselConfig {
 ```
 
 **Примеры конфигурации:**
+
 ```typescript
 const config: StoryCarouselConfig = {
   stories: myStories,
   autoPlay: true,
   defaultDuration: 4000,
-  onStoryEnd: (story) => console.log(`Завершена: ${story.id}`),
-  onStoryStart: (story) => console.log(`Начата: ${story.id}`),
+  onStoryEnd: story => console.log(`Завершена: ${story.id}`),
+  onStoryStart: story => console.log(`Начата: ${story.id}`),
   onComplete: () => console.log('Все истории просмотрены'),
 };
 ```
@@ -99,6 +101,7 @@ interface StoryCarouselState {
 ```
 
 **Использование:**
+
 ```typescript
 const carousel = new StoryCarousel(config);
 const state = carousel.getState();
@@ -115,7 +118,10 @@ console.log(`Воспроизведение: ${state.isPlaying ? 'активно
 Пропсы для React компонента StoryCarousel.
 
 ```typescript
-interface StoryCarouselProps extends Omit<StoryCarouselConfig, 'onStoryEnd' | 'onStoryStart' | 'onComplete'> {
+interface StoryCarouselProps extends Omit<
+  StoryCarouselConfig,
+  'onStoryEnd' | 'onStoryStart' | 'onComplete'
+> {
   /** CSS класс для контейнера */
   className?: string;
 
@@ -137,6 +143,7 @@ interface StoryCarouselProps extends Omit<StoryCarouselConfig, 'onStoryEnd' | 'o
 ```
 
 **Примеры использования:**
+
 ```tsx
 // Базовое использование
 <StoryCarousel stories={stories} />
@@ -213,6 +220,7 @@ interface TypedStory extends Story {
 ```
 
 **Примеры расширенных историй:**
+
 ```typescript
 const pollStory: TypedStory = {
   id: 'poll1',
@@ -280,6 +288,7 @@ interface StoryMetrics {
 ```
 
 **Использование для аналитики:**
+
 ```typescript
 const trackStoryView = (story: Story, metrics: Partial<StoryMetrics>) => {
   const viewMetrics: StoryMetrics = {
@@ -309,11 +318,12 @@ type DeepPartial<T> = {
 ```
 
 **Использование:**
+
 ```typescript
 // Частичная конфигурация
 const partialConfig: DeepPartial<StoryCarouselConfig> = {
   autoPlay: false,
-  onStoryEnd: (story) => console.log(story),
+  onStoryEnd: story => console.log(story),
 };
 ```
 
@@ -353,12 +363,11 @@ type StoryRenderer<T = any> = (
 ```
 
 **Примеры рендереров:**
+
 ```tsx
 // React рендерер
 const reactRenderer: StoryRenderer = (story, progress) => (
-  <div style={{ background: '#000', color: '#fff' }}>
-    {story.content}
-  </div>
+  <div style={{ background: '#000', color: '#fff' }}>{story.content}</div>
 );
 
 // HTML рендерер
@@ -455,6 +464,7 @@ interface ThemeConfig {
 ```
 
 **Пример темы:**
+
 ```typescript
 const darkTheme: ThemeConfig = {
   colors: {

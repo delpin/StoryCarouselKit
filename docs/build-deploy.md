@@ -68,11 +68,11 @@ packages/
 
 ```typescript
 // packages/native/tsup.config.ts
-import { defineConfig } from "tsup";
+import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ["src/index.ts"],
-  format: ["cjs", "esm"],
+  entry: ['src/index.ts'],
+  format: ['cjs', 'esm'],
   dts: true,
   splitting: false,
   sourcemap: true,
@@ -83,14 +83,14 @@ export default defineConfig({
 
 ```typescript
 // packages/react/tsup.config.ts
-import { defineConfig } from "tsup";
-import * as reactPlugin from "esbuild-plugin-react";
+import { defineConfig } from 'tsup';
+import * as reactPlugin from 'esbuild-plugin-react';
 
 export default defineConfig({
-  entry: ["src/index.ts"],
-  format: ["cjs", "esm"],
+  entry: ['src/index.ts'],
+  format: ['cjs', 'esm'],
   dts: true,
-  external: ["react", "react-dom"],
+  external: ['react', 'react-dom'],
   plugins: [reactPlugin()],
   sourcemap: true,
   clean: true,
@@ -103,8 +103,8 @@ export default defineConfig({
 
 ```typescript
 // src/index.ts - явный экспорт для tree shaking
-export { StoryCarousel } from "./StoryCarousel";
-export type { Story, StoryCarouselConfig, StoryCarouselState } from "./types";
+export { StoryCarousel } from './StoryCarousel';
+export type { Story, StoryCarouselConfig, StoryCarouselState } from './types';
 
 // Не используем export * from для лучшего tree shaking
 ```
@@ -189,28 +189,28 @@ pnpm publish --filter @storykit/react
 
 ```typescript
 // scripts/publish.ts
-import { execSync } from "child_process";
-import { readFileSync, writeFileSync } from "fs";
+import { execSync } from 'child_process';
+import { readFileSync, writeFileSync } from 'fs';
 
-function bumpVersion(type: "patch" | "minor" | "major") {
-  const packageJson = JSON.parse(readFileSync("package.json", "utf8"));
-  const [major, minor, patch] = packageJson.version.split(".").map(Number);
+function bumpVersion(type: 'patch' | 'minor' | 'major') {
+  const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
+  const [major, minor, patch] = packageJson.version.split('.').map(Number);
 
   let newVersion: string;
   switch (type) {
-    case "patch":
+    case 'patch':
       newVersion = `${major}.${minor}.${patch + 1}`;
       break;
-    case "minor":
+    case 'minor':
       newVersion = `${major}.${minor + 1}.0`;
       break;
-    case "major":
+    case 'major':
       newVersion = `${major + 1}.0.0`;
       break;
   }
 
   packageJson.version = newVersion;
-  writeFileSync("package.json", JSON.stringify(packageJson, null, 2));
+  writeFileSync('package.json', JSON.stringify(packageJson, null, 2));
 
   return newVersion;
 }
@@ -218,23 +218,23 @@ function bumpVersion(type: "patch" | "minor" | "major") {
 function publishPackages() {
   try {
     // Сборка
-    execSync("pnpm build", { stdio: "inherit" });
+    execSync('pnpm build', { stdio: 'inherit' });
 
     // Тесты
-    execSync("pnpm test", { stdio: "inherit" });
+    execSync('pnpm test', { stdio: 'inherit' });
 
     // Публикация
-    execSync("pnpm publish --recursive", { stdio: "inherit" });
+    execSync('pnpm publish --recursive', { stdio: 'inherit' });
 
-    console.log("✅ Публикация завершена успешно");
+    console.log('✅ Публикация завершена успешно');
   } catch (error) {
-    console.error("❌ Ошибка публикации:", error);
+    console.error('❌ Ошибка публикации:', error);
     process.exit(1);
   }
 }
 
 // Использование: node scripts/publish.ts patch
-const versionType = process.argv[2] as "patch" | "minor" | "major";
+const versionType = process.argv[2] as 'patch' | 'minor' | 'major';
 bumpVersion(versionType);
 publishPackages();
 ```
@@ -250,7 +250,7 @@ name: Release
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
 
 jobs:
   release:
@@ -262,9 +262,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
-          cache: "pnpm"
-          registry-url: "https://registry.npmjs.org"
+          node-version: '20'
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: pnpm install
@@ -298,16 +298,16 @@ jobs:
 ```javascript
 // .releaserc.js
 module.exports = {
-  branches: ["main"],
+  branches: ['main'],
   plugins: [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/npm",
-    "@semantic-release/github",
-    "@semantic-release/changelog",
-    "@semantic-release/git",
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    '@semantic-release/npm',
+    '@semantic-release/github',
+    '@semantic-release/changelog',
+    '@semantic-release/git',
   ],
-  preset: "angular",
+  preset: 'angular',
 };
 ```
 
@@ -322,7 +322,7 @@ name: Deploy Docs
 on:
   push:
     branches: [main]
-    paths: ["docs/**"]
+    paths: ['docs/**']
 
 jobs:
   deploy:
@@ -334,8 +334,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
-          cache: "pnpm"
+          node-version: '20'
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install
@@ -361,24 +361,18 @@ jobs:
     <title>Story Carousel Documentation</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="description" content="Story Carousel Documentation" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
-    />
-    <link
-      rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
   </head>
   <body>
     <div id="app"></div>
     <script>
       window.$docsify = {
-        name: "Story Carousel",
-        repo: "your-org/story-carousel-monorepo",
+        name: 'Story Carousel',
+        repo: 'your-org/story-carousel-monorepo',
         loadSidebar: true,
         subMaxLevel: 2,
-        search: "auto",
+        search: 'auto',
       };
     </script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
@@ -395,16 +389,10 @@ jobs:
 
 ```html
 <!-- React версия -->
-<script
-  crossorigin
-  src="https://unpkg.com/@storykit/react@1.0.0/dist/index.js"
-></script>
+<script crossorigin src="https://unpkg.com/@storykit/react@1.0.0/dist/index.js"></script>
 
 <!-- Нативная версия -->
-<script
-  crossorigin
-  src="https://unpkg.com/@storykit/core@1.0.0/dist/index.js"
-></script>
+<script crossorigin src="https://unpkg.com/@storykit/core@1.0.0/dist/index.js"></script>
 ```
 
 ### Cloudflare Workers
@@ -449,14 +437,12 @@ npx webpack-bundle-analyzer dist/static/js/*.js
 ```javascript
 // scripts/analyze-cdn.ts
 async function analyzeCDNUsage() {
-  const packages = ["@storykit/core", "@storykit/react"];
+  const packages = ['@storykit/core', '@storykit/react'];
 
   for (const pkg of packages) {
     try {
       // Получение данных от npm API
-      const response = await fetch(
-        `https://api.npmjs.org/downloads/point/last-month/${pkg}`,
-      );
+      const response = await fetch(`https://api.npmjs.org/downloads/point/last-month/${pkg}`);
       const data = await response.json();
 
       console.log(`${pkg}: ${data.downloads} downloads`);
@@ -496,7 +482,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: "0 0 * * 1" # Еженедельно по понедельникам
+    - cron: '0 0 * * 1' # Еженедельно по понедельникам
 
 jobs:
   security:
@@ -523,15 +509,15 @@ jobs:
 
 ```typescript
 // scripts/bundle-size.ts
-import { execSync } from "child_process";
-import { readFileSync } from "fs";
-import { gzipSize } from "gzip-size";
+import { execSync } from 'child_process';
+import { readFileSync } from 'fs';
+import { gzipSize } from 'gzip-size';
 
 async function checkBundleSize() {
   // Сборка пакетов
-  execSync("pnpm build", { stdio: "inherit" });
+  execSync('pnpm build', { stdio: 'inherit' });
 
-  const packages = ["native", "react"];
+  const packages = ['native', 'react'];
   const results: Record<string, any> = {};
 
   for (const pkg of packages) {
@@ -563,17 +549,17 @@ checkBundleSize();
 
 ```typescript
 // scripts/optimize.ts
-import { execSync } from "child_process";
+import { execSync } from 'child_process';
 
 function optimizeBundles() {
   // Минификация для production
-  execSync("pnpm build:minified", { stdio: "inherit" });
+  execSync('pnpm build:minified', { stdio: 'inherit' });
 
   // Генерация source maps для development
-  execSync("pnpm build:dev", { stdio: "inherit" });
+  execSync('pnpm build:dev', { stdio: 'inherit' });
 
   // Создание легаси сборок для старых браузеров
-  execSync("pnpm build:legacy", { stdio: "inherit" });
+  execSync('pnpm build:legacy', { stdio: 'inherit' });
 }
 
 optimizeBundles();

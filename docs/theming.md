@@ -41,22 +41,24 @@ function ThemedStoryCarousel() {
       stories={stories}
       style={customTheme.container}
       renderStory={(story, progress) => (
-        <div style={{
-          width: '100%',
-          height: '100%',
-          background: `linear-gradient(135deg,
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            background: `linear-gradient(135deg,
             ${progress > 0.5 ? '#667eea' : '#764ba2'} 0%,
             ${progress > 0.5 ? '#764ba2' : '#667eea'} 100%)`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'white',
-          fontSize: '28px',
-          fontWeight: 'bold',
-          textAlign: 'center',
-          padding: '40px',
-          transition: 'all 0.5s ease',
-        }}>
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            fontSize: '28px',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            padding: '40px',
+            transition: 'all 0.5s ease',
+          }}
+        >
           {story.content}
         </div>
       )}
@@ -186,7 +188,7 @@ function ThemedStoryCarousel() {
     <StoryCarousel
       stories={stories}
       className={styles.container}
-      renderStory={(story) => (
+      renderStory={story => (
         <div className={styles.storyContent}>
           <img
             src={story.mediaUrl}
@@ -197,9 +199,7 @@ function ThemedStoryCarousel() {
               objectFit: 'cover',
             }}
           />
-          <div className={styles.storyText}>
-            {story.content}
-          </div>
+          <div className={styles.storyText}>{story.content}</div>
         </div>
       )}
     />
@@ -345,7 +345,7 @@ function ResponsiveStoryCarousel({ stories }) {
     width: 400px;
     height: 600px;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -384,7 +384,7 @@ function AnimatedStoryCarousel() {
   return (
     <StoryCarousel
       stories={stories}
-      onStoryStart={(story) => {
+      onStoryStart={story => {
         setIsTransitioning(true);
         setTimeout(() => {
           setCurrentStory(story);
@@ -392,39 +392,45 @@ function AnimatedStoryCarousel() {
         }, 300);
       }}
       renderStory={(story, progress) => (
-        <div style={{
-          width: '100%',
-          height: '100%',
-          position: 'relative',
-          overflow: 'hidden',
-        }}>
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
           {/* Фоновая анимация */}
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: `linear-gradient(45deg,
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: `linear-gradient(45deg,
               hsl(${progress * 360}, 70%, 50%) 0%,
-              hsl(${(progress * 360) + 60}, 70%, 50%) 100%)`,
-            opacity: isTransitioning ? 0 : 1,
-            transition: 'opacity 0.3s ease',
-          }} />
+              hsl(${progress * 360 + 60}, 70%, 50%) 100%)`,
+              opacity: isTransitioning ? 0 : 1,
+              transition: 'opacity 0.3s ease',
+            }}
+          />
 
           {/* Контент с анимацией появления */}
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontSize: '28px',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            padding: '40px',
-            transform: isTransitioning ? 'translateY(20px)' : 'translateY(0)',
-            opacity: isTransitioning ? 0 : 1,
-            transition: 'all 0.3s ease',
-          }}>
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              fontSize: '28px',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              padding: '40px',
+              transform: isTransitioning ? 'translateY(20px)' : 'translateY(0)',
+              opacity: isTransitioning ? 0 : 1,
+              transition: 'all 0.3s ease',
+            }}
+          >
             {story.content}
           </div>
         </div>
@@ -461,31 +467,33 @@ function ChristmasStoryCarousel() {
     <StoryCarousel
       stories={christmasStories}
       style={christmasTheme.container}
-      renderStory={(story) => (
-        <div style={{
-          position: 'relative',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'white',
-          textAlign: 'center',
-          padding: '40px',
-        }}>
+      renderStory={story => (
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            textAlign: 'center',
+            padding: '40px',
+          }}
+        >
           {/* Снежинки анимация */}
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            pointerEvents: 'none',
-          }}>
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              pointerEvents: 'none',
+            }}
+          >
             {/* CSS анимация снежинок */}
           </div>
 
           <div>
-            <div style={{ fontSize: '48px', marginBottom: '20px' }}>
-              🎄
-            </div>
+            <div style={{ fontSize: '48px', marginBottom: '20px' }}>🎄</div>
             <h2>{story.content}</h2>
           </div>
         </div>
@@ -520,22 +528,22 @@ function HalloweenStoryCarousel() {
     <StoryCarousel
       stories={halloweenStories}
       style={halloweenTheme.container}
-      renderStory={(story) => (
-        <div style={{
-          background: 'url("/halloween-bg.jpg") center/cover',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#fff',
-          textAlign: 'center',
-          padding: '40px',
-        }}>
+      renderStory={story => (
+        <div
+          style={{
+            background: 'url("/halloween-bg.jpg") center/cover',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#fff',
+            textAlign: 'center',
+            padding: '40px',
+          }}
+        >
           <div>
-            <div style={{ fontSize: '48px', marginBottom: '20px' }}>
-              🎃👻
-            </div>
+            <div style={{ fontSize: '48px', marginBottom: '20px' }}>🎃👻</div>
             <h2>{story.content}</h2>
           </div>
         </div>
@@ -573,11 +581,7 @@ const themes = {
 const ThemeContext = createContext(themes.light);
 
 function ThemeProvider({ children, theme = 'light' }) {
-  return (
-    <ThemeContext.Provider value={themes[theme]}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={themes[theme]}>{children}</ThemeContext.Provider>;
 }
 
 function ThemedStoryCarousel() {
@@ -587,15 +591,17 @@ function ThemedStoryCarousel() {
     <StoryCarousel
       stories={stories}
       style={theme.container}
-      renderStory={(story) => (
-        <div style={{
-          ...theme.container,
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
+      renderStory={story => (
+        <div
+          style={{
+            ...theme.container,
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           {story.content}
         </div>
       )}
@@ -606,7 +612,7 @@ function ThemedStoryCarousel() {
 // Использование
 function App() {
   return (
-    <ThemeProvider theme="dark">
+    <ThemeProvider theme='dark'>
       <ThemedStoryCarousel />
     </ThemeProvider>
   );

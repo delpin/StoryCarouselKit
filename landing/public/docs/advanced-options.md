@@ -28,12 +28,14 @@ function StoryPlayerWithControls() {
       />
 
       {/* Кастомные контроллы */}
-      <div style={{
-        display: 'flex',
-        gap: '10px',
-        justifyContent: 'center',
-        marginTop: '20px',
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '10px',
+          justifyContent: 'center',
+          marginTop: '20px',
+        }}
+      >
         <button onClick={prev}>Предыдущая</button>
         <button onClick={play}>▶ Воспроизвести</button>
         <button onClick={pause}>⏸ Пауза</button>
@@ -41,12 +43,14 @@ function StoryPlayerWithControls() {
       </div>
 
       {/* Навигация по историям */}
-      <div style={{
-        display: 'flex',
-        gap: '5px',
-        justifyContent: 'center',
-        marginTop: '10px',
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '5px',
+          justifyContent: 'center',
+          marginTop: '10px',
+        }}
+      >
         {stories.map((_, index) => (
           <button
             key={index}
@@ -87,7 +91,7 @@ function SyncedStoryCarousels() {
       {/* Основная карусель */}
       <StoryCarousel
         stories={stories}
-        onStoryStart={(story) => {
+        onStoryStart={story => {
           const index = stories.findIndex(s => s.id === story.id);
           handleStoryChange(index);
         }}
@@ -142,7 +146,7 @@ function AnalyticsStoryCarousel() {
   return (
     <StoryCarousel
       stories={stories}
-      onStoryStart={(story) => {
+      onStoryStart={story => {
         trackEvent('story_view_start', {
           storyId: story.id,
           timestamp: Date.now(),
@@ -153,7 +157,7 @@ function AnalyticsStoryCarousel() {
           views: prev.views + 1,
         }));
       }}
-      onStoryEnd={(story) => {
+      onStoryEnd={story => {
         trackEvent('story_view_complete', {
           storyId: story.id,
           timeSpent: story.duration,
@@ -194,9 +198,7 @@ function ResilientStoryCarousel() {
       console.error('Error loading stories:', err);
       setError('Не удалось загрузить истории');
       // Возвращаем fallback контент
-      return [
-        { id: 'error', content: 'Контент временно недоступен', duration: 3000 },
-      ];
+      return [{ id: 'error', content: 'Контент временно недоступен', duration: 3000 }];
     }
   };
 
@@ -211,28 +213,28 @@ function ResilientStoryCarousel() {
   return (
     <StoryCarousel
       stories={fallbackStories}
-      onStoryStart={(story) => {
+      onStoryStart={story => {
         if (story.id === 'error') {
           // Специальная обработка для fallback контента
           console.log('Showing fallback content');
         }
       }}
-      renderStory={(story) => {
+      renderStory={story => {
         if (story.id === 'error') {
           return (
-            <div style={{
-              background: '#f8f9fa',
-              color: '#6c757d',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              textAlign: 'center',
-              padding: '40px',
-            }}>
-              <div style={{ fontSize: '48px', marginBottom: '20px' }}>
-                ⚠️
-              </div>
+            <div
+              style={{
+                background: '#f8f9fa',
+                color: '#6c757d',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                padding: '40px',
+              }}
+            >
+              <div style={{ fontSize: '48px', marginBottom: '20px' }}>⚠️</div>
               <h3>Контент временно недоступен</h3>
               <p>Попробуйте обновить страницу позже</p>
             </div>
@@ -240,13 +242,15 @@ function ResilientStoryCarousel() {
         }
 
         return (
-          <div style={{
-            background: '#000',
-            color: '#fff',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
+          <div
+            style={{
+              background: '#000',
+              color: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             {story.content}
           </div>
         );
@@ -306,19 +310,21 @@ function AdvancedStoryRenderer() {
     switch (story.type) {
       case 'text':
         return (
-          <div style={{
-            background: 'linear-gradient(45deg, #667eea 0%, #764ba2 100%)',
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontSize: '28px',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            padding: '40px',
-          }}>
+          <div
+            style={{
+              background: 'linear-gradient(45deg, #667eea 0%, #764ba2 100%)',
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              fontSize: '28px',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              padding: '40px',
+            }}
+          >
             {story.content}
           </div>
         );
@@ -335,15 +341,17 @@ function AdvancedStoryRenderer() {
                 objectFit: 'cover',
               }}
             />
-            <div style={{
-              position: 'absolute',
-              bottom: 20,
-              left: 20,
-              color: 'white',
-              fontSize: '24px',
-              fontWeight: 'bold',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
-            }}>
+            <div
+              style={{
+                position: 'absolute',
+                bottom: 20,
+                left: 20,
+                color: 'white',
+                fontSize: '24px',
+                fontWeight: 'bold',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
+              }}
+            >
               {story.content}
             </div>
           </div>
@@ -365,18 +373,20 @@ function AdvancedStoryRenderer() {
 
       case 'interactive':
         return (
-          <div style={{
-            background: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            padding: '40px',
-            textAlign: 'center',
-          }}>
+          <div
+            style={{
+              background: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              padding: '40px',
+              textAlign: 'center',
+            }}
+          >
             <h2 style={{ marginBottom: '30px' }}>{story.question}</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}>
               {story.options?.map((option, index) => (
@@ -405,12 +415,7 @@ function AdvancedStoryRenderer() {
     }
   };
 
-  return (
-    <StoryCarousel
-      stories={stories}
-      renderStory={renderStory}
-    />
-  );
+  return <StoryCarousel stories={stories} renderStory={renderStory} />;
 }
 ```
 
@@ -431,15 +436,17 @@ function LazyLoadingStoryCarousel() {
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
         {/* Заглушка во время загрузки */}
         {!isLoaded && (
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: '#f0f0f0',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#666',
-          }}>
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: '#f0f0f0',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#666',
+            }}
+          >
             <div>Загрузка...</div>
           </div>
         )}
@@ -461,30 +468,27 @@ function LazyLoadingStoryCarousel() {
         )}
 
         {/* Текст поверх медиа */}
-        <div style={{
-          position: 'absolute',
-          bottom: 20,
-          left: 20,
-          right: 20,
-          color: 'white',
-          fontSize: '24px',
-          fontWeight: 'bold',
-          textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
-          opacity: isLoaded ? 1 : 0,
-          transition: 'opacity 0.3s ease 0.1s',
-        }}>
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 20,
+            left: 20,
+            right: 20,
+            color: 'white',
+            fontSize: '24px',
+            fontWeight: 'bold',
+            textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
+            opacity: isLoaded ? 1 : 0,
+            transition: 'opacity 0.3s ease 0.1s',
+          }}
+        >
           {story.content}
         </div>
       </div>
     );
   };
 
-  return (
-    <StoryCarousel
-      stories={stories}
-      renderStory={renderStory}
-    />
-  );
+  return <StoryCarousel stories={stories} renderStory={renderStory} />;
 }
 ```
 
@@ -562,14 +566,12 @@ function RealtimeStoryCarousel() {
       console.log('WebSocket connected');
     };
 
-    websocket.onmessage = (event) => {
+    websocket.onmessage = event => {
       const data = JSON.parse(event.data);
       if (data.type === 'new_story') {
         setStories(prev => [...prev, data.story]);
       } else if (data.type === 'update_story') {
-        setStories(prev => prev.map(story =>
-          story.id === data.story.id ? data.story : story
-        ));
+        setStories(prev => prev.map(story => (story.id === data.story.id ? data.story : story)));
       }
     };
 
@@ -583,19 +585,16 @@ function RealtimeStoryCarousel() {
   const handleStoryEnd = (story: Story) => {
     // Отправка подтверждения просмотра
     if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({
-        type: 'story_viewed',
-        storyId: story.id,
-      }));
+      ws.send(
+        JSON.stringify({
+          type: 'story_viewed',
+          storyId: story.id,
+        })
+      );
     }
   };
 
-  return (
-    <StoryCarousel
-      stories={stories}
-      onStoryEnd={handleStoryEnd}
-    />
-  );
+  return <StoryCarousel stories={stories} onStoryEnd={handleStoryEnd} />;
 }
 ```
 
@@ -617,12 +616,7 @@ function VirtualizedStoryCarousel({ allStories }: { allStories: Story[] }) {
     }));
   };
 
-  return (
-    <StoryCarousel
-      stories={visibleStories}
-      onComplete={handleComplete}
-    />
-  );
+  return <StoryCarousel stories={visibleStories} onComplete={handleComplete} />;
 }
 ```
 
@@ -650,7 +644,7 @@ function PreloadingStoryCarousel() {
   return (
     <StoryCarousel
       stories={stories}
-      onStoryStart={(story) => {
+      onStoryStart={story => {
         // Предзагрузка следующих историй
         const currentIndex = stories.findIndex(s => s.id === story.id);
         const nextStories = stories.slice(currentIndex + 1, currentIndex + 3);

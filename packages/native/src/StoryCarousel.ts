@@ -3,7 +3,7 @@ import type {
   StoryCarouselConfig,
   StoryCarouselState,
   StoryCarouselStateInfo,
-} from "./types";
+} from './types';
 
 export class StoryCarousel {
   private config: StoryCarouselConfig;
@@ -21,10 +21,10 @@ export class StoryCarousel {
       ...config,
     };
     this.currentIndex = 0;
-    this.state = this.config.autoPlay ? "playing" : "idle";
+    this.state = this.config.autoPlay ? 'playing' : 'idle';
     this.progress = 0;
 
-    if (this.state === "playing") {
+    if (this.state === 'playing') {
       this.startTimer();
       this.notifyStoryStart();
     }
@@ -48,24 +48,24 @@ export class StoryCarousel {
   }
 
   play(): void {
-    if (this.state === "playing") return;
+    if (this.state === 'playing') return;
 
     // If no stories, immediately complete
     if (this.config.stories.length === 0) {
-      this.state = "completed";
+      this.state = 'completed';
       this.config.onComplete?.();
       return;
     }
 
-    this.state = "playing";
+    this.state = 'playing';
     this.startTimer();
     this.notifyStoryStart();
   }
 
   pause(): void {
-    if (this.state !== "playing") return;
+    if (this.state !== 'playing') return;
 
-    this.state = "paused";
+    this.state = 'paused';
     this.clearTimer();
   }
 
@@ -74,7 +74,7 @@ export class StoryCarousel {
     const nextIndex = this.currentIndex + 1;
 
     if (nextIndex >= this.config.stories.length) {
-      this.state = "completed";
+      this.state = 'completed';
       this.config.onComplete?.();
       return;
     }
@@ -82,7 +82,7 @@ export class StoryCarousel {
     this.currentIndex = nextIndex;
     this.progress = 0;
 
-    if (this.state === "playing") {
+    if (this.state === 'playing') {
       this.startTimer();
       this.notifyStoryStart();
     }
@@ -95,7 +95,7 @@ export class StoryCarousel {
     this.currentIndex = prevIndex;
     this.progress = 0;
 
-    if (this.state === "playing") {
+    if (this.state === 'playing') {
       this.startTimer();
       this.notifyStoryStart();
     }
@@ -108,7 +108,7 @@ export class StoryCarousel {
     this.currentIndex = index;
     this.progress = 0;
 
-    if (this.state === "playing") {
+    if (this.state === 'playing') {
       this.startTimer();
       this.notifyStoryStart();
     }
@@ -173,6 +173,6 @@ export class StoryCarousel {
 
   destroy(): void {
     this.clearTimer();
-    this.state = "idle";
+    this.state = 'idle';
   }
 }

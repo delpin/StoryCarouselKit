@@ -19,33 +19,103 @@ export function Documentation() {
   const docFiles: DocFile[] = [
     // Основные разделы
     { name: 'index', path: '/docs/index.md', title: 'Главная', category: 'Основное' },
-    { name: 'getting-started', path: '/docs/getting-started.md', title: 'Быстрый старт', category: 'Основное' },
+    {
+      name: 'getting-started',
+      path: '/docs/getting-started.md',
+      title: 'Быстрый старт',
+      category: 'Основное',
+    },
     { name: 'examples', path: '/docs/examples.md', title: 'Примеры', category: 'Основное' },
 
     // Архитектура
-    { name: 'architecture', path: '/docs/architecture.md', title: 'Архитектура и мотивация', category: 'Архитектура' },
-    { name: 'native-api', path: '/docs/native-api.md', title: 'Нативное API', category: 'Архитектура' },
+    {
+      name: 'architecture',
+      path: '/docs/architecture.md',
+      title: 'Архитектура и мотивация',
+      category: 'Архитектура',
+    },
+    {
+      name: 'native-api',
+      path: '/docs/native-api.md',
+      title: 'Нативное API',
+      category: 'Архитектура',
+    },
 
     // Фреймворки
-    { name: 'react-integration', path: '/docs/react-integration.md', title: 'React', category: 'Интеграции' },
-    { name: 'vue-integration', path: '/docs/vue-integration.md', title: 'Vue', category: 'Интеграции' },
-    { name: 'svelte-integration', path: '/docs/svelte-integration.md', title: 'Svelte', category: 'Интеграции' },
-    { name: 'angular-integration', path: '/docs/angular-integration.md', title: 'Angular', category: 'Интеграции' },
-    { name: 'vanilla-js', path: '/docs/vanilla-js.md', title: 'Vanilla JavaScript', category: 'Интеграции' },
+    {
+      name: 'react-integration',
+      path: '/docs/react-integration.md',
+      title: 'React',
+      category: 'Интеграции',
+    },
+    {
+      name: 'vue-integration',
+      path: '/docs/vue-integration.md',
+      title: 'Vue',
+      category: 'Интеграции',
+    },
+    {
+      name: 'svelte-integration',
+      path: '/docs/svelte-integration.md',
+      title: 'Svelte',
+      category: 'Интеграции',
+    },
+    {
+      name: 'angular-integration',
+      path: '/docs/angular-integration.md',
+      title: 'Angular',
+      category: 'Интеграции',
+    },
+    {
+      name: 'vanilla-js',
+      path: '/docs/vanilla-js.md',
+      title: 'Vanilla JavaScript',
+      category: 'Интеграции',
+    },
 
     // Кастомизация
-    { name: 'theming', path: '/docs/theming.md', title: 'Темы и стилизация', category: 'Кастомизация' },
-    { name: 'advanced-options', path: '/docs/advanced-options.md', title: 'Расширенные опции', category: 'Кастомизация' },
+    {
+      name: 'theming',
+      path: '/docs/theming.md',
+      title: 'Темы и стилизация',
+      category: 'Кастомизация',
+    },
+    {
+      name: 'advanced-options',
+      path: '/docs/advanced-options.md',
+      title: 'Расширенные опции',
+      category: 'Кастомизация',
+    },
 
     // API Reference
     { name: 'types', path: '/docs/types.md', title: 'Типы данных', category: 'API Reference' },
-    { name: 'events', path: '/docs/events.md', title: 'События и коллбэки', category: 'API Reference' },
-    { name: 'methods', path: '/docs/methods.md', title: 'Методы управления', category: 'API Reference' },
+    {
+      name: 'events',
+      path: '/docs/events.md',
+      title: 'События и коллбэки',
+      category: 'API Reference',
+    },
+    {
+      name: 'methods',
+      path: '/docs/methods.md',
+      title: 'Методы управления',
+      category: 'API Reference',
+    },
 
     // Разработка
-    { name: 'contributing', path: '/docs/contributing.md', title: 'Contributing', category: 'Разработка' },
+    {
+      name: 'contributing',
+      path: '/docs/contributing.md',
+      title: 'Contributing',
+      category: 'Разработка',
+    },
     { name: 'testing', path: '/docs/testing.md', title: 'Тестирование', category: 'Разработка' },
-    { name: 'build-deploy', path: '/docs/build-deploy.md', title: 'Сборка и развертывание', category: 'Разработка' },
+    {
+      name: 'build-deploy',
+      path: '/docs/build-deploy.md',
+      title: 'Сборка и развертывание',
+      category: 'Разработка',
+    },
   ];
 
   const categories = Array.from(new Set(docFiles.map(doc => doc.category)));
@@ -76,21 +146,21 @@ export function Documentation() {
   };
 
   return (
-    <section className="min-h-screen pt-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-4 gap-8">
+    <section className='min-h-screen pt-20 bg-gray-50'>
+      <div className='max-w-7xl mx-auto px-4 py-8'>
+        <div className='grid lg:grid-cols-4 gap-8'>
           {/* Sidebar Navigation */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-24">
-              <h3 className="text-lg font-semibold text-gray-900 mb-6">{t('docs.title')}</h3>
+          <div className='lg:col-span-1'>
+            <div className='bg-white rounded-xl shadow-lg p-6 sticky top-24'>
+              <h3 className='text-lg font-semibold text-gray-900 mb-6'>{t('docs.title')}</h3>
 
-              {categories.map((category) => (
-                <div key={category} className="mb-6">
-                  <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-3">
+              {categories.map(category => (
+                <div key={category} className='mb-6'>
+                  <h4 className='text-sm font-medium text-gray-500 uppercase tracking-wide mb-3'>
                     {category}
                   </h4>
-                  <ul className="space-y-1">
-                    {getDocsByCategory(category).map((doc) => (
+                  <ul className='space-y-1'>
+                    {getDocsByCategory(category).map(doc => (
                       <li key={doc.name}>
                         <button
                           onClick={() => setSelectedDoc(doc.name)}
@@ -111,62 +181,62 @@ export function Documentation() {
           </div>
 
           {/* Content Area */}
-          <div className="lg:col-span-3">
-            <div className="bg-white rounded-xl shadow-lg p-8">
+          <div className='lg:col-span-3'>
+            <div className='bg-white rounded-xl shadow-lg p-8'>
               {loading ? (
-                <div className="flex items-center justify-center py-12">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                  <span className="ml-3 text-gray-600">{t('docs.loading')}</span>
+                <div className='flex items-center justify-center py-12'>
+                  <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600'></div>
+                  <span className='ml-3 text-gray-600'>{t('docs.loading')}</span>
                 </div>
               ) : (
-                <div className="prose prose-lg max-w-none">
+                <div className='prose prose-lg max-w-none'>
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
                       h1: ({ children }) => (
-                        <h1 className="text-3xl font-bold text-gray-900 mb-6 border-b border-gray-200 pb-4">
+                        <h1 className='text-3xl font-bold text-gray-900 mb-6 border-b border-gray-200 pb-4'>
                           {children}
                         </h1>
                       ),
                       h2: ({ children }) => (
-                        <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-                          {children}
-                        </h2>
+                        <h2 className='text-2xl font-bold text-gray-900 mt-8 mb-4'>{children}</h2>
                       ),
                       h3: ({ children }) => (
-                        <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">
+                        <h3 className='text-xl font-semibold text-gray-900 mt-6 mb-3'>
                           {children}
                         </h3>
                       ),
                       code: ({ children, className }) => (
-                        <code className={`bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono ${className || ''}`}>
+                        <code
+                          className={`bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono ${className || ''}`}
+                        >
                           {children}
                         </code>
                       ),
                       pre: ({ children }) => (
-                        <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto my-4">
+                        <pre className='bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto my-4'>
                           {children}
                         </pre>
                       ),
                       blockquote: ({ children }) => (
-                        <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-700 my-4">
+                        <blockquote className='border-l-4 border-blue-500 pl-4 italic text-gray-700 my-4'>
                           {children}
                         </blockquote>
                       ),
                       ul: ({ children }) => (
-                        <ul className="list-disc list-inside space-y-2 my-4 text-gray-700">
+                        <ul className='list-disc list-inside space-y-2 my-4 text-gray-700'>
                           {children}
                         </ul>
                       ),
                       ol: ({ children }) => (
-                        <ol className="list-decimal list-inside space-y-2 my-4 text-gray-700">
+                        <ol className='list-decimal list-inside space-y-2 my-4 text-gray-700'>
                           {children}
                         </ol>
                       ),
                       a: ({ href, children }) => (
                         <a
                           href={href}
-                          className="text-blue-600 hover:text-blue-800 underline"
+                          className='text-blue-600 hover:text-blue-800 underline'
                           target={href?.startsWith('http') ? '_blank' : undefined}
                           rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
                         >
@@ -174,14 +244,10 @@ export function Documentation() {
                         </a>
                       ),
                       p: ({ children }) => (
-                        <p className="text-gray-700 leading-relaxed mb-4">
-                          {children}
-                        </p>
+                        <p className='text-gray-700 leading-relaxed mb-4'>{children}</p>
                       ),
                       strong: ({ children }) => (
-                        <strong className="font-semibold text-gray-900">
-                          {children}
-                        </strong>
+                        <strong className='font-semibold text-gray-900'>{children}</strong>
                       ),
                     }}
                   >

@@ -1,12 +1,16 @@
 {
   "name": "story-carousel-monorepo",
   "version": "1.0.0",
+  "type": "module",
   "description": "Framework-agnostic Instagram-style story list component",
   "scripts": {
     "build": "pnpm --recursive --parallel run build",
     "dev": "pnpm --recursive --parallel run dev",
     "test": "pnpm --recursive run test",
     "lint": "pnpm --recursive run lint",
+    "lint:fix": "pnpm --recursive run lint:fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "clean": "pnpm --recursive run clean"
   },
   "keywords": [
@@ -21,5 +25,16 @@
   ],
   "author": "",
   "license": "MIT",
-  "packageManager": "pnpm@10.7.0"
+  "packageManager": "pnpm@10.7.0",
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.9.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.0",
+    "typescript-eslint": "^8.0.0"
+  }
 }

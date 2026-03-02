@@ -13,9 +13,11 @@ getState(): StoryCarouselStateInfo
 ```
 
 **Возвращает:**
+
 - `StoryCarouselStateInfo` - Объект с полным состоянием
 
 **Пример:**
+
 ```typescript
 const carousel = new StoryCarousel({ stories });
 const state = carousel.getState();
@@ -35,6 +37,7 @@ play(): void
 ```
 
 **Пример:**
+
 ```typescript
 const carousel = new StoryCarousel({
   stories,
@@ -54,6 +57,7 @@ pause(): void
 ```
 
 **Пример:**
+
 ```typescript
 const carousel = new StoryCarousel({ stories });
 
@@ -72,6 +76,7 @@ next(): void
 ```
 
 **Пример:**
+
 ```typescript
 const carousel = new StoryCarousel({ stories });
 
@@ -88,6 +93,7 @@ prev(): void
 ```
 
 **Пример:**
+
 ```typescript
 const carousel = new StoryCarousel({ stories });
 
@@ -104,9 +110,11 @@ goTo(index: number): void
 ```
 
 **Параметры:**
+
 - `index: number` - Индекс истории (начиная с 0)
 
 **Пример:**
+
 ```typescript
 const carousel = new StoryCarousel({ stories });
 
@@ -123,6 +131,7 @@ destroy(): void
 ```
 
 **Пример:**
+
 ```typescript
 const carousel = new StoryCarousel({ stories });
 
@@ -141,9 +150,11 @@ addStory(story: Story): void
 ```
 
 **Параметры:**
+
 - `story: Story` - История для добавления
 
 **Пример:**
+
 ```typescript
 const carousel = new StoryCarousel({ stories });
 
@@ -171,22 +182,20 @@ setTimeout(() => {
 ```tsx
 import { forwardRef, useImperativeHandle } from 'react';
 
-const StoryCarouselWithRef = forwardRef<StoryCarouselHandle, StoryCarouselProps>(
-  (props, ref) => {
-    const carouselRef = useRef<StoryCarouselCore | null>(null);
+const StoryCarouselWithRef = forwardRef<StoryCarouselHandle, StoryCarouselProps>((props, ref) => {
+  const carouselRef = useRef<StoryCarouselCore | null>(null);
 
-    useImperativeHandle(ref, () => ({
-      play: () => carouselRef.current?.play(),
-      pause: () => carouselRef.current?.pause(),
-      next: () => carouselRef.current?.next(),
-      prev: () => carouselRef.current?.prev(),
-      goTo: (index: number) => carouselRef.current?.goTo(index),
-      getState: () => carouselRef.current?.getState(),
-    }));
+  useImperativeHandle(ref, () => ({
+    play: () => carouselRef.current?.play(),
+    pause: () => carouselRef.current?.pause(),
+    next: () => carouselRef.current?.next(),
+    prev: () => carouselRef.current?.prev(),
+    goTo: (index: number) => carouselRef.current?.goTo(index),
+    getState: () => carouselRef.current?.getState(),
+  }));
 
-    return <StoryCarousel {...props} ref={carouselRef} />;
-  }
-);
+  return <StoryCarousel {...props} ref={carouselRef} />;
+});
 
 export interface StoryCarouselHandle {
   play(): void;
@@ -199,6 +208,7 @@ export interface StoryCarouselHandle {
 ```
 
 **Использование:**
+
 ```tsx
 function App() {
   const carouselRef = useRef<StoryCarouselHandle>(null);
@@ -243,6 +253,7 @@ class ExtendedStoryCarousel extends StoryCarousel {
 ```
 
 **Использование:**
+
 ```typescript
 const carousel = new ExtendedStoryCarousel({ stories });
 
@@ -455,7 +466,7 @@ class TestableStoryCarousel extends StoryCarousel {
 ```typescript
 class AsyncStoryCarousel extends StoryCarousel {
   async playAsync(): Promise<void> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       this.play();
       // Разрешить промис при следующем изменении состояния
       const checkPlaying = () => {
@@ -470,7 +481,7 @@ class AsyncStoryCarousel extends StoryCarousel {
   }
 
   async waitForCompletion(): Promise<void> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const originalComplete = this.config.onComplete;
       this.config.onComplete = () => {
         originalComplete?.();
@@ -480,7 +491,7 @@ class AsyncStoryCarousel extends StoryCarousel {
   }
 
   async waitForStory(storyId: string): Promise<Story> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const checkCurrent = () => {
         if (this.state.currentStory?.id === storyId) {
           resolve(this.state.currentStory);
@@ -495,6 +506,7 @@ class AsyncStoryCarousel extends StoryCarousel {
 ```
 
 **Использование асинхронных методов:**
+
 ```typescript
 async function runStorySequence() {
   const carousel = new AsyncStoryCarousel({ stories });

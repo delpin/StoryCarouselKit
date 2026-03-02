@@ -14,8 +14,11 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "test": "vitest",
-    "lint": "eslint src --ext .ts",
+    "test": "vitest --passWithNoTests",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src",
     "clean": "rm -rf dist"
   },
   "keywords": [
@@ -30,11 +33,12 @@
     "@angular/core": ">=15.0.0"
   },
   "dependencies": {
-    "@storykit/core": "workspace:*"
+    "@storycarouselkit/core": "workspace:*"
   },
   "devDependencies": {
     "@angular/core": "^17.0.0",
-    "eslint": "^8.0.0",
+    "eslint": "^9.9.0",
+    "prettier": "^3.3.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",
     "vitest": "^1.0.0"

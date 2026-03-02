@@ -15,13 +15,15 @@ interface StoryCarouselConfig {
 ```
 
 **Параметры:**
+
 - `story: Story` - История, которая начала отображаться
 
 **Примеры использования:**
+
 ```typescript
 const carousel = new StoryCarousel({
   stories,
-  onStoryStart: (story) => {
+  onStoryStart: story => {
     console.log(`Начало истории: ${story.id}`);
 
     // Аналитика
@@ -39,7 +41,7 @@ const carousel = new StoryCarousel({
 ```tsx
 <StoryCarousel
   stories={stories}
-  onStoryStart={(story) => {
+  onStoryStart={story => {
     // Обновление заголовка страницы
     document.title = story.content;
 
@@ -62,13 +64,15 @@ interface StoryCarouselConfig {
 ```
 
 **Параметры:**
+
 - `story: Story` - История, которая завершилась
 
 **Примеры использования:**
+
 ```typescript
 const carousel = new StoryCarousel({
   stories,
-  onStoryEnd: (story) => {
+  onStoryEnd: story => {
     console.log(`Завершена история: ${story.id}`);
 
     // Сохранение прогресса
@@ -86,7 +90,7 @@ const carousel = new StoryCarousel({
 ```tsx
 <StoryCarousel
   stories={stories}
-  onStoryEnd={(story) => {
+  onStoryEnd={story => {
     // Обновление счетчика просмотров
     updateViewCount(story.id);
 
@@ -109,13 +113,15 @@ interface StoryCarouselConfig {
 ```
 
 **Параметры:**
+
 - `story: Story` - Просмотренная история
 
 **Примеры использования:**
+
 ```typescript
 const carousel = new StoryCarousel({
   stories,
-  onStoryViewed: (story) => {
+  onStoryViewed: story => {
     console.log(`История ${story.id} просмотрена`);
 
     // Сохранение в localStorage
@@ -123,7 +129,7 @@ const carousel = new StoryCarousel({
     viewed.push({
       id: story.id,
       timestamp: Date.now(),
-      duration: story.duration
+      duration: story.duration,
     });
     localStorage.setItem('viewedStories', JSON.stringify(viewed));
 
@@ -140,7 +146,7 @@ const carousel = new StoryCarousel({
 ```tsx
 <StoryCarousel
   stories={stories}
-  onStoryViewed={(story) => {
+  onStoryViewed={story => {
     // Обновление прогресса обучения
     updateLearningProgress(story.id);
 
@@ -166,6 +172,7 @@ interface StoryCarouselConfig {
 **Параметры:** Нет
 
 **Примеры использования:**
+
 ```typescript
 const carousel = new StoryCarousel({
   stories,
@@ -217,18 +224,19 @@ interface AdvancedStoryCarouselProps extends StoryCarouselProps {
 ```
 
 **Примеры:**
+
 ```tsx
 function AdvancedStoryCarousel() {
   return (
     <StoryCarousel
       stories={stories}
-      onPlayStateChange={(isPlaying) => {
+      onPlayStateChange={isPlaying => {
         console.log(`Воспроизведение: ${isPlaying ? 'активно' : 'пауза'}`);
       }}
       onProgressChange={(progress, story) => {
         console.log(`Прогресс истории ${story.id}: ${(progress * 100).toFixed(1)}%`);
       }}
-      onCurrentStoryChange={(story) => {
+      onCurrentStoryChange={story => {
         if (story) {
           console.log(`Текущая история: ${story.id}`);
         } else {
@@ -295,6 +303,7 @@ class ExtendedStoryCarousel extends StoryCarouselCore {
 ```
 
 **Использование кастомных событий:**
+
 ```typescript
 const carousel = new ExtendedStoryCarousel({ stories });
 
@@ -302,7 +311,7 @@ carousel.addEventListener('navigation', (direction, state) => {
   console.log(`Навигация ${direction} к истории ${state.currentIndex}`);
 });
 
-carousel.addEventListener('playback', (action) => {
+carousel.addEventListener('playback', action => {
   console.log(`Воспроизведение: ${action}`);
 });
 ```
@@ -320,6 +329,7 @@ interface StoryCarouselConfig {
 ```
 
 **Примеры ошибок:**
+
 ```typescript
 const carousel = new StoryCarousel({
   stories,
@@ -360,10 +370,11 @@ interface StoryCarouselConfig {
 ```
 
 **Примеры:**
+
 ```typescript
 const carousel = new StoryCarousel({
   stories,
-  onInteraction: (event) => {
+  onInteraction: event => {
     console.log(`Взаимодействие: ${event.type} на истории ${event.story.id}`);
 
     // Аналитика взаимодействий
@@ -396,15 +407,16 @@ interface AsyncStoryCarouselConfig extends StoryCarouselConfig {
 ```
 
 **Примеры асинхронных операций:**
+
 ```typescript
 const carousel = new AsyncStoryCarousel({
   stories,
-  onStoryStartAsync: async (story) => {
+  onStoryStartAsync: async story => {
     // Асинхронная загрузка дополнительных данных
     const extraData = await api.get(`/stories/${story.id}/extra`);
     console.log('Дополнительные данные:', extraData);
   },
-  onStoryEndAsync: async (story) => {
+  onStoryEndAsync: async story => {
     // Асинхронное сохранение прогресса
     await api.post('/progress', {
       storyId: story.id,
@@ -434,6 +446,7 @@ interface LifecycleEvents {
 ```
 
 **Использование:**
+
 ```tsx
 function LifecycleAwareCarousel() {
   const [mounted, setMounted] = useState(false);
@@ -475,18 +488,14 @@ function useDebouncedProgress(onProgress: (progress: number) => void, delay: num
 ```
 
 **Использование:**
+
 ```tsx
 function DebouncedProgressCarousel() {
-  const handleProgress = useDebouncedProgress((progress) => {
+  const handleProgress = useDebouncedProgress(progress => {
     console.log(`Дебounced прогресс: ${(progress * 100).toFixed(1)}%`);
   }, 200);
 
-  return (
-    <StoryCarousel
-      stories={stories}
-      onProgressChange={handleProgress}
-    />
-  );
+  return <StoryCarousel stories={stories} onProgressChange={handleProgress} />;
 }
 ```
 
@@ -510,6 +519,7 @@ interface TestResults {
 ```
 
 **Применение в тестах:**
+
 ```typescript
 describe('StoryCarousel', () => {
   it('should complete all stories', async () => {

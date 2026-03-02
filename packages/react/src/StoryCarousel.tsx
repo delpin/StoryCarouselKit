@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 import {
   StoryCarousel as StoryCarouselCore,
   Story,
   StoryCarouselConfig,
   StoryCarouselState,
-} from "@storykit/core";
+} from '@storykit/core';
 
 export interface StoryCarouselProps extends Omit<
   StoryCarouselConfig,
-  "onStoryEnd" | "onStoryStart" | "onComplete"
+  'onStoryEnd' | 'onStoryStart' | 'onComplete'
 > {
   className?: string;
   style?: React.CSSProperties;
@@ -39,10 +39,10 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
       stories,
       autoPlay,
       defaultDuration,
-      onStoryEnd: (story) => {
+      onStoryEnd: story => {
         onStoryEnd?.(story);
       },
-      onStoryStart: (story) => {
+      onStoryStart: story => {
         onStoryStart?.(story);
       },
       onComplete: () => {
@@ -68,14 +68,7 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
       clearInterval(interval);
       carouselRef.current?.destroy();
     };
-  }, [
-    stories,
-    autoPlay,
-    defaultDuration,
-    onStoryEnd,
-    onStoryStart,
-    onComplete,
-  ]);
+  }, [stories, autoPlay, defaultDuration, onStoryEnd, onStoryStart, onComplete]);
 
   const handleNext = () => {
     carouselRef.current?.next();
@@ -101,21 +94,21 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
     <div
       className={className}
       style={{
-        position: "relative",
-        width: "100%",
-        height: "100%",
+        position: 'relative',
+        width: '100%',
+        height: '100%',
         ...style,
       }}
     >
       {/* Progress indicators */}
       <div
         style={{
-          position: "absolute",
+          position: 'absolute',
           top: 10,
           left: 10,
           right: 10,
           zIndex: 10,
-          display: "flex",
+          display: 'flex',
           gap: 4,
         }}
       >
@@ -125,26 +118,22 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
             style={{
               flex: 1,
               height: 2,
-              backgroundColor: "rgba(255, 255, 255, 0.3)",
+              backgroundColor: 'rgba(255, 255, 255, 0.3)',
               borderRadius: 1,
-              overflow: "hidden",
+              overflow: 'hidden',
             }}
           >
             <div
               style={{
-                height: "100%",
-                backgroundColor:
-                  index === state.currentIndex
-                    ? "#fff"
-                    : "rgba(255, 255, 255, 0.5)",
+                height: '100%',
+                backgroundColor: index === state.currentIndex ? '#fff' : 'rgba(255, 255, 255, 0.5)',
                 width:
                   index === state.currentIndex
                     ? `${state.progress * 100}%`
                     : index < state.currentIndex
-                      ? "100%"
-                      : "0%",
-                transition:
-                  index === state.currentIndex ? "none" : "width 0.3s ease",
+                      ? '100%'
+                      : '0%',
+                transition: index === state.currentIndex ? 'none' : 'width 0.3s ease',
               }}
             />
           </div>
@@ -154,9 +143,9 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
       {/* Story content */}
       <div
         style={{
-          width: "100%",
-          height: "100%",
-          position: "relative",
+          width: '100%',
+          height: '100%',
+          position: 'relative',
         }}
       >
         {renderStory ? (
@@ -164,14 +153,14 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
         ) : (
           <div
             style={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: "#000",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#fff",
-              fontSize: "24px",
+              width: '100%',
+              height: '100%',
+              backgroundColor: '#000',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              fontSize: '24px',
             }}
           >
             {state.currentStory.content}
@@ -184,17 +173,17 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
         onClick={handlePrev}
         disabled={state.currentIndex === 0}
         style={{
-          position: "absolute",
+          position: 'absolute',
           left: 10,
-          top: "50%",
-          transform: "translateY(-50%)",
-          background: "rgba(0, 0, 0, 0.5)",
-          color: "#fff",
-          border: "none",
-          borderRadius: "50%",
+          top: '50%',
+          transform: 'translateY(-50%)',
+          background: 'rgba(0, 0, 0, 0.5)',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '50%',
           width: 40,
           height: 40,
-          cursor: state.currentIndex === 0 ? "not-allowed" : "pointer",
+          cursor: state.currentIndex === 0 ? 'not-allowed' : 'pointer',
           opacity: state.currentIndex === 0 ? 0.5 : 1,
           zIndex: 10,
         }}
@@ -206,20 +195,17 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
         onClick={handleNext}
         disabled={state.currentIndex === stories.length - 1}
         style={{
-          position: "absolute",
+          position: 'absolute',
           right: 10,
-          top: "50%",
-          transform: "translateY(-50%)",
-          background: "rgba(0, 0, 0, 0.5)",
-          color: "#fff",
-          border: "none",
-          borderRadius: "50%",
+          top: '50%',
+          transform: 'translateY(-50%)',
+          background: 'rgba(0, 0, 0, 0.5)',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '50%',
           width: 40,
           height: 40,
-          cursor:
-            state.currentIndex === stories.length - 1
-              ? "not-allowed"
-              : "pointer",
+          cursor: state.currentIndex === stories.length - 1 ? 'not-allowed' : 'pointer',
           opacity: state.currentIndex === stories.length - 1 ? 0.5 : 1,
           zIndex: 10,
         }}
@@ -231,21 +217,21 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
       <button
         onClick={state.isPlaying ? handlePause : handlePlay}
         style={{
-          position: "absolute",
+          position: 'absolute',
           bottom: 20,
-          left: "50%",
-          transform: "translateX(-50%)",
-          background: "rgba(0, 0, 0, 0.5)",
-          color: "#fff",
-          border: "none",
-          borderRadius: "50%",
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'rgba(0, 0, 0, 0.5)',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '50%',
           width: 50,
           height: 50,
-          cursor: "pointer",
+          cursor: 'pointer',
           zIndex: 10,
         }}
       >
-        {state.isPlaying ? "⏸" : "▶"}
+        {state.isPlaying ? '⏸' : '▶'}
       </button>
     </div>
   );
