@@ -41,13 +41,13 @@ const stories: Story[] = [
     id: 'story-1',
     content: '欢迎来到我们的故事！',
     duration: 3000, // 3秒
-    mediaUrl: 'https://example.com/story1.jpg'
+    mediaUrl: 'https://example.com/story1.jpg',
   },
   {
     id: 'story-2',
     content: '这是第二个故事',
     duration: 5000, // 5秒
-  }
+  },
 ];
 
 // 配置轮播
@@ -55,9 +55,9 @@ const config: StoryCarouselConfig = {
   stories,
   autoPlay: true,
   defaultDuration: 4000,
-  onStoryStart: (story) => console.log(`开始: ${story.content}`),
-  onStoryEnd: (story) => console.log(`结束: ${story.content}`),
-  onComplete: () => console.log('所有故事已完成!')
+  onStoryStart: story => console.log(`开始: ${story.content}`),
+  onStoryEnd: story => console.log(`结束: ${story.content}`),
+  onComplete: () => console.log('所有故事已完成!'),
 };
 
 // 创建轮播实例
@@ -111,18 +111,18 @@ new StoryCarousel(config: StoryCarouselConfig)
 
 ```typescript
 interface Story {
-  id: string;           // 唯一标识符
-  content: string;      // 故事内容/描述
-  duration?: number;    // 显示持续时间（毫秒，可选）
-  mediaUrl?: string;    // 媒体 URL 用于图片/视频（可选）
+  id: string; // 唯一标识符
+  content: string; // 故事内容/描述
+  duration?: number; // 显示持续时间（毫秒，可选）
+  mediaUrl?: string; // 媒体 URL 用于图片/视频（可选）
 }
 
 type StoryCarouselState = 'idle' | 'playing' | 'paused' | 'completed';
 
 interface StoryCarouselConfig {
   stories: Story[];
-  autoPlay?: boolean;           // 默认: true
-  defaultDuration?: number;     // 默认: 5000ms
+  autoPlay?: boolean; // 默认: true
+  defaultDuration?: number; // 默认: 5000ms
   progressUpdateInterval?: number; // 默认: 100ms
   onStoryEnd?: (story: Story) => void;
   onStoryStart?: (story: Story) => void;
@@ -133,7 +133,7 @@ interface StoryCarouselConfig {
 interface StoryCarouselStateInfo {
   currentIndex: number;
   state: StoryCarouselState;
-  progress: number;     // 0-1 进度值
+  progress: number; // 0-1 进度值
   currentStory: Story | null;
   viewedStories: string[]; // 已查看故事 ID 数组
 }
@@ -150,7 +150,7 @@ const carousel = new StoryCarousel({
   stories: myStories,
   progressUpdateInterval: 50, // 更频繁的更新
   onStoryStart: updateProgressUI,
-  onStoryEnd: updateProgressUI
+  onStoryEnd: updateProgressUI,
 });
 
 function updateProgressUI() {
@@ -163,7 +163,7 @@ function updateProgressUI() {
 ### 键盘导航
 
 ```typescript
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', event => {
   switch (event.key) {
     case 'ArrowRight':
     case ' ': // 空格键
@@ -231,7 +231,7 @@ MIT 许可证 - 详情请见 [LICENSE](../../LICENSE) 文件。
 
 ## 🔗 链接
 
-- [主页](https://storykit.dev)
+- [主页](https://delpin.github.io/StoryCarouselKit/)
 - [GitHub 仓库](https://github.com/delpin/StoryCarouselKit)
 - [NPM 包](https://www.npmjs.com/package/@storycarouselkit/core)
 - [问题](https://github.com/delpin/StoryCarouselKit/issues)

@@ -41,13 +41,13 @@ const stories: Story[] = [
     id: 'story-1',
     content: 'Добро пожаловать в нашу историю!',
     duration: 3000, // 3 секунды
-    mediaUrl: 'https://example.com/story1.jpg'
+    mediaUrl: 'https://example.com/story1.jpg',
   },
   {
     id: 'story-2',
     content: 'Это вторая история',
     duration: 5000, // 5 секунд
-  }
+  },
 ];
 
 // Настройте карусель
@@ -55,9 +55,9 @@ const config: StoryCarouselConfig = {
   stories,
   autoPlay: true,
   defaultDuration: 4000,
-  onStoryStart: (story) => console.log(`Начато: ${story.content}`),
-  onStoryEnd: (story) => console.log(`Завершено: ${story.content}`),
-  onComplete: () => console.log('Все истории просмотрены!')
+  onStoryStart: story => console.log(`Начато: ${story.content}`),
+  onStoryEnd: story => console.log(`Завершено: ${story.content}`),
+  onComplete: () => console.log('Все истории просмотрены!'),
 };
 
 // Создайте экземпляр карусели
@@ -111,18 +111,18 @@ new StoryCarousel(config: StoryCarouselConfig)
 
 ```typescript
 interface Story {
-  id: string;           // Уникальный идентификатор
-  content: string;      // Содержимое/описание истории
-  duration?: number;    // Длительность отображения в миллисекундах (необязательно)
-  mediaUrl?: string;    // URL медиа для изображений/видео (необязательно)
+  id: string; // Уникальный идентификатор
+  content: string; // Содержимое/описание истории
+  duration?: number; // Длительность отображения в миллисекундах (необязательно)
+  mediaUrl?: string; // URL медиа для изображений/видео (необязательно)
 }
 
 type StoryCarouselState = 'idle' | 'playing' | 'paused' | 'completed';
 
 interface StoryCarouselConfig {
   stories: Story[];
-  autoPlay?: boolean;           // По умолчанию: true
-  defaultDuration?: number;     // По умолчанию: 5000мс
+  autoPlay?: boolean; // По умолчанию: true
+  defaultDuration?: number; // По умолчанию: 5000мс
   progressUpdateInterval?: number; // По умолчанию: 100мс
   onStoryEnd?: (story: Story) => void;
   onStoryStart?: (story: Story) => void;
@@ -133,7 +133,7 @@ interface StoryCarouselConfig {
 interface StoryCarouselStateInfo {
   currentIndex: number;
   state: StoryCarouselState;
-  progress: number;     // Значение прогресса 0-1
+  progress: number; // Значение прогресса 0-1
   currentStory: Story | null;
   viewedStories: string[]; // Массив ID просмотренных историй
 }
@@ -150,7 +150,7 @@ const carousel = new StoryCarousel({
   stories: myStories,
   progressUpdateInterval: 50, // Более частые обновления
   onStoryStart: updateProgressUI,
-  onStoryEnd: updateProgressUI
+  onStoryEnd: updateProgressUI,
 });
 
 function updateProgressUI() {
@@ -163,7 +163,7 @@ function updateProgressUI() {
 ### Навигация с клавиатуры
 
 ```typescript
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', event => {
   switch (event.key) {
     case 'ArrowRight':
     case ' ': // Пробел
@@ -231,7 +231,7 @@ function StoryComponent({ stories }) {
 
 ## 🔗 Ссылки
 
-- [Домашняя страница](https://storykit.dev)
+- [Домашняя страница](https://delpin.github.io/StoryCarouselKit/)
 - [Репозиторий GitHub](https://github.com/delpin/StoryCarouselKit)
 - [Пакет NPM](https://www.npmjs.com/package/@storycarouselkit/core)
 - [Проблемы](https://github.com/delpin/StoryCarouselKit/issues)

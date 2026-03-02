@@ -34,7 +34,7 @@
     "url": "git+https://github.com/delpin/StoryCarouselKit.git",
     "directory": "packages/native"
   },
-  "homepage": "https://storykit.dev",
+  "homepage": "https://delpin.github.io/StoryCarouselKit/",
   "bugs": {
     "url": "https://github.com/delpin/StoryCarouselKit/issues"
   },
