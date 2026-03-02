@@ -43,7 +43,7 @@ jobs:
         run: pnpm --filter@storycarouselkit/core build
   notify:
     name: Notify on failure
-    needs: [test, publish]
+    needs: [test]
     runs-on: ubuntu-latest
     if: failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
 
