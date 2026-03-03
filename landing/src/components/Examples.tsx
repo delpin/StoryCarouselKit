@@ -98,7 +98,7 @@ function ReactStoryDemo() {
         stories={REACT_DEMO_STORIES}
         autoPlay
         showControls={false}
-        apiRef={apiRef}
+        ref={apiRef}
         renderStory={(story: Story) => (
           <div
             style={{
@@ -195,7 +195,7 @@ function NativeStoryDemo() {
 
   if (!state?.currentStory) return null;
 
-  const { currentStory, currentIndex, progress, state: playState } = state;
+  const { currentStory, currentIndex, state: playState } = state;
   const isPlaying = playState === 'playing';
 
   const handlePrev = () => {
@@ -238,21 +238,21 @@ function NativeStoryDemo() {
         }}
       >
         {NATIVE_DEMO_STORIES.map((s, i) => (
-          <div
-            key={s.id}
-            style={{
-              flex: 1,
-              height: 2,
-              background: 'rgba(255,255,255,0.35)',
-              borderRadius: 1,
-              overflow: 'hidden',
-            }}
-          >
+                <div
+                  key={s.id}
+                  style={{
+                    flex: 1,
+                    height: 2,
+                    background: 'rgba(255,255,255,0.35)',
+                    borderRadius: 1,
+                    overflow: 'hidden',
+                  }}
+                >
             <div
               style={{
                 height: '100%',
                 background: '#fff',
-                width: i < currentIndex ? '100%' : i === currentIndex ? `${progress * 100}%` : '0%',
+                width: i < currentIndex ? '100%' : i === currentIndex ? '${progress * 100}%' : '0%',
               }}
             />
           </div>
@@ -340,92 +340,74 @@ export function Examples() {
     react: {
       title: t('code.reactExample'),
       description: t('examples.reactDescription'),
-      code: `import { useState, useRef } from 'react';
+      code: `import { useRef, useState } from 'react';
 import { StoryCarousel, type CarouselAPI } from '@storycarouselkit/react';
 
-function App() {
-  const [stories] = useState([
-    { id: '1', content: 'История 1', duration: 3000 },
-    { id: '2', content: 'История 2', duration: 4000 },
-    { id: '3', content: 'История 3', duration: 3500 }
-  ]);
-  const [key, setKey] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const carouselRef = useRef<CarouselAPI | null>(null);
+const stories = [
+  { id: '1', content: 'Welcome', duration: 3200 },
+  { id: '2', content: 'Discover', duration: 3800 },
+  { id: '3', content: 'Share', duration: 3000 },
+];
 
-  const handleToggle = () => {
+export function ReactStoryExample() {
+  const carouselRef = useRef<CarouselAPI | null>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const togglePlayback = () => {
     if (isPlaying) {
       carouselRef.current?.pause();
     } else {
       carouselRef.current?.play();
     }
-    setIsPlaying(p => !p);
+    setIsPlaying(value => !value);
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <div style={{ maxWidth: '320px', margin: '0 auto', position: 'relative', height: 500 }}>
       <StoryCarousel
-        key={key}
-        ref={carouselRef}
         stories={stories}
+        ref={carouselRef}
         autoPlay
         showControls={false}
-        renderStory={(story) => (
+        renderStory={(story, progress) => (
           <div
             style={{
               width: '100%',
               height: '100%',
               background: 'linear-gradient(135deg, #60a5fa, #a855f7)',
+              color: '#fff',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
-            <span style={{ color: '#fff', fontSize: 18, fontWeight: 700 }}>
-              {story.content}
-            </span>
-            <span style={{
-              color: 'rgba(255,255,255,0.7)',
-              fontSize: 10,
-              fontFamily: 'monospace',
-              marginTop: 4
-            }}>
-              {story.duration}ms
-            </span>
+            <h3 style={{ margin: 0 }}>{story.content}</h3>
+            <p style={{ margin: '8px 0 0', color: 'rgba(255,255,255,0.8)' }}>
+              {Math.round(progress * 100)}% watched
+            </p>
           </div>
         )}
-        onComplete={() => { setIsPlaying(true); setKey(k => k + 1); }}
+        onStoryEnd={(story) => {
+          console.log('story ended:', story.id);
+        }}
         style={{ width: '100%', height: '100%' }}
       />
-
       <button
+        onClick={togglePlayback}
         style={{
           position: 'absolute',
-          bottom: 10,
+          bottom: 16,
           left: '50%',
           transform: 'translateX(-50%)',
-          background: 'rgba(0, 0, 0, 0.22)',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
-          color: 'rgba(255, 255, 255, 0.92)',
-          border: '1px solid rgba(255, 255, 255, 0.14)',
-          borderRadius: 20,
-          padding: '4px 10px',
-          cursor: 'pointer',
-          zIndex: 20,
-          fontSize: 9,
-          fontWeight: 600,
-          letterSpacing: '0.4px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 4,
-          whiteSpace: 'nowrap'
+          background: 'rgba(15, 23, 42, 0.75)',
+          color: '#fff',
+          border: 'none',
+          borderRadius: 999,
+          padding: '6px 12px',
         }}
-        onClick={handleToggle}
       >
-        <span>{isPlaying ? '⏸' : '▶'}</span>
-        <span>{isPlaying ? 'ПАУЗА' : 'ИГРАТЬ'}</span>
+        {isPlaying ? 'Pause' : 'Play'}
       </button>
     </div>
   );
@@ -435,46 +417,49 @@ function App() {
     native: {
       title: t('code.nativeExample'),
       description: t('examples.nativeDescription'),
-      code: `import { StoryCarousel } from '@storycarouselkit/core';
+      code: `import { StoryCarousel, type Story, type StoryCarouselStateInfo } from '@storycarouselkit/core';
 
-// Создаем контейнер
-const container = document.getElementById('story-container');
-
-// Определяем истории
-const stories = [
-  {
-    id: '1',
-    content: 'Первая история',
-    duration: 3000
-  },
-  {
-    id: '2',
-    content: 'Вторая история',
-    duration: 4000
-  }
+const stories: Story[] = [
+  { id: '1', content: 'Welcome', duration: 3000 },
+  { id: '2', content: 'Scroll', duration: 4000 },
+  { id: '3', content: 'Done', duration: 3500 },
 ];
 
-// Создаем экземпляр карусели
+const container = document.getElementById('story-carousel');
+const intervalElement = document.getElementById('story-progress');
+
 const carousel = new StoryCarousel({
   stories,
   autoPlay: true,
-  onStoryEnd: (story) => {
-    console.log('История завершена:', story);
+  onStoryStart: (story) => console.log('Started', story.id),
+  onStoryEnd: (story) => console.log('Ended', story.id),
+  onStoryViewed: (story) => {
+    console.log('Viewed', story.id);
   },
   onComplete: () => {
-    console.log('Все истории просмотрены');
-  }
+    carousel.goTo(0);
+    carousel.play();
+  },
 });
 
-// Добавляем в DOM и запускаем
-container.appendChild(carousel.element);
+if (container) {
+  container.appendChild(carousel.element);
+}
+
+setInterval(() => {
+  const state = carousel.getState() as StoryCarouselStateInfo;
+  if (intervalElement) {
+  intervalElement.textContent = state.currentIndex + 1 + ' / ' + stories.length;
+  }
+}, 150);
+
 carousel.play();`,
       demo: <NativeStoryDemo />,
     },
   };
 
   return (
-    <section id="examples" className='min-h-screen pt-20 px-4 py-12 bg-gray-50'>
+    <section id='examples' className='min-h-screen pt-20 px-4 py-12 bg-gray-50'>
       <div className='max-w-7xl mx-auto'>
         {/* Header */}
         <div className='text-center mb-12'>

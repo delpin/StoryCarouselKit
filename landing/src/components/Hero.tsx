@@ -16,7 +16,6 @@ export function Hero() {
     const examplesSection = document.getElementById('examples');
     if (examplesSection) {
       examplesSection.scrollIntoView({ behavior: 'smooth' });
-      // После скролла к примерам, можно дополнительно проскроллить к секции установки
       setTimeout(() => {
         const installationElement = examplesSection.querySelector('.bg-gradient-to-r');
         if (installationElement) {
@@ -28,63 +27,96 @@ export function Hero() {
 
   const demos = [
     {
-      title: 'React',
+      title: 'React (wrapper)',
       code: `import { StoryCarousel } from '@storycarouselkit/react';
 
 const stories = [
   { id: '1', content: 'История 1', duration: 3000 },
   { id: '2', content: 'История 2', duration: 4000 },
-  { id: '3', content: 'История 3', duration: 3500 }
+  { id: '3', content: 'История 3', duration: 3500 },
 ];
 
-<StoryCarousel
-  stories={stories}
-  autoPlay={true}
-/>`,
+export default function StoryFeed() {
+  return (
+    <StoryCarousel
+      stories={stories}
+      autoPlay
+      onStoryEnd={(story) => console.log('done:', story.id)}
+    />
+  );
+}`,
     },
     {
-      title: 'Native (Vanilla JS)',
-      code: `import { StoryCarousel } from '@storycarouselkit/core';
-
-const stories = [
-  { id: '1', content: 'Story #1', duration: 3000 },
-  { id: '2', content: 'Story #2', duration: 4000 },
-  { id: '3', content: 'Story #3', duration: 3500 }
-];
-
-const carousel = new StoryCarousel({
-  stories,
-  autoPlay: true,
-  onComplete: () => {
-    carousel.goTo(0);
-    carousel.play();
-  }
-});
-
-carousel.play();`,
-    },
-    {
-      title: 'Vue (Soon)',
-      code: `<template>
-  <StoryCarousel
-    :stories="stories"
-    :auto-play="true"
-    @story-end="onStoryEnd"
-  />
-</template>
-
-<script setup>
-import { StoryCarousel } from '@storycarouselkit/vue';
+      title: 'React (API + custom layout)',
+      code: `import { StoryCarousel } from '@storycarouselkit/react';
 
 const stories = [
   { id: '1', content: 'Story 1', duration: 3000 },
   { id: '2', content: 'Story 2', duration: 4000 },
 ];
 
-const onStoryEnd = (story) => {
-  console.log('Story ended:', story);
-};
-</script>`,
+export default function Branded() {
+  return (
+    <StoryCarousel stories={stories} autoPlay={false}>
+      <StoryCarousel.ProgressBar>
+        {({ stories, state }) => (
+          <div style={{ display: 'flex', gap: 4 }}>
+            {stories.map((_, i) => (
+              <div key={i} style={{ flex: 1, height: 4, background: '#ffffff55' }}>
+                <div
+                  style={{
+                    height: '100%',
+                    width: (i === state.currentIndex ? state.progress * 100 : i < state.currentIndex ? 100 : 0) + '%',
+                    background: '#fff',
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </StoryCarousel.ProgressBar>
+
+      <StoryCarousel.Content>
+        {({ story }) => (
+          <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center', color: '#fff' }}>
+            {story.content}
+          </div>
+        )}
+      </StoryCarousel.Content>
+
+      <StoryCarousel.Controls>
+        {({ api }) => (
+          <>
+            <button onClick={api.prev}>Назад</button>
+            <button onClick={api.next}>Вперед</button>
+            <button onClick={api.play}>Play</button>
+            <button onClick={api.pause}>Pause</button>
+          </>
+        )}
+      </StoryCarousel.Controls>
+    </StoryCarousel>
+  );
+}`,
+    },
+    {
+      title: 'Native JS (core)',
+      code: `import { StoryCarousel } from '@storycarouselkit/core';
+
+const stories = [
+  { id: '1', content: 'Story #1', duration: 3000 },
+  { id: '2', content: 'Story #2', duration: 4000 },
+  { id: '3', content: 'Story #3', duration: 3500 },
+];
+
+const container = document.getElementById('story-container');
+const carousel = new StoryCarousel({
+  stories,
+  autoPlay: true,
+  onStoryEnd: (story) => console.log('Story ended:', story),
+});
+
+container?.appendChild(carousel.element);
+carousel.play();`,
     },
   ];
 
