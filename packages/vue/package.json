@@ -1,5 +1,5 @@
 {
-  "name": "@storykit/vue",
+  "name": "@storycarouselkit/vue",
   "version": "0.1.0",
   "description": "Vue wrapper for story carousel component",
   "main": "dist/index.js",

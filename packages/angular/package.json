@@ -1,5 +1,5 @@
 {
-  "name": "@storykit/angular",
+  "name": "@storycarouselkit/angular",
   "version": "0.1.0",
   "description": "Angular wrapper for story carousel component",
   "main": "dist/index.js",

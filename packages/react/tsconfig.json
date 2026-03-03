@@ -13,7 +13,7 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@storykit/core": ["../native/src"]
+      "@storycarouselkit/core": ["../native/src"]
     }
   },
   "include": ["src/**/*", "../native/src/**/*"],

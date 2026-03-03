@@ -18,7 +18,7 @@ export function Examples() {
       title: t('code.reactExample'),
       description: 'Полнофункциональный пример с React компонентом',
       code: `import { useState } from 'react';
-import { StoryCarousel } from '@storykit/react';
+import { StoryCarousel } from '@storycarouselkit/react';
 
 function App() {
   const [stories] = useState([
@@ -88,7 +88,7 @@ function App() {
     native: {
       title: t('code.nativeExample'),
       description: t('examples.nativeDescription'),
-      code: `import { StoryCarousel } from '@storykit/core';
+      code: `import { StoryCarousel } from '@storycarouselkit/core';
 
 // Создаем контейнер
 const container = document.getElementById('story-container');
@@ -206,7 +206,7 @@ carousel.play();`,
                   <p>
                     1. Установите пакет:{' '}
                     <code className='bg-blue-100 px-1 rounded'>
-                      npm install @storykit/{selectedFramework}
+                      npm install @storycarouselkit/{selectedFramework}
                     </code>
                   </p>
                   <p>2. Импортируйте компонент</p>
@@ -230,13 +230,13 @@ carousel.play();`,
               <h4 className='font-semibold mb-4'>{t('examples.installation')}</h4>
               <pre className='bg-black/30 p-4 rounded-lg text-sm overflow-x-auto'>
                 <code>{`# Для React проектов
-npm install @storykit/react
+npm install @storycarouselkit/react
 
 # Для нативного использования
 npm install@storycarouselkit/core
 
 # Для других фреймворков (скоро)
-npm install @storykit/vue`}</code>
+npm install @storycarouselkit/vue`}</code>
               </pre>
             </div>
 

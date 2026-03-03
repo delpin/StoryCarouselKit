@@ -23,7 +23,7 @@ Vue интеграция для Story Carousel планируется в бли�
 </template>
 
 <script setup>
-import { StoryCarousel } from '@storykit/vue';
+import { StoryCarousel } from '@storycarouselkit/vue';
 
 const stories = [
   { id: '1', content: 'История 1', duration: 3000 },
@@ -45,7 +45,7 @@ const handleComplete = () => {
 ### Использование нативного API
 
 ```javascript
-import { StoryCarousel } from '@storykit/core';
+import { StoryCarousel } from '@storycarouselkit/core';
 
 export default {
   mounted() {

@@ -25,7 +25,7 @@ pnpm dev
 pnpm build
 
 # Сборка конкретного пакета
-pnpm --filter @storykit/react build
+pnpm --filter @storycarouselkit/react build
 
 # Очистка сборок
 pnpm clean
@@ -113,7 +113,7 @@ export type { Story, StoryCarouselConfig, StoryCarouselState } from './types';
 
 ```bash
 # Анализ размера бандла
-pnpm --filter @storykit/react build
+pnpm --filter @storycarouselkit/react build
 npx bundle-analyzer packages/react/dist/index.js
 ```
 
@@ -140,7 +140,7 @@ pnpm --filter@storycarouselkit/core pack --dry-run
 ```json
 // packages/native/package.json
 {
-  "name": "@storykit/core",
+  "name": "@storycarouselkit/core",
   "version": "1.0.0",
   "description": "Framework-agnostic story carousel core",
   "main": "./dist/index.js",
@@ -182,7 +182,7 @@ pnpm version patch
 pnpm publish --recursive
 
 # Или публикация конкретного пакета
-pnpm publish --filter @storykit/react
+pnpm publish --filter @storycarouselkit/react
 ```
 
 ### Автоматизированная публикация
@@ -389,10 +389,10 @@ jobs:
 
 ```html
 <!-- React версия -->
-<script crossorigin src="https://unpkg.com/@storykit/react@1.0.0/dist/index.js"></script>
+<script crossorigin src="https://unpkg.com/@storycarouselkit/react@1.0.0/dist/index.js"></script>
 
 <!-- Нативная версия -->
-<script crossorigin src="https://unpkg.com/@storykit/core@1.0.0/dist/index.js"></script>
+<script crossorigin src="https://unpkg.com/@storycarouselkit/core@1.0.0/dist/index.js"></script>
 ```
 
 ### Cloudflare Workers
@@ -437,7 +437,7 @@ npx webpack-bundle-analyzer dist/static/js/*.js
 ```javascript
 // scripts/analyze-cdn.ts
 async function analyzeCDNUsage() {
-  const packages = ['@storykit/core', '@storykit/react'];
+  const packages = ['@storycarouselkit/core', '@storycarouselkit/react'];
 
   for (const pkg of packages) {
     try {

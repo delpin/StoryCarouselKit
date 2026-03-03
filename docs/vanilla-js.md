@@ -117,7 +117,7 @@ npm install@storycarouselkit/core
     </div>
 
     <script type="module">
-      import { StoryCarousel } from '@storykit/core';
+      import { StoryCarousel } from '@storycarouselkit/core';
 
       // Данные историй
       const stories = [

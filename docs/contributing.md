@@ -63,7 +63,11 @@ packages/
 
 ```typescript
 // packages/framework-name/src/index.ts
-import { StoryCarousel as StoryCarouselCore, Story, StoryCarouselConfig } from '@storykit/core';
+import {
+  StoryCarousel as StoryCarouselCore,
+  Story,
+  StoryCarouselConfig,
+} from '@storycarouselkit/core';
 
 // Типы для фреймворка
 export interface FrameworkStoryCarouselProps {
@@ -155,7 +159,7 @@ pnpm test
 pnpm --filter@storycarouselkit/core test
 
 # Тесты в watch режиме
-pnpm --filter @storykit/react test -- --watch
+pnpm --filter @storycarouselkit/react test -- --watch
 ```
 
 ### Написание тестов
@@ -354,7 +358,7 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
 pnpm build
 
 # Сборка конкретного пакета
-pnpm --filter @storykit/react build
+pnpm --filter @storycarouselkit/react build
 ```
 
 ### Публикация
@@ -367,7 +371,7 @@ pnpm version patch
 pnpm publish --recursive
 
 # Или публикация конкретного пакета
-pnpm publish --filter @storykit/react
+pnpm publish --filter @storycarouselkit/react
 ```
 
 ### Release процесс

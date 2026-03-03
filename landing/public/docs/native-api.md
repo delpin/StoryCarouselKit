@@ -1,6 +1,6 @@
 # Нативное API
 
-Нативный пакет `@storykit/core` содержит framework-agnostic логику управления историями. Это TypeScript класс, который можно использовать в любом JavaScript окружении.
+Нативный пакет `@storycarouselkit/core` содержит framework-agnostic логику управления историями. Это TypeScript класс, который можно использовать в любом JavaScript окружении.
 
 ## Установка
 
@@ -129,7 +129,7 @@ carousel.destroy();
 ### Базовый пример
 
 ```javascript
-import { StoryCarousel } from '@storykit/core';
+import { StoryCarousel } from '@storycarouselkit/core';
 
 const stories = [
   { id: '1', content: 'Добро пожаловать!', duration: 3000 },

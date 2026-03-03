@@ -8,7 +8,7 @@ Angular интеграция планируется в будущих релиз
 
 ```typescript
 import { Component } from '@angular/core';
-import { StoryCarousel } from '@storykit/angular';
+import { StoryCarousel } from '@storycarouselkit/angular';
 
 @Component({
   selector: 'app-stories',
@@ -48,7 +48,7 @@ export class StoriesComponent {
 
 ```typescript
 import { Component, ElementRef, ViewChild, OnDestroy } from '@angular/core';
-import { StoryCarousel } from '@storykit/core';
+import { StoryCarousel } from '@storycarouselkit/core';
 
 @Component({
   selector: 'app-stories',

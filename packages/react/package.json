@@ -1,5 +1,5 @@
 {
-  "name": "@storykit/react",
+  "name": "@storycarouselkit/react",
   "version": "0.1.0",
   "description": "React wrapper for story carousel component",
   "main": "dist/index.js",

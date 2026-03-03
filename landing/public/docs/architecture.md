@@ -35,7 +35,7 @@ story-carousel-monorepo/
 
 ### 1. Single Source of Truth
 
-Вся бизнес-логика сосредоточена в `@storykit/core`. Обертки фреймворков только адаптируют UI.
+Вся бизнес-логика сосредоточена в `@storycarouselkit/core`. Обертки фреймворков только адаптируют UI.
 
 ### 2. Immutable State
 
@@ -66,7 +66,7 @@ story-carousel-monorepo/
 - Стилизацию
 - Интеграцию с фреймворками
 
-### Framework-обертки (@storykit/react, etc.)
+### Framework-обертки (@storycarouselkit/react, etc.)
 
 **Ответственность:**
 

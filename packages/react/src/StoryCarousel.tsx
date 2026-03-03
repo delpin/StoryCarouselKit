@@ -4,7 +4,7 @@ import {
   Story,
   StoryCarouselConfig,
   StoryCarouselStateInfo,
-} from '@storykit/core';
+} from '@storycarouselkit/core';
 
 export interface StoryCarouselProps extends Omit<
   StoryCarouselConfig,

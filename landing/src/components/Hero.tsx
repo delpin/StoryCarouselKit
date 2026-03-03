@@ -8,7 +8,7 @@ export function Hero() {
   const demos = [
     {
       title: 'React',
-      code: `import { StoryCarousel } from '@storykit/react';
+      code: `import { StoryCarousel } from '@storycarouselkit/react';
 
 const stories = [
   { id: '1', content: 'Story 1', duration: 3000 },
@@ -23,7 +23,7 @@ const stories = [
     },
     {
       title: 'Native (Vanilla JS)',
-      code: `import { StoryCarousel } from '@storykit/core';
+      code: `import { StoryCarousel } from '@storycarouselkit/core';
 
 const stories = [
   { id: '1', content: 'Story 1', duration: 3000 },
@@ -49,7 +49,7 @@ carousel.play();`,
 </template>
 
 <script setup>
-import { StoryCarousel } from '@storykit/vue';
+import { StoryCarousel } from '@storycarouselkit/vue';
 
 const stories = [
   { id: '1', content: 'Story 1', duration: 3000 },

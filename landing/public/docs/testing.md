@@ -334,13 +334,13 @@ describe('StoryCarousel React', () => {
 ```typescript
 // packages/integration-test/test/story-carousel-integration.test.ts
 import { describe, it, expect } from 'vitest';
-import { StoryCarousel as NativeCarousel } from '@storykit/core';
+import { StoryCarousel as NativeCarousel } from '@storycarouselkit/core';
 
 describe('Integration Tests', () => {
   it('нативное ядро работает с React оберткой', async () => {
     // Импорт React компонента в Node.js среде для тестирования
     const { renderToString } = await import('react-dom/server');
-    const { StoryCarousel: ReactCarousel } = await import('@storykit/react');
+    const { StoryCarousel: ReactCarousel } = await import('@storycarouselkit/react');
 
     const stories = [{ id: '1', content: 'Test Story', duration: 1000 }];
 

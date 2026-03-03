@@ -1,15 +1,15 @@
 # React интеграция
 
-React обертка `@storykit/react` предоставляет готовый компонент с полным UI и интеграцией с React экосистемой.
+React обертка `@storycarouselkit/react` предоставляет готовый компонент с полным UI и интеграцией с React экосистемой.
 
 ## Установка
 
 ```bash
-pnpm add @storykit/react
+pnpm add @storycarouselkit/react
 # или
-npm install @storykit/react
+npm install @storycarouselkit/react
 # или
-yarn add @storykit/react
+yarn add @storycarouselkit/react
 ```
 
 ## Основные пропсы
@@ -48,7 +48,7 @@ interface StoryCarouselProps {
 
 ```tsx
 import React from 'react';
-import { StoryCarousel } from '@storykit/react';
+import { StoryCarousel } from '@storycarouselkit/react';
 
 const stories = [
   { id: '1', content: 'Добро пожаловать!', duration: 3000 },
@@ -473,7 +473,7 @@ function VirtualizedStoryCarousel({ allStories, visibleCount = 10 }) {
 
 ```tsx
 import { render, screen, fireEvent } from '@testing-library/react';
-import { StoryCarousel } from '@storykit/react';
+import { StoryCarousel } from '@storycarouselkit/react';
 
 const mockStories = [
   { id: '1', content: 'Test story 1' },

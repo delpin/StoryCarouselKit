@@ -8,15 +8,15 @@
 
 ```bash
 # Для React проекта
-pnpm add @storykit/react
+pnpm add @storycarouselkit/react
 
 # Для нативного JavaScript
 pnpm add@storycarouselkit/core
 
 # Для других фреймворков (планируется)
-pnpm add @storykit/vue
-pnpm add @storykit/svelte
-pnpm add @storykit/angular
+pnpm add @storycarouselkit/vue
+pnpm add @storycarouselkit/svelte
+pnpm add @storycarouselkit/angular
 ```
 
 ### 2. Проверка установки
@@ -32,7 +32,7 @@ pnpm list | grep story-carousel
 
 ```tsx
 import React from 'react';
-import { StoryCarousel } from '@storykit/react';
+import { StoryCarousel } from '@storycarouselkit/react';
 
 function App() {
   const stories = [
@@ -80,7 +80,7 @@ export default App;
     <div id="story-container" style="width: 400px; height: 600px;"></div>
 
     <script type="module">
-      import { StoryCarousel } from '@storykit/core';
+      import { StoryCarousel } from '@storycarouselkit/core';
 
       const stories = [
         { id: '1', content: 'История 1', duration: 3000 },
@@ -109,7 +109,7 @@ export default App;
 ```
 your-project/
 ├── node_modules/
-│   └── @storykit/
+│   └── @storycarouselkit/
 │       ├── react/
 │       └── native/
 ├── src/

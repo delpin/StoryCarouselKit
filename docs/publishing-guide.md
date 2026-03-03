@@ -65,14 +65,14 @@
 
 После успешной публикации:
 
-1. Проверьте [npmjs.com/package/@storykit/core](https://www.npmjs.com/package/@storykit/core)
+1. Проверьте [npmjs.com/package/@storycarouselkit/core](https://www.npmjs.com/package/@storycarouselkit/core)
 2. Установите пакет для тестирования:
    ```bash
    npm install@storycarouselkit/core@latest
    ```
 3. Проверьте версию:
    ```javascript
-   import { StoryCarousel } from '@storykit/core';
+   import { StoryCarousel } from '@storycarouselkit/core';
    console.log('Version check passed!');
    ```
 
@@ -81,7 +81,7 @@
 ### Ошибка авторизации
 
 ```
-npm ERR! 403 Forbidden - PUT https://registry.npmjs.org/@storykit%2fcore
+npm ERR! 403 Forbidden - PUT https://registry.npmjs.org/@storycarouselkit%2fcore
 ```
 
 **Решение**: Проверьте, что NPM_TOKEN корректный и имеет права на публикацию.
@@ -89,7 +89,7 @@ npm ERR! 403 Forbidden - PUT https://registry.npmjs.org/@storykit%2fcore
 ### Ошибка версии
 
 ```
-npm ERR! 403 Forbidden - PUT https://registry.npmjs.org/@storykit%2fcore - You cannot publish over the previously published versions
+npm ERR! 403 Forbidden - PUT https://registry.npmjs.org/@storycarouselkit%2fcore - You cannot publish over the previously published versions
 ```
 
 **Решение**: Увеличьте версию в package.json перед публикацией.

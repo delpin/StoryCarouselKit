@@ -4,11 +4,11 @@ StoryKit – Framework-agnostic Instagram-style story list component. Supports R
 
 ## Architecture
 
-- **`@storykit/core`** - Framework-agnostic core logic written in TypeScript
-- **`@storykit/react`** - React wrapper component
-- **`@storykit/vue`** - Vue wrapper component
-- **`@storykit/svelte`** - Svelte wrapper component
-- **`@storykit/angular`** - Angular wrapper component
+- **`@storycarouselkit/core`** - Framework-agnostic core logic written in TypeScript
+- **`@storycarouselkit/react`** - React wrapper component
+- **`@storycarouselkit/vue`** - Vue wrapper component
+- **`@storycarouselkit/svelte`** - Svelte wrapper component
+- **`@storycarouselkit/angular`** - Angular wrapper component
 
 ## Quick Start
 
@@ -28,7 +28,7 @@ pnpm build
 ### React
 
 ```tsx
-import { StoryCarousel } from '@storykit/react';
+import { StoryCarousel } from '@storycarouselkit/react';
 
 const stories = [
   { id: '1', content: 'Story 1', duration: 3000 },
@@ -53,7 +53,7 @@ function App() {
 ### Native (Vanilla JS)
 
 ```javascript
-import { StoryCarousel } from '@storykit/core';
+import { StoryCarousel } from '@storycarouselkit/core';
 
 const stories = [
   { id: '1', content: 'Story 1', duration: 3000 },
@@ -80,7 +80,7 @@ pnpm install
 pnpm build
 
 # Build specific package
-pnpm --filter @storykit/react build
+pnpm --filter @storycarouselkit/react build
 
 # Run tests
 pnpm test

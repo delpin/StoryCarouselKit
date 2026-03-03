@@ -1,5 +1,5 @@
 {
-  "name": "@storykit/svelte",
+  "name": "@storycarouselkit/svelte",
   "version": "0.1.0",
   "description": "Svelte wrapper for story carousel component",
   "main": "dist/index.js",

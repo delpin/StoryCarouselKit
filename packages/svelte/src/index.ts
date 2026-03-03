@@ -1,3 +1,3 @@
 // Svelte wrapper for story carousel
-export type { Story, StoryCarouselConfig, StoryCarouselState } from '@storykit/core';
+export type { Story, StoryCarouselConfig, StoryCarouselState } from '@storycarouselkit/core';
 // TODO: Implement Svelte component

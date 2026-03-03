@@ -7,7 +7,7 @@
 ### Простая карусель историй
 
 ```tsx
-import { StoryCarousel } from '@storykit/react';
+import { StoryCarousel } from '@storycarouselkit/react';
 
 const stories = [
   { id: '1', content: 'Добро пожаловать!', duration: 3000 },
