@@ -1,3 +1,9 @@
 export { StoryCarousel } from './StoryCarousel';
-export type { CarouselAPI, StoryCarouselProps } from './StoryCarousel';
-export type { Story, StoryCarouselConfig, StoryCarouselState } from '@storycarouselkit/core';
+export { useStoryCarousel } from './hooks/useStoryCarousel';
+export type {
+  CarouselAPI,
+  StoryCarouselProps,
+  Story,
+  StoryCarouselConfig,
+  StoryCarouselState,
+} from './types';

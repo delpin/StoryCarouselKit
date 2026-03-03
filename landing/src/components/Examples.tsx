@@ -351,13 +351,13 @@ function App() {
   ]);
   const [key, setKey] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const apiRef = useRef<CarouselAPI | null>(null);
+  const carouselRef = useRef<CarouselAPI | null>(null);
 
   const handleToggle = () => {
     if (isPlaying) {
-      apiRef.current?.pause();
+      carouselRef.current?.pause();
     } else {
-      apiRef.current?.play();
+      carouselRef.current?.play();
     }
     setIsPlaying(p => !p);
   };
@@ -366,10 +366,10 @@ function App() {
     <div className="max-w-md mx-auto">
       <StoryCarousel
         key={key}
+        ref={carouselRef}
         stories={stories}
         autoPlay
         showControls={false}
-        apiRef={apiRef}
         renderStory={(story) => (
           <div
             style={{
