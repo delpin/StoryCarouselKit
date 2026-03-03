@@ -13,6 +13,8 @@
     "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
+    "@storycarouselkit/core": "workspace:*",
+    "@storycarouselkit/react": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-markdown": "^10.1.0",

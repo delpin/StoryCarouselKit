@@ -1,5 +1,328 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { StoryCarousel as ReactStoryCarousel } from '@storycarouselkit/react';
+import type { CarouselAPI } from '@storycarouselkit/react';
+import { StoryCarousel as CoreStoryCarousel } from '@storycarouselkit/core';
+import type { Story, StoryCarouselStateInfo } from '@storycarouselkit/core';
 import { useLanguage } from '../contexts/LanguageContext';
+
+const REACT_DEMO_STORIES: Story[] = [
+  { id: '1', content: 'История 1', duration: 3000 },
+  { id: '2', content: 'История 2', duration: 4000 },
+  { id: '3', content: 'История 3', duration: 3500 },
+];
+
+const NATIVE_DEMO_STORIES: Story[] = [
+  { id: '1', content: 'Story #1', duration: 3000 },
+  { id: '2', content: 'Story #2', duration: 4000 },
+  { id: '3', content: 'Story #3', duration: 3500 },
+];
+
+const REACT_GRADIENTS: Record<string, string> = {
+  '1': 'linear-gradient(135deg, #60a5fa, #a855f7)',
+  '2': 'linear-gradient(135deg, #34d399, #14b8a6)',
+  '3': 'linear-gradient(135deg, #c084fc, #ec4899)',
+};
+
+const NATIVE_GRADIENTS: Record<string, string> = {
+  '1': 'linear-gradient(135deg, #fbbf24, #f97316)',
+  '2': 'linear-gradient(135deg, #22d3ee, #3b82f6)',
+  '3': 'linear-gradient(135deg, #fb7185, #ef4444)',
+};
+
+function PhoneFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <div className='flex justify-center'>
+      <div
+        className='relative rounded-2xl overflow-hidden shadow-2xl'
+        style={{ width: 176, aspectRatio: '9/16' }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+const pillStyle: React.CSSProperties = {
+  position: 'absolute',
+  bottom: 10,
+  left: '50%',
+  transform: 'translateX(-50%)',
+  background: 'rgba(0, 0, 0, 0.22)',
+  backdropFilter: 'blur(8px)',
+  WebkitBackdropFilter: 'blur(8px)',
+  color: 'rgba(255, 255, 255, 0.92)',
+  border: '1px solid rgba(255, 255, 255, 0.14)',
+  borderRadius: 20,
+  padding: '4px 10px',
+  cursor: 'pointer',
+  zIndex: 20,
+  fontSize: 9,
+  fontWeight: 600,
+  letterSpacing: '0.4px',
+  display: 'flex',
+  alignItems: 'center',
+  gap: 4,
+  whiteSpace: 'nowrap',
+};
+
+const badgeStyle: React.CSSProperties = {
+  fontSize: 8,
+  fontWeight: 700,
+  background: 'rgba(0, 0, 0, 0.28)',
+  backdropFilter: 'blur(4px)',
+  WebkitBackdropFilter: 'blur(4px)',
+  color: 'rgba(255,255,255,0.9)',
+  padding: '2px 7px',
+  borderRadius: 100,
+  letterSpacing: '0.3px',
+};
+
+function ReactStoryDemo() {
+  const [key, setKey] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const apiRef = useRef<CarouselAPI | null>(null);
+
+  const handleToggle = () => {
+    if (isPlaying) {
+      apiRef.current?.pause();
+    } else {
+      apiRef.current?.play();
+    }
+    setIsPlaying(p => !p);
+  };
+
+  return (
+    <PhoneFrame>
+      <ReactStoryCarousel
+        key={key}
+        stories={REACT_DEMO_STORIES}
+        autoPlay
+        showControls={false}
+        apiRef={apiRef}
+        renderStory={(story: Story) => (
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              background: REACT_GRADIENTS[story.id],
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <span style={{ color: '#fff', fontSize: 18, fontWeight: 700 }}>{story.content}</span>
+            <span
+              style={{
+                color: 'rgba(255,255,255,0.7)',
+                fontSize: 10,
+                fontFamily: 'monospace',
+                marginTop: 4,
+              }}
+            >
+              {story.duration}ms
+            </span>
+          </div>
+        )}
+        onComplete={() => {
+          setIsPlaying(true);
+          setKey(k => k + 1);
+        }}
+        style={{ width: '100%', height: '100%' }}
+      />
+
+      <div style={{ position: 'absolute', top: 20, left: 10, zIndex: 15 }}>
+        <span style={badgeStyle}>React</span>
+      </div>
+
+      <button
+        style={{
+          position: 'absolute',
+          inset: '0 auto 0 0',
+          width: '40%',
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+          zIndex: 20,
+        }}
+        onClick={() => apiRef.current?.prev()}
+        aria-label='Предыдущая история'
+      />
+      <button
+        style={{
+          position: 'absolute',
+          inset: '0 0 0 auto',
+          width: '40%',
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+          zIndex: 20,
+        }}
+        onClick={() => apiRef.current?.next()}
+        aria-label='Следующая история'
+      />
+
+      <button style={pillStyle} onClick={handleToggle}>
+        <span>{isPlaying ? '⏸' : '▶'}</span>
+        <span>{isPlaying ? 'ПАУЗА' : 'ИГРАТЬ'}</span>
+      </button>
+    </PhoneFrame>
+  );
+}
+
+function NativeStoryDemo() {
+  const carouselRef = useRef<CoreStoryCarousel | null>(null);
+  const [state, setState] = useState<StoryCarouselStateInfo | null>(() => null);
+
+  useEffect(() => {
+    const carousel = new CoreStoryCarousel({
+      stories: NATIVE_DEMO_STORIES,
+      autoPlay: true,
+      onComplete: () => {
+        carousel.goTo(0);
+        carousel.play();
+      },
+    });
+    carouselRef.current = carousel;
+
+    const interval = setInterval(() => setState(carousel.getState()), 100);
+
+    return () => {
+      clearInterval(interval);
+      carousel.destroy();
+    };
+  }, []);
+
+  if (!state?.currentStory) return null;
+
+  const { currentStory, currentIndex, progress, state: playState } = state;
+  const isPlaying = playState === 'playing';
+
+  const handlePrev = () => {
+    carouselRef.current?.prev();
+    setState(carouselRef.current!.getState());
+  };
+  const handleNext = () => {
+    carouselRef.current?.next();
+    setState(carouselRef.current!.getState());
+  };
+  const handleToggle = () => {
+    if (isPlaying) {
+      carouselRef.current?.pause();
+    } else {
+      carouselRef.current?.play();
+    }
+    setState(carouselRef.current!.getState());
+  };
+
+  return (
+    <PhoneFrame>
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: NATIVE_GRADIENTS[currentStory.id],
+          transition: 'background 0.4s',
+        }}
+      />
+
+      <div
+        style={{
+          position: 'absolute',
+          top: 10,
+          left: 10,
+          right: 10,
+          display: 'flex',
+          gap: 4,
+          zIndex: 10,
+        }}
+      >
+        {NATIVE_DEMO_STORIES.map((s, i) => (
+          <div
+            key={s.id}
+            style={{
+              flex: 1,
+              height: 2,
+              background: 'rgba(255,255,255,0.35)',
+              borderRadius: 1,
+              overflow: 'hidden',
+            }}
+          >
+            <div
+              style={{
+                height: '100%',
+                background: '#fff',
+                width: i < currentIndex ? '100%' : i === currentIndex ? `${progress * 100}%` : '0%',
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
+      <div style={{ position: 'absolute', top: 20, left: 10, zIndex: 10 }}>
+        <span style={badgeStyle}>Vanilla JS</span>
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 5,
+        }}
+      >
+        <p style={{ color: '#fff', fontSize: 18, fontWeight: 700, margin: 0 }}>
+          {currentStory.content}
+        </p>
+        <p
+          style={{
+            color: 'rgba(255,255,255,0.7)',
+            fontSize: 10,
+            fontFamily: 'monospace',
+            margin: '4px 0 0',
+          }}
+        >
+          duration: {currentStory.duration}ms
+        </p>
+      </div>
+
+      <button
+        style={{
+          position: 'absolute',
+          inset: '0 auto 0 0',
+          width: '33%',
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+          zIndex: 20,
+        }}
+        onClick={handlePrev}
+        aria-label='Предыдущая история'
+      />
+      <button
+        style={{
+          position: 'absolute',
+          inset: '0 0 0 auto',
+          width: '33%',
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+          zIndex: 20,
+        }}
+        onClick={handleNext}
+        aria-label='Следующая история'
+      />
+
+      <button style={pillStyle} onClick={handleToggle}>
+        <span>{isPlaying ? '⏸' : '▶'}</span>
+        <span>{isPlaying ? 'ПАУЗА' : 'ИГРАТЬ'}</span>
+      </button>
+    </PhoneFrame>
+  );
+}
 
 export function Examples() {
   const { t } = useLanguage();
@@ -72,18 +395,7 @@ function App() {
     </div>
   );
 }`,
-      demo: (
-        <div className='bg-gray-900 rounded-xl p-6 text-center text-white'>
-          <div className='w-full h-48 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mb-4'>
-            <div className='text-center'>
-              <div className='w-16 h-2 bg-white/30 rounded-full mb-2 mx-auto'></div>
-              <div className='w-12 h-2 bg-white/60 rounded-full mb-2 mx-auto'></div>
-              <div className='w-8 h-2 bg-white rounded-full mx-auto'></div>
-            </div>
-          </div>
-          <p className='text-sm text-gray-300'>{t('demo.placeholder')}</p>
-        </div>
-      ),
+      demo: <ReactStoryDemo />,
     },
     native: {
       title: t('code.nativeExample'),
@@ -122,18 +434,7 @@ const carousel = new StoryCarousel({
 // Добавляем в DOM и запускаем
 container.appendChild(carousel.element);
 carousel.play();`,
-      demo: (
-        <div className='bg-gray-900 rounded-xl p-6 text-center text-white'>
-          <div className='w-full h-48 bg-gradient-to-br from-green-500 to-blue-600 rounded-lg flex items-center justify-center mb-4'>
-            <div className='text-center'>
-              <div className='w-16 h-2 bg-white/30 rounded-full mb-2 mx-auto'></div>
-              <div className='w-12 h-2 bg-white/60 rounded-full mb-2 mx-auto'></div>
-              <div className='w-8 h-2 bg-white rounded-full mx-auto'></div>
-            </div>
-          </div>
-          <p className='text-sm text-gray-300'>{t('demo.placeholder')}</p>
-        </div>
-      ),
+      demo: <NativeStoryDemo />,
     },
   };
 
@@ -233,7 +534,7 @@ carousel.play();`,
 npm install @storycarouselkit/react
 
 # Для нативного использования
-npm install@storycarouselkit/core
+npm install @storycarouselkit/core
 
 # Для других фреймворков (скоро)
 npm install @storycarouselkit/vue`}</code>

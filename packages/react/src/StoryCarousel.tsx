@@ -6,6 +6,13 @@ import {
   StoryCarouselStateInfo,
 } from '@storycarouselkit/core';
 
+export type CarouselAPI = {
+  play: () => void;
+  pause: () => void;
+  next: () => void;
+  prev: () => void;
+};
+
 export interface StoryCarouselProps extends Omit<
   StoryCarouselConfig,
   'onStoryEnd' | 'onStoryStart' | 'onComplete'
@@ -16,6 +23,8 @@ export interface StoryCarouselProps extends Omit<
   onStoryEnd?: (story: Story) => void;
   onStoryStart?: (story: Story) => void;
   onComplete?: () => void;
+  showControls?: boolean;
+  apiRef?: React.MutableRefObject<CarouselAPI | null>;
 }
 
 export const StoryCarousel: React.FC<StoryCarouselProps> = ({
@@ -28,6 +37,8 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
   onStoryEnd,
   onStoryStart,
   onComplete,
+  showControls = true,
+  apiRef,
 }) => {
   const carouselRef = useRef<StoryCarouselCore | null>(null);
   const [state, setState] = useState<StoryCarouselStateInfo | null>(null);
@@ -57,7 +68,15 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
       carouselRef.current.play();
     }
 
-    // Update state periodically
+    if (apiRef) {
+      apiRef.current = {
+        play: () => carouselRef.current?.play(),
+        pause: () => carouselRef.current?.pause(),
+        next: () => carouselRef.current?.next(),
+        prev: () => carouselRef.current?.prev(),
+      };
+    }
+
     const interval = setInterval(() => {
       if (carouselRef.current) {
         setState(carouselRef.current.getState());
@@ -67,6 +86,7 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
     return () => {
       clearInterval(interval);
       carouselRef.current?.destroy();
+      if (apiRef) apiRef.current = null;
     };
   }, [stories, autoPlay, defaultDuration, onStoryEnd, onStoryStart, onComplete]);
 
@@ -168,71 +188,73 @@ export const StoryCarousel: React.FC<StoryCarouselProps> = ({
         )}
       </div>
 
-      {/* Navigation buttons */}
-      <button
-        onClick={handlePrev}
-        disabled={state.currentIndex === 0}
-        style={{
-          position: 'absolute',
-          left: 10,
-          top: '50%',
-          transform: 'translateY(-50%)',
-          background: 'rgba(0, 0, 0, 0.5)',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '50%',
-          width: 40,
-          height: 40,
-          cursor: state.currentIndex === 0 ? 'not-allowed' : 'pointer',
-          opacity: state.currentIndex === 0 ? 0.5 : 1,
-          zIndex: 10,
-        }}
-      >
-        ‹
-      </button>
+      {showControls && (
+        <>
+          <button
+            onClick={handlePrev}
+            disabled={state.currentIndex === 0}
+            style={{
+              position: 'absolute',
+              left: 10,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'rgba(0, 0, 0, 0.5)',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '50%',
+              width: 40,
+              height: 40,
+              cursor: state.currentIndex === 0 ? 'not-allowed' : 'pointer',
+              opacity: state.currentIndex === 0 ? 0.5 : 1,
+              zIndex: 10,
+            }}
+          >
+            ‹
+          </button>
 
-      <button
-        onClick={handleNext}
-        disabled={state.currentIndex === stories.length - 1}
-        style={{
-          position: 'absolute',
-          right: 10,
-          top: '50%',
-          transform: 'translateY(-50%)',
-          background: 'rgba(0, 0, 0, 0.5)',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '50%',
-          width: 40,
-          height: 40,
-          cursor: state.currentIndex === stories.length - 1 ? 'not-allowed' : 'pointer',
-          opacity: state.currentIndex === stories.length - 1 ? 0.5 : 1,
-          zIndex: 10,
-        }}
-      >
-        ›
-      </button>
+          <button
+            onClick={handleNext}
+            disabled={state.currentIndex === stories.length - 1}
+            style={{
+              position: 'absolute',
+              right: 10,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'rgba(0, 0, 0, 0.5)',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '50%',
+              width: 40,
+              height: 40,
+              cursor: state.currentIndex === stories.length - 1 ? 'not-allowed' : 'pointer',
+              opacity: state.currentIndex === stories.length - 1 ? 0.5 : 1,
+              zIndex: 10,
+            }}
+          >
+            ›
+          </button>
 
-      {/* Play/Pause button */}
-      <button
-        onClick={state.state === 'playing' ? handlePause : handlePlay}
-        style={{
-          position: 'absolute',
-          bottom: 20,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: 'rgba(0, 0, 0, 0.5)',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '50%',
-          width: 50,
-          height: 50,
-          cursor: 'pointer',
-          zIndex: 10,
-        }}
-      >
-        {state.state === 'playing' ? '⏸' : '▶'}
-      </button>
+          <button
+            onClick={state.state === 'playing' ? handlePause : handlePlay}
+            style={{
+              position: 'absolute',
+              bottom: 20,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              background: 'rgba(0, 0, 0, 0.5)',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '50%',
+              width: 50,
+              height: 50,
+              cursor: 'pointer',
+              zIndex: 10,
+            }}
+          >
+            {state.state === 'playing' ? '⏸' : '▶'}
+          </button>
+        </>
+      )}
     </div>
   );
 };
