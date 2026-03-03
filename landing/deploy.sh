@@ -7,7 +7,7 @@ set -e
 
 REPO_URL=${1:-"https://github.com/your-username/your-landing-repo.git"}
 
-echo "🚀 Deploying StoryKit landing page to GitHub Pages..."
+echo "🚀 Deploying StoryCarouselKit landing page to GitHub Pages..."
 echo "Repository: $REPO_URL"
 
 # Build the landing page
@@ -31,7 +31,7 @@ cp -r dist/* "$TEMP_DIR/"
 cd "$TEMP_DIR"
 git init
 git add .
-git commit -m "Deploy StoryKit landing page $(date)"
+git commit -m "Deploy StoryCarouselKit landing page $(date)"
 
 # Force push to gh-pages branch (or main for user/org pages)
 echo "⬆️ Pushing to GitHub Pages..."

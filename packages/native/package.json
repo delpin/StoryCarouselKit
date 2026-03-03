@@ -28,7 +28,7 @@
     "typescript",
     "core"
   ],
-  "author": "StoryKit Team",
+  "author": "StoryCarouselKit Team",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/delpin/StoryCarouselKit.git",

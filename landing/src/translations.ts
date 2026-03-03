@@ -12,7 +12,7 @@ export const russianTranslations: Translations = {
   'nav.documentation': 'Документация',
 
   // Hero section
-  'hero.title': 'StoryKit',
+  'hero.title': 'StoryCarouselKit',
   'hero.subtitle': 'Framework-agnostic компонент для создания историй в стиле Instagram',
   'hero.description':
     'Поддерживает React, Vue, Svelte и Angular с общим type-safe ядром. Включает автопроигрывание, индикаторы прогресса, паузу/удержание, управление NEXT/PREV и настраиваемые темы.',
@@ -31,7 +31,7 @@ export const russianTranslations: Translations = {
   // Examples section
   'examples.title': 'Примеры использования',
   'examples.description':
-    'Посмотрите, как легко интегрировать StoryKit в ваш проект. Выберите фреймворк и изучите примеры кода.',
+    'Посмотрите, как легко интегрировать StoryCarouselKit в ваш проект. Выберите фреймворк и изучите примеры кода.',
   'examples.preview': 'Превью',
   'examples.installation': 'Установка',
   'examples.quickStart': 'Быстрый старт',
@@ -46,7 +46,8 @@ export const russianTranslations: Translations = {
 
   // Installation
   'install.getStarted': 'Начните использовать прямо сейчас',
-  'install.description': 'StoryKit доступен через npm и готов к использованию в вашем проекте',
+  'install.description':
+    'StoryCarouselKit доступен через npm и готов к использованию в вашем проекте',
   'install.support': 'Поддержка',
 
   // Code examples
@@ -76,7 +77,7 @@ export const englishTranslations: Translations = {
   'nav.documentation': 'Documentation',
 
   // Hero section
-  'hero.title': 'StoryKit',
+  'hero.title': 'StoryCarouselKit',
   'hero.subtitle': 'Framework-agnostic Instagram-style story component',
   'hero.description':
     'Supports React, Vue, Svelte, and Angular with a shared type-safe core. Features auto-play, progress indicators, pause/hold interactions, NEXT/PREV controls, and customizable themes.',
@@ -94,7 +95,7 @@ export const englishTranslations: Translations = {
   // Examples section
   'examples.title': 'Usage Examples',
   'examples.description':
-    'See how easy it is to integrate StoryKit into your project. Choose a framework and explore code examples.',
+    'See how easy it is to integrate StoryCarouselKit into your project. Choose a framework and explore code examples.',
   'examples.preview': 'Preview',
   'examples.installation': 'Installation',
   'examples.quickStart': 'Quick Start',
@@ -109,7 +110,7 @@ export const englishTranslations: Translations = {
 
   // Installation
   'install.getStarted': 'Start using it right now',
-  'install.description': 'StoryKit is available via npm and ready to use in your project',
+  'install.description': 'StoryCarouselKit is available via npm and ready to use in your project',
   'install.support': 'Support',
 
   // Code examples
@@ -139,7 +140,7 @@ export const chineseTranslations: Translations = {
   'nav.documentation': '文档',
 
   // Hero section
-  'hero.title': 'StoryKit',
+  'hero.title': 'StoryCarouselKit',
   'hero.subtitle': '框架无关的 Instagram 风格故事组件',
   'hero.description':
     '支持 React、Vue、Svelte 和 Angular，具有共享的类型安全核心。具有自动播放、进度指示器、暂停/保持交互、NEXT/PREV 控制和可自定义主题等功能。',
@@ -157,7 +158,7 @@ export const chineseTranslations: Translations = {
   // Examples section
   'examples.title': '使用示例',
   'examples.description':
-    '看看如何轻松地将 StoryKit 集成到您的项目中。选择一个框架并探索代码示例。',
+    '看看如何轻松地将 StoryCarouselKit 集成到您的项目中。选择一个框架并探索代码示例。',
   'examples.preview': '预览',
   'examples.installation': '安装',
   'examples.quickStart': '快速开始',
@@ -172,7 +173,7 @@ export const chineseTranslations: Translations = {
 
   // Installation
   'install.getStarted': '立即开始使用',
-  'install.description': 'StoryKit 可通过 npm 获取，并准备在您的项目中使用',
+  'install.description': 'StoryCarouselKit 可通过 npm 获取，并准备在您的项目中使用',
   'install.support': '支持',
 
   // Code examples

@@ -1,6 +1,6 @@
-# StoryKit Landing Page
+# StoryCarouselKit Landing Page
 
-Современный лендинг для проекта StoryKit - framework-agnostic компонента историй в стиле Instagram.
+Современный лендинг для проекта StoryCarouselKit - framework-agnostic компонента историй в стиле Instagram.
 
 ## 🚀 Запуск в режиме разработки
 
@@ -31,6 +31,7 @@ npm run preview
 Лендинг автоматически развертывается через GitHub Actions при пуше изменений в папку `landing/`.
 
 **Настройка:**
+
 1. В настройках репозитория перейдите в раздел **Pages**
 2. Выберите **Source**: "GitHub Actions"
 3. Workflow `deploy-landing.yml` автоматически соберет и опубликует лендинг
@@ -41,10 +42,10 @@ npm run preview
 
 ```bash
 # Создайте новый репозиторий на GitHub
-# Например: https://github.com/username/storykit-landing
+# Например: https://github.com/username/StoryCarouselKit-landing
 
 # Запустите скрипт развертывания
-./deploy.sh https://github.com/username/storykit-landing.git
+./deploy.sh https://github.com/username/StoryCarouselKit-landing.git
 
 # Или используйте npm скрипт
 npm run deploy
@@ -67,6 +68,7 @@ npm run deploy
 ### Проверка развертывания
 
 После развертывания лендинг будет доступен по адресу:
+
 - **User/Org pages**: `https://username.github.io`
 - **Project pages**: `https://username.github.io/repository-name`
 
