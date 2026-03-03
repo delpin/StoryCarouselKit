@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "prebuild": "echo 'Building landing page for GitHub Pages...'",
     "postbuild": "touch dist/.nojekyll",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "pnpm build && gh-pages -d dist"
   },
   "dependencies": {
     "@storycarouselkit/core": "workspace:*",
