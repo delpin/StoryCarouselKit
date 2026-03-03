@@ -48,7 +48,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build packages
-        run: pnpm --recursive --parallel run build
+        run: pnpm --filter='./packages/**' --recursive --parallel run build
 
       - name: Build landing page
         working-directory: ./landing
