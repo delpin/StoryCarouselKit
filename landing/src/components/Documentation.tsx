@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -16,27 +16,29 @@ export function Documentation() {
   const [markdownContent, setMarkdownContent] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
-  const docFiles: DocFile[] = [
+  const getDocPath = useCallback((filename: string) => `${import.meta.env.BASE_URL}docs/${filename}.md`, []);
+
+  const docFiles: DocFile[] = useMemo(() => [
     // Основные разделы
-    { name: 'index', path: '/docs/index.md', title: 'Главная', category: 'Основное' },
+    { name: 'index', path: getDocPath('index'), title: 'Главная', category: 'Основное' },
     {
       name: 'getting-started',
-      path: '/docs/getting-started.md',
+      path: getDocPath('getting-started'),
       title: 'Быстрый старт',
       category: 'Основное',
     },
-    { name: 'examples', path: '/docs/examples.md', title: 'Примеры', category: 'Основное' },
+    { name: 'examples', path: getDocPath('examples'), title: 'Примеры', category: 'Основное' },
 
     // Архитектура
     {
       name: 'architecture',
-      path: '/docs/architecture.md',
+      path: getDocPath('architecture'),
       title: 'Архитектура и мотивация',
       category: 'Архитектура',
     },
     {
       name: 'native-api',
-      path: '/docs/native-api.md',
+      path: getDocPath('native-api'),
       title: 'Нативное API',
       category: 'Архитектура',
     },
@@ -44,31 +46,31 @@ export function Documentation() {
     // Фреймворки
     {
       name: 'react-integration',
-      path: '/docs/react-integration.md',
+      path: getDocPath('react-integration'),
       title: 'React',
       category: 'Интеграции',
     },
     {
       name: 'vue-integration',
-      path: '/docs/vue-integration.md',
+      path: getDocPath('vue-integration'),
       title: 'Vue',
       category: 'Интеграции',
     },
     {
       name: 'svelte-integration',
-      path: '/docs/svelte-integration.md',
+      path: getDocPath('svelte-integration'),
       title: 'Svelte',
       category: 'Интеграции',
     },
     {
       name: 'angular-integration',
-      path: '/docs/angular-integration.md',
+      path: getDocPath('angular-integration'),
       title: 'Angular',
       category: 'Интеграции',
     },
     {
       name: 'vanilla-js',
-      path: '/docs/vanilla-js.md',
+      path: getDocPath('vanilla-js'),
       title: 'Vanilla JavaScript',
       category: 'Интеграции',
     },
@@ -76,28 +78,28 @@ export function Documentation() {
     // Кастомизация
     {
       name: 'theming',
-      path: '/docs/theming.md',
+      path: getDocPath('theming'),
       title: 'Темы и стилизация',
       category: 'Кастомизация',
     },
     {
       name: 'advanced-options',
-      path: '/docs/advanced-options.md',
+      path: getDocPath('advanced-options'),
       title: 'Расширенные опции',
       category: 'Кастомизация',
     },
 
     // API Reference
-    { name: 'types', path: '/docs/types.md', title: 'Типы данных', category: 'API Reference' },
+    { name: 'types', path: getDocPath('types'), title: 'Типы данных', category: 'API Reference' },
     {
       name: 'events',
-      path: '/docs/events.md',
+      path: getDocPath('events'),
       title: 'События и коллбэки',
       category: 'API Reference',
     },
     {
       name: 'methods',
-      path: '/docs/methods.md',
+      path: getDocPath('methods'),
       title: 'Методы управления',
       category: 'API Reference',
     },
@@ -105,26 +107,22 @@ export function Documentation() {
     // Разработка
     {
       name: 'contributing',
-      path: '/docs/contributing.md',
+      path: getDocPath('contributing'),
       title: 'Contributing',
       category: 'Разработка',
     },
-    { name: 'testing', path: '/docs/testing.md', title: 'Тестирование', category: 'Разработка' },
+    { name: 'testing', path: getDocPath('testing'), title: 'Тестирование', category: 'Разработка' },
     {
       name: 'build-deploy',
-      path: '/docs/build-deploy.md',
+      path: getDocPath('build-deploy'),
       title: 'Сборка и развертывание',
       category: 'Разработка',
     },
-  ];
+  ], [getDocPath]);
 
   const categories = Array.from(new Set(docFiles.map(doc => doc.category)));
 
-  useEffect(() => {
-    loadDoc(selectedDoc);
-  }, [selectedDoc]);
-
-  const loadDoc = async (docName: string) => {
+  const loadDoc = useCallback(async (docName: string) => {
     setLoading(true);
     try {
       const docFile = docFiles.find(doc => doc.name === docName);
@@ -139,7 +137,11 @@ export function Documentation() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [docFiles]);
+
+  useEffect(() => {
+    loadDoc(selectedDoc);
+  }, [selectedDoc, loadDoc]);
 
   const getDocsByCategory = (category: string) => {
     return docFiles.filter(doc => doc.category === category);

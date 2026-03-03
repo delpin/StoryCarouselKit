@@ -5,20 +5,41 @@ export function Hero() {
   const { t } = useLanguage();
   const [currentDemo, setCurrentDemo] = useState(0);
 
+  const scrollToExamples = () => {
+    const examplesSection = document.getElementById('examples');
+    if (examplesSection) {
+      examplesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToInstallation = () => {
+    const examplesSection = document.getElementById('examples');
+    if (examplesSection) {
+      examplesSection.scrollIntoView({ behavior: 'smooth' });
+      // После скролла к примерам, можно дополнительно проскроллить к секции установки
+      setTimeout(() => {
+        const installationElement = examplesSection.querySelector('.bg-gradient-to-r');
+        if (installationElement) {
+          installationElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 500);
+    }
+  };
+
   const demos = [
     {
       title: 'React',
       code: `import { StoryCarousel } from '@storycarouselkit/react';
 
 const stories = [
-  { id: '1', content: 'Story 1', duration: 3000 },
-  { id: '2', content: 'Story 2', duration: 4000 },
+  { id: '1', content: 'История 1', duration: 3000 },
+  { id: '2', content: 'История 2', duration: 4000 },
+  { id: '3', content: 'История 3', duration: 3500 }
 ];
 
 <StoryCarousel
   stories={stories}
   autoPlay={true}
-  onStoryEnd={(story) => console.log('Story ended:', story)}
 />`,
     },
     {
@@ -26,14 +47,18 @@ const stories = [
       code: `import { StoryCarousel } from '@storycarouselkit/core';
 
 const stories = [
-  { id: '1', content: 'Story 1', duration: 3000 },
-  { id: '2', content: 'Story 2', duration: 4000 },
+  { id: '1', content: 'Story #1', duration: 3000 },
+  { id: '2', content: 'Story #2', duration: 4000 },
+  { id: '3', content: 'Story #3', duration: 3500 }
 ];
 
 const carousel = new StoryCarousel({
   stories,
   autoPlay: true,
-  onStoryEnd: (story) => console.log('Story ended:', story),
+  onComplete: () => {
+    carousel.goTo(0);
+    carousel.play();
+  }
 });
 
 carousel.play();`,
@@ -202,10 +227,16 @@ const onStoryEnd = (story) => {
 
         {/* CTA Buttons */}
         <div className='mt-12 flex flex-col sm:flex-row gap-4 justify-center'>
-          <button className='bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200'>
+          <button
+            onClick={scrollToInstallation}
+            className='bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200'
+          >
             {t('hero.getStarted')}
           </button>
-          <button className='bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl border border-gray-200 transform hover:scale-105 transition-all duration-200'>
+          <button
+            onClick={scrollToExamples}
+            className='bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl border border-gray-200 transform hover:scale-105 transition-all duration-200'
+          >
             {t('hero.viewExamples')}
           </button>
         </div>

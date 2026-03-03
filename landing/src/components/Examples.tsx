@@ -339,59 +339,94 @@ export function Examples() {
   const examples = {
     react: {
       title: t('code.reactExample'),
-      description: 'Полнофункциональный пример с React компонентом',
-      code: `import { useState } from 'react';
-import { StoryCarousel } from '@storycarouselkit/react';
+      description: t('examples.reactDescription'),
+      code: `import { useState, useRef } from 'react';
+import { StoryCarousel, type CarouselAPI } from '@storycarouselkit/react';
 
 function App() {
   const [stories] = useState([
-    {
-      id: '1',
-      content: (
-        <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-          <div className="text-white text-center">
-            <h2 className="text-2xl font-bold mb-2">История 1</h2>
-            <p>Автопереключение через 3 секунды</p>
-          </div>
-        </div>
-      ),
-      duration: 3000
-    },
-    {
-      id: '2',
-      content: (
-        <div className="w-full h-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center">
-          <div className="text-white text-center">
-            <h2 className="text-2xl font-bold mb-2">История 2</h2>
-            <p>Автопереключение через 4 секунды</p>
-          </div>
-        </div>
-      ),
-      duration: 4000
-    },
-    {
-      id: '3',
-      content: (
-        <div className="w-full h-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
-          <div className="text-white text-center">
-            <h2 className="text-2xl font-bold mb-2">История 3</h2>
-            <p>Последняя история</p>
-          </div>
-        </div>
-      ),
-      duration: 3500
-    }
+    { id: '1', content: 'История 1', duration: 3000 },
+    { id: '2', content: 'История 2', duration: 4000 },
+    { id: '3', content: 'История 3', duration: 3500 }
   ]);
+  const [key, setKey] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const apiRef = useRef<CarouselAPI | null>(null);
+
+  const handleToggle = () => {
+    if (isPlaying) {
+      apiRef.current?.pause();
+    } else {
+      apiRef.current?.play();
+    }
+    setIsPlaying(p => !p);
+  };
 
   return (
     <div className="max-w-md mx-auto">
       <StoryCarousel
+        key={key}
         stories={stories}
-        autoPlay={true}
-        onStoryEnd={(story) => console.log('Story ended:', story)}
-        onComplete={() => console.log('All stories completed')}
-        className="rounded-xl shadow-lg"
+        autoPlay
+        showControls={false}
+        apiRef={apiRef}
+        renderStory={(story) => (
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              background: 'linear-gradient(135deg, #60a5fa, #a855f7)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            <span style={{ color: '#fff', fontSize: 18, fontWeight: 700 }}>
+              {story.content}
+            </span>
+            <span style={{
+              color: 'rgba(255,255,255,0.7)',
+              fontSize: 10,
+              fontFamily: 'monospace',
+              marginTop: 4
+            }}>
+              {story.duration}ms
+            </span>
+          </div>
+        )}
+        onComplete={() => { setIsPlaying(true); setKey(k => k + 1); }}
+        style={{ width: '100%', height: '100%' }}
       />
+
+      <button
+        style={{
+          position: 'absolute',
+          bottom: 10,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'rgba(0, 0, 0, 0.22)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          color: 'rgba(255, 255, 255, 0.92)',
+          border: '1px solid rgba(255, 255, 255, 0.14)',
+          borderRadius: 20,
+          padding: '4px 10px',
+          cursor: 'pointer',
+          zIndex: 20,
+          fontSize: 9,
+          fontWeight: 600,
+          letterSpacing: '0.4px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 4,
+          whiteSpace: 'nowrap'
+        }}
+        onClick={handleToggle}
+      >
+        <span>{isPlaying ? '⏸' : '▶'}</span>
+        <span>{isPlaying ? 'ПАУЗА' : 'ИГРАТЬ'}</span>
+      </button>
     </div>
   );
 }`,
@@ -439,7 +474,7 @@ carousel.play();`,
   };
 
   return (
-    <section className='min-h-screen pt-20 px-4 py-12 bg-gray-50'>
+    <section id="examples" className='min-h-screen pt-20 px-4 py-12 bg-gray-50'>
       <div className='max-w-7xl mx-auto'>
         {/* Header */}
         <div className='text-center mb-12'>

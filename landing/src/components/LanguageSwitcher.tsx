@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useLanguage, type Language } from '../contexts/LanguageContext';
+import { useLanguage } from '../contexts/LanguageContext';
+import { type Language } from '../translations';
 
 const languages = [
   { code: 'ru' as Language, name: 'Русский', flag: '🇷🇺' },
